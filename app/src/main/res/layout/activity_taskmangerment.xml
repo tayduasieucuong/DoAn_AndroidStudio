@@ -6,7 +6,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Taskmangerment">
-
+    <ExpandableListView
+        android:id="@+id/exp_list_view"
+        android:layout_width="match_parent"
+        android:layout_height="532dp" />
     <com.google.android.material.bottomappbar.BottomAppBar
         android:layout_width="match_parent"
         android:layout_height="70dp"
@@ -16,6 +19,7 @@
         app:fabCradleRoundedCornerRadius="25dp"
         android:backgroundTint="@color/primaryy"
         android:layout_gravity="bottom">
+
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
