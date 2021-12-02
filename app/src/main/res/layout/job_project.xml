@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:layout_weight="13">
+
+        <ImageButton
+            android:id="@+id/jp_back"
+            android:layout_width="35dp"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:background="@color/white"
+            app:srcCompat="@drawable/ic_baseline_arrow_back_ios_new_24"
+            tools:ignore="SpeakableTextPresentCheck" />
+
+        <TextView
+            android:id="@+id/jp_title"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="9.5"
+
+            android:gravity="center"
+            android:text="Thiết kế front end Mobile app"
+            android:textColor="#BD0909"
+            android:textSize="20sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <Button
+                android:id="@+id/jp_btnstart"
+                android:layout_width="140dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="24dp"
+                android:background="@drawable/bogoc_button"
+                android:text="Ngày bắt đầu"
+                android:textColor="@color/black"
+                android:textSize="10dp"
+                app:layout_constraintStart_toEndOf="@+id/ps_imageView2"
+                app:layout_constraintTop_toBottomOf="@+id/jp_editTextTextPersonName" />
+
+            <Button
+                android:id="@+id/jp_btnend"
+                android:layout_width="140dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="28dp"
+                android:background="@drawable/bogoc_button"
+                android:text="Ngày kết thúc "
+                android:textColor="@color/black"
+                android:textSize="10dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/jp_editTextTextPersonName" />
+
+            <TextView
+                android:id="@+id/jp_textView6"
+                android:layout_width="105dp"
+                android:layout_height="20dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="40dp"
+                android:text="Người phụ trách"
+                app:layout_constraintStart_toEndOf="@+id/jp_imageView8"
+                app:layout_constraintTop_toBottomOf="@+id/jp_nameproject" />
+
+            <TextView
+                android:id="@+id/jp_textView8"
+                android:layout_width="100dp"
+                android:layout_height="20dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="50dp"
+                android:text="Trạng thái"
+                app:layout_constraintStart_toEndOf="@+id/jp_imageView"
+                app:layout_constraintTop_toBottomOf="@+id/ps_editTextTextMultiLine" />
+
+            <ImageView
+                android:id="@+id/ps_imageView2"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="30dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/jp_imageView8"
+                app:srcCompat="@drawable/ic_baseline_event_24" />
+
+            <ImageView
+                android:id="@+id/jp_imageView8"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="30dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/jp_nameproject"
+                app:srcCompat="@drawable/ic_baseline_person_24" />
+
+            <ImageView
+                android:id="@+id/ps_imageView6"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="60dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/jp_imageView"
+                app:srcCompat="@drawable/ic_baseline_attachment_24" />
+
+            <EditText
+                android:id="@+id/ps_editTextTextMultiLine"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                android:ems="10"
+                android:gravity="start|top"
+                android:inputType="textMultiLine"
+                android:lines="2"
+                android:maxLines="2"
+                android:minLines="1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.317"
+                app:layout_constraintStart_toEndOf="@+id/ps_imageView4"
+                app:layout_constraintTop_toBottomOf="@+id/jp_btnend" />
+
+            <Button
+                android:id="@+id/ps_btnattach"
+                android:layout_width="80dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="10dp"
+                android:text="Tải lên"
+                android:textColor="@color/black"
+                android:textSize="10dp"
+                android:background="@drawable/bogoc_button"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.086"
+                app:layout_constraintStart_toEndOf="@+id/ps_textviewattach"
+                app:layout_constraintTop_toBottomOf="@+id/jp_radioGroup" />
+
+            <TextView
+                android:id="@+id/ps_textviewattach"
+                android:layout_width="200dp"
+                android:layout_height="20dp"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="20dp"
+                android:text=""
+                app:layout_constraintStart_toEndOf="@+id/ps_imageView6"
+                app:layout_constraintTop_toBottomOf="@+id/jp_radioGroup" />
+
+            <ImageView
+                android:id="@+id/ps_imageView4"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="40dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ps_imageView2"
+                app:srcCompat="@drawable/ic_baseline_sticky_note_2_24" />
+
+            <ImageView
+                android:id="@+id/jp_imageView"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="40dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ps_editTextTextMultiLine"
+                app:srcCompat="@drawable/ic_baseline_add_task_24" />
+
+            <RadioGroup
+                android:id="@+id/jp_radioGroup"
+                android:layout_width="165dp"
+                android:layout_height="95dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="40dp"
+                app:layout_constraintStart_toEndOf="@+id/jp_textView8"
+                app:layout_constraintTop_toBottomOf="@+id/ps_editTextTextMultiLine">
+
+                <RadioButton
+                    android:id="@+id/jp_radioButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Chưa hoàn thành" />
+
+                <RadioButton
+                    android:id="@+id/jp_radioButton2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Đã hoàn thành" />
+            </RadioGroup>
+
+            <TextView
+                android:id="@+id/jp_nameproject"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="48dp"
+                android:text="Xây dựng giao diện"
+                android:textColor="#BD0909"
+                android:textSize="30sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.496"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <EditText
+                android:id="@+id/jp_editTextTextPersonName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="30dp"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:text=""
+                app:layout_constraintStart_toEndOf="@+id/jp_textView6"
+                app:layout_constraintTop_toBottomOf="@+id/jp_nameproject" />
+
+            <Button
+                android:id="@+id/jp_btnsave"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="SAVE"
+                android:textColor="@color/black"
+                android:background="@drawable/bogoc_button"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.498"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ps_textviewattach" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
+</LinearLayout>
