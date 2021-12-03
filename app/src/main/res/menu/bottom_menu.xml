@@ -12,7 +12,7 @@
         />
     <item
         android:id="@+id/placeholder"
-        android:title="   "/>
+        android:title=" "/>
     <item
         android:id="@+id/calendar"
         android:enabled="true"

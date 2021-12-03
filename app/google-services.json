@@ -1,0 +1,69 @@
+{
+  "project_info": {
+    "project_number": "175395244073",
+    "firebase_url": "https://doan-3672e-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "doan-3672e",
+    "storage_bucket": "doan-3672e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:175395244073:android:37af195cbe2d9c74b7f438",
+        "android_client_info": {
+          "package_name": "com.example.doan"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "175395244073-4dksqlp6n7dfa0bqqhh14n1okbha5vqs.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDjOQHCcsZpLwA6yJPuvAQwBxc-KdIPerY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "175395244073-4dksqlp6n7dfa0bqqhh14n1okbha5vqs.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:175395244073:android:882771d521400514b7f438",
+        "android_client_info": {
+          "package_name": "org.meicode.doan_android"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "175395244073-4dksqlp6n7dfa0bqqhh14n1okbha5vqs.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDjOQHCcsZpLwA6yJPuvAQwBxc-KdIPerY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "175395244073-4dksqlp6n7dfa0bqqhh14n1okbha5vqs.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

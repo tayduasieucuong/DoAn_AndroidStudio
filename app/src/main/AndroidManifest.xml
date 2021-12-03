@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="org.meicode.doan_android">
-
+    <uses-permission android:name="android.permission.INTERNET" />
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -19,8 +19,11 @@
             android:name=".SignUp"
             android:exported="true" />
         <activity
-            android:name=".Taskmangerment"
-            android:exported="false" />
+            android:name=".TaskManagement"
+            android:exported="true" />
+        <activity android:name=".CreateTask"
+            android:exported="true"
+            />
         <activity
             android:name=".MainActivity"
             android:exported="true">
