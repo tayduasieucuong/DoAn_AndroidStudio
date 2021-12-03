@@ -3,15 +3,20 @@ package org.meicode.doan_android;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.media.Image;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -26,14 +31,19 @@ public class SignIn extends AppCompatActivity {
     EditText email;
     EditText password;
     Context context;
+    boolean showpassword;
+    ImageView btn_showpass;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.sign_in);
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.hide();
         btn_login = (Button) findViewById(R.id.button2);
         email = (EditText) findViewById(R.id.edtEmail);
         password = (EditText) findViewById(R.id.edtPass);
-
+        showpassword = false;
+        btn_showpass = (ImageView)findViewById(R.id.view_eye);
         mAuth = FirebaseAuth.getInstance();
         btn_regis = (TextView) findViewById(R.id.textView3);
         btn_regis.setOnClickListener(new View.OnClickListener() {
@@ -48,6 +58,20 @@ public class SignIn extends AppCompatActivity {
                 loginUser();
             }
         });
+        btn_showpass.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(showpassword) {
+                    password.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                    showpassword=false;
+                }
+                else {
+                    password.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                    showpassword = true;
+                }
+            }
+        });
+
     }
     private void loginUser(){
         String emaill = email.getText().toString();
