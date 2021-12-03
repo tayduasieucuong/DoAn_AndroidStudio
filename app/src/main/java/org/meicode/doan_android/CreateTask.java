@@ -172,13 +172,15 @@ public class CreateTask extends AppCompatActivity {
         calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(@NonNull CalendarView calendarView, int year, int month, int day) {
-                tv_timestart.setText((day+"/"+month+1+'/'+year));
+                month++;
+                tv_timestart.setText((day+"/"+month+'/'+year));
             }
         });
         calendarViewEnd.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(@NonNull CalendarView calendarView, int year, int month, int day) {
-                tv_timeend.setText((day+"/"+month+1+'/'+year));
+                month++;
+                tv_timeend.setText((day+"/"+month+'/'+year));
             }
         });
         btn_cross.setOnClickListener(new View.OnClickListener() {

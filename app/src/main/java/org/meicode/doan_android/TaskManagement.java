@@ -102,7 +102,6 @@ public class TaskManagement extends AppCompatActivity {
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                 String key = snapshot.getKey().toString();
                 if(userid.equals(key)) {
-                    Toast.makeText(TaskManagement.this, snapshot.child("UserInfo").child("Email").getValue().toString(), Toast.LENGTH_SHORT).show();
                     //listGroup.add(snapshot.child("UserInfo").child("Tasks").getKey());
 
                     for(DataSnapshot ds : snapshot.child("Tasks").getChildren())
