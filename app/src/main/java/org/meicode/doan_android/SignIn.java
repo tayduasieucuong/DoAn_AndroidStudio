@@ -30,6 +30,7 @@ public class SignIn extends AppCompatActivity {
     TextView btn_regis;
     EditText email;
     EditText password;
+    TextView tv_forgotpass;
     Context context;
     boolean showpassword;
     ImageView btn_showpass;
@@ -42,10 +43,21 @@ public class SignIn extends AppCompatActivity {
         btn_login = (Button) findViewById(R.id.button2);
         email = (EditText) findViewById(R.id.edtEmail);
         password = (EditText) findViewById(R.id.edtPass);
+        tv_forgotpass = (TextView)findViewById(R.id.textView4);
         showpassword = false;
         btn_showpass = (ImageView)findViewById(R.id.view_eye);
         mAuth = FirebaseAuth.getInstance();
         btn_regis = (TextView) findViewById(R.id.textView3);
+        onClick();
+
+    }
+    private void onClick(){
+        tv_forgotpass.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(SignIn.this,ForgetPass.class));
+            }
+        });
         btn_regis.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -71,7 +83,6 @@ public class SignIn extends AppCompatActivity {
                 }
             }
         });
-
     }
     private void loginUser(){
         String emaill = email.getText().toString();

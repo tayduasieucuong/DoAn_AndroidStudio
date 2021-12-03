@@ -28,6 +28,8 @@ import com.google.firebase.database.FirebaseDatabase;
 public class SignUp extends AppCompatActivity {
     FirebaseAuth mAuth;
     Button btn_regis;
+    EditText fullname;
+    EditText age;
     EditText email;
     EditText password;
     FirebaseDatabase database;
@@ -41,6 +43,8 @@ public class SignUp extends AppCompatActivity {
         setContentView(R.layout.sign_up);
         ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
+        fullname = (EditText)findViewById(R.id.edtName);
+        age = (EditText)findViewById(R.id.edtAge);
         tv_signin = (TextView)findViewById(R.id.textView3);
         btn_regis = (Button) findViewById(R.id.button2);
         email = (EditText)findViewById(R.id.edtEmail);
@@ -95,9 +99,9 @@ public class SignUp extends AppCompatActivity {
                         Toast.makeText(getApplicationContext(), "User registered successfully", Toast.LENGTH_SHORT).show();
                         reference = database.getReference("Users");
                         String uid = mAuth.getUid();
-                        reference.child(uid);
-                        reference.child(uid).child("UserInfo");
                         reference.child(uid).child("UserInfo").child("Email").setValue(email.getText().toString());
+                        reference.child(uid).child("UserInfo").child("Age").setValue(age.getText().toString());
+                        reference.child(uid).child("UserInfo").child("Name").setValue(fullname.getText().toString());
                         startActivity(new Intent(SignUp.this,SignIn.class));
                     }
                 }
