@@ -7,10 +7,12 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,6 +38,7 @@ public class SignUp extends AppCompatActivity {
     DatabaseReference reference;
     TextView tv_signin;
     boolean showpassword;
+    private ProgressBar progressBar;
     ImageView btn_showpass;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +56,7 @@ public class SignUp extends AppCompatActivity {
         showpassword = false;
         mAuth = FirebaseAuth.getInstance();
         database = FirebaseDatabase.getInstance("https://doan-3672e-default-rtdb.asia-southeast1.firebasedatabase.app/");
-
+        progressBar=(ProgressBar) findViewById(R.id.progressBar);
 
         onClick();
     }
@@ -88,6 +91,37 @@ public class SignUp extends AppCompatActivity {
     private void createUser(){
         String emaill = email.getText().toString();
         String passwordd = password.getText().toString();
+        String fullName = fullname.getText().toString().trim();
+        String agee = age.getText().toString().trim();
+        if(fullName.isEmpty()){
+            fullname.setError("Full name is required!");
+            fullname.requestFocus();
+            return;
+        }
+
+        if(agee.isEmpty()){
+            age.setError("Age is required!");
+            age.requestFocus();
+            return;
+        }
+
+        if(Integer.parseInt(agee)<6 ||Integer.parseInt(agee)>80){
+            age.setError("Please provide valid age!");
+            age.requestFocus();
+            return;
+        }
+
+        if(!Patterns.EMAIL_ADDRESS.matcher(emaill).matches()){
+            email.setError("Please provide valid email!");
+            email.requestFocus();
+            return;
+        }
+
+        if(passwordd.isEmpty()){
+            password.setError("Password is required!");
+            password.requestFocus();
+            return;
+        }
         if (TextUtils.isEmpty(emaill)){
             email.setError("Email cannot be empty");
             email.requestFocus();
@@ -102,7 +136,12 @@ public class SignUp extends AppCompatActivity {
                         reference.child(uid).child("UserInfo").child("Email").setValue(email.getText().toString());
                         reference.child(uid).child("UserInfo").child("Age").setValue(age.getText().toString());
                         reference.child(uid).child("UserInfo").child("Name").setValue(fullname.getText().toString());
+                        Toast.makeText(SignUp.this, "User has been registered successfull", Toast.LENGTH_LONG).show();
+                        progressBar.setVisibility(View.GONE);
                         startActivity(new Intent(SignUp.this,SignIn.class));
+                    } else {
+                        Toast.makeText(SignUp.this, "Failed to registered! Try again", Toast.LENGTH_LONG).show();
+                        progressBar.setVisibility(View.GONE);
                     }
                 }
             });

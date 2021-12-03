@@ -8,10 +8,12 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -34,6 +36,7 @@ public class SignIn extends AppCompatActivity {
     Context context;
     boolean showpassword;
     ImageView btn_showpass;
+    ProgressBar progressBar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,6 +51,7 @@ public class SignIn extends AppCompatActivity {
         btn_showpass = (ImageView)findViewById(R.id.view_eye);
         mAuth = FirebaseAuth.getInstance();
         btn_regis = (TextView) findViewById(R.id.textView3);
+        progressBar=(ProgressBar) findViewById(R.id.progressBar);
         onClick();
 
     }
@@ -87,10 +91,23 @@ public class SignIn extends AppCompatActivity {
     private void loginUser(){
         String emaill = email.getText().toString();
         String passwordd = password.getText().toString();
+        if(!Patterns.EMAIL_ADDRESS.matcher(emaill).matches()){
+            email.setError("Please provide valid email!");
+            email.requestFocus();
+            return;
+        }
+
+        if(passwordd.isEmpty()){
+            password.setError("Password is required!");
+            password.requestFocus();
+            return;
+        }
+
         if (TextUtils.isEmpty(emaill)){
             email.setError("Email cannot be empty");
             email.requestFocus();
         }else{
+            progressBar.setVisibility(View.VISIBLE);
             mAuth.signInWithEmailAndPassword(emaill,passwordd).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                 final SharedPreferences sharedPreferences = getSharedPreferences("USERID", MODE_PRIVATE);
                 @Override
@@ -98,11 +115,14 @@ public class SignIn extends AppCompatActivity {
                     if(task.isSuccessful()){
                         Toast.makeText(getApplicationContext(), "Login Success", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(SignIn.this,TaskManagement.class);
-
                         SharedPreferences.Editor editor = sharedPreferences.edit();
                         editor.putString("UID",mAuth.getUid());
                         editor.commit();
+                        progressBar.setVisibility(View.GONE);
                         startActivity(intent);
+                    } else {
+                        Toast.makeText(SignIn.this, "Log in Error", Toast.LENGTH_LONG).show();
+                        progressBar.setVisibility(View.GONE);
                     }
                 }
             });

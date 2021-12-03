@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="org.meicode.doan_android">
+
     <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -9,6 +11,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.DoAn_Android">
+        <activity
+            android:name=".CheckMail"
+            android:exported="true" />
         <activity
             android:name=".ForgetPass"
             android:exported="true" />
@@ -21,9 +26,9 @@
         <activity
             android:name=".TaskManagement"
             android:exported="true" />
-        <activity android:name=".CreateTask"
-            android:exported="true"
-            />
+        <activity
+            android:name=".CreateTask"
+            android:exported="true" />
         <activity
             android:name=".MainActivity"
             android:exported="true">
