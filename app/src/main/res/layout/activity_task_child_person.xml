@@ -10,6 +10,25 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:layout_marginLeft="10dp"
+        android:layout_weight="13">
+
+        <ImageButton
+            android:id="@+id/ps_back"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_weight="1"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="10dp"
+            android:background="@color/white"
+            app:srcCompat="@drawable/ic_baseline_arrow_back_ios_new_24"
+            tools:ignore="MissingConstraints,SpeakableTextPresentCheck" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_weight="1"
         android:orientation="vertical">
 
@@ -158,20 +177,16 @@
                 app:layout_constraintStart_toEndOf="@+id/ps_textView2"
                 app:layout_constraintTop_toBottomOf="@+id/ps_btnstart" />
 
-            <TextView
+            <Spinner
                 android:id="@+id/ps_laplai"
-                android:layout_width="100dp"
+                android:layout_width="0dp"
                 android:layout_height="20dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="40dp"
-                android:textSize="16dp"
-                android:layout_marginEnd="55dp"
-                android:text="Không"
-                android:textAlignment="center"
-                android:textColor="#ff0000"
+                android:layout_marginEnd="30dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.246"
-                android:textStyle="bold"
+                app:layout_constraintStart_toEndOf="@+id/ps_textView3"
                 app:layout_constraintTop_toBottomOf="@+id/ps_editTextTextMultiLine" />
 
             <Spinner
@@ -288,6 +303,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="40dp"
                 android:text="Lặp lại"
+
                 app:layout_constraintStart_toEndOf="@+id/ps_imageView5"
                 app:layout_constraintTop_toBottomOf="@+id/ps_editTextTextMultiLine" />
             <ImageView

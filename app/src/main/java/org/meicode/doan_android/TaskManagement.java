@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ExpandableListView;
 import android.widget.Toast;
 
@@ -54,7 +55,6 @@ public class TaskManagement extends AppCompatActivity {
         //Database
         database = FirebaseDatabase.getInstance("https://doan-3672e-default-rtdb.asia-southeast1.firebasedatabase.app/");
         reference = database.getReference("Users");
-        //readTasks();
         final SharedPreferences sharedPreferences = getSharedPreferences("USERID", MODE_PRIVATE);
         userid = sharedPreferences.getString("UID",null);
         readTasks();
@@ -62,6 +62,7 @@ public class TaskManagement extends AppCompatActivity {
         adapter = new MainAdapter(listGroup,listChild);
         expandableListView.setAdapter(adapter);
         setOnClickAddTask();
+        setOnClickExpandListView();
 
     }
     private void setActionBar()
@@ -89,6 +90,38 @@ public class TaskManagement extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(TaskManagement.this,CreateTask.class));
+            }
+        });
+    }
+    private  void setOnClickExpandListView()
+    {
+        expandableListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int position, long id) {
+                long packedPosition = expandableListView.getExpandableListPosition(position);
+
+                int itemType = ExpandableListView.getPackedPositionType(packedPosition);
+                int groupPosition = ExpandableListView.getPackedPositionGroup(packedPosition);
+                int childPosition = ExpandableListView.getPackedPositionChild(packedPosition);
+
+
+                /*  if group item clicked */
+                if (itemType == ExpandableListView.PACKED_POSITION_TYPE_GROUP) {
+                    //  ...
+                    Intent intent = new Intent(TaskManagement.this,TaskMaster.class);
+                    intent.putExtra("HeaderTitle",expandableListView.getItemAtPosition(position).toString());
+                    startActivity(intent);
+                    //intent.putExtra("HeaderTitle",);
+                    //onGroupLongClick(groupPosition);
+                }
+
+                /*  if child item clicked */
+                else if (itemType == ExpandableListView.PACKED_POSITION_TYPE_CHILD) {
+                    //  ...
+                   //onChildLongClick(groupPosition, childPosition);
+                }
+
+                return false;
             }
         });
     }
@@ -158,6 +191,7 @@ public class TaskManagement extends AppCompatActivity {
             Toast.makeText(TaskManagement.this, "Ok", Toast.LENGTH_SHORT).show();
         }else if( id == R.id.notify)
         {
+            startActivity(new Intent(TaskManagement.this,TaskMaster.class));
             Toast.makeText(getApplicationContext(), "Notify", Toast.LENGTH_SHORT).show();
         }
         return true;

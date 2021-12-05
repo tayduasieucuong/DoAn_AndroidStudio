@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="10dp"
+    android:paddingBottom="10dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <ImageView
+        android:id="@+id/btn_checkbox"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginLeft="23dp"
+        android:src="@drawable/ic_baseline_radio_button_unchecked_24"
+        tools:ignore="MissingConstraints" />
+    <TextView
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:textSize="22dp"
+        app:layout_constraintStart_toEndOf="@+id/btn_checkbox"
+        android:id="@+id/tv_content"
+        android:paddingTop="6dp"
+        android:layout_marginLeft="10dp"
+        app:layout_constraintEnd_toStartOf="@+id/btn_star"
+        tools:ignore="MissingConstraints" />
+    <ImageView
+        android:id="@+id/btn_star"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginRight="10dp"
+        android:src="@drawable/ic_baseline_star_border_24"
+
+        />
+    <ImageView
+        android:id="@+id/btn_add_child_task"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="20dp"
+        android:src="@drawable/ic_baseline_add_circle_24"
+        app:layout_constraintEnd_toEndOf="@id/btn_checkbox"
+        app:layout_constraintTop_toBottomOf="@+id/btn_checkbox"
+        />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
