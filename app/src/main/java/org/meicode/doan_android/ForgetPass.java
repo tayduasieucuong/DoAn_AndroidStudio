@@ -62,7 +62,6 @@ public class ForgetPass extends AppCompatActivity {
             return;
         }
         progressBar.setVisibility(View.VISIBLE);
-
         mAuth.sendPasswordResetEmail(email)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override

@@ -42,20 +42,20 @@
         android:id="@+id/edtEmail"
         android:layout_width="354dp"
         android:layout_height="53dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="8dp"
         android:background="@drawable/rounded_edittext"
         android:drawableLeft="@drawable/icon_mail"
         android:drawablePadding="11dp"
         android:ems="10"
         android:hint="Email"
         android:inputType="textPersonName"
-        android:paddingLeft="8dp"
 
+        android:paddingLeft="8dp"
         android:textSize="22dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.508"
+        app:layout_constraintHorizontal_bias="0.491"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edtAge"
+        app:layout_constraintTop_toBottomOf="@+id/radioGroup"
         tools:ignore="MissingConstraints" />
 
     <EditText
@@ -88,10 +88,14 @@
         android:drawableLeft="@drawable/icon_heart"
         android:drawablePadding="6dp"
         android:ems="10"
-        android:hint="Age"
+        android:hint="Birthday"
         android:inputType="number"
         android:paddingLeft="4dp"
         android:textSize="22dp"
+        android:clickable="false"
+        android:cursorVisible="false"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.508"
         app:layout_constraintStart_toStartOf="parent"
@@ -117,25 +121,11 @@
         app:layout_constraintTop_toBottomOf="@+id/edtPass"
         tools:ignore="MissingConstraints" />
 
-    <ImageView
-        android:id="@+id/view_eye"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="ShowHidePass"
-        app:layout_constraintBottom_toBottomOf="@+id/edtPass"
-        app:layout_constraintEnd_toEndOf="@+id/edtPass"
-        app:layout_constraintHorizontal_bias="0.945"
-        app:layout_constraintStart_toStartOf="@+id/edtPass"
-        app:layout_constraintTop_toTopOf="@+id/edtPass"
-        app:layout_constraintVertical_bias="0.482"
-        app:srcCompat="@drawable/show_password"
-        tools:ignore="MissingConstraints,SpeakableTextPresentCheck,TouchTargetSizeCheck" />
-
     <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="20dp"
         android:text="Already have account?"
         android:textColor="#000000"
         app:layout_constraintEnd_toStartOf="@+id/textView3"
@@ -147,7 +137,7 @@
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="8dp"
         android:padding="10dp"
         android:text="Sign In"
         android:textColor="#6462EF"
@@ -155,6 +145,7 @@
         app:layout_constraintHorizontal_bias="0.756"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/button2" />
+
     <ProgressBar
         android:id="@+id/progressBar"
         style="?android:actionBarTabTextStyle"
@@ -168,4 +159,37 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="MissingConstraints" />
+
+    <RadioGroup
+        android:id="@+id/radioGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="41dp"
+        android:layout_marginTop="11dp"
+        android:layout_marginBottom="8dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/edtEmail"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.546"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edtAge"
+        tools:ignore="MissingConstraints">
+
+        <RadioButton
+            android:id="@+id/rdtNam"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:text="Nam" />
+
+        <RadioButton
+            android:id="@+id/rdtNu"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:text="Nữ" />
+
+        <RadioButton
+            android:id="@+id/rdtKhac"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:text="Khác" />
+    </RadioGroup>
 </androidx.constraintlayout.widget.ConstraintLayout>
