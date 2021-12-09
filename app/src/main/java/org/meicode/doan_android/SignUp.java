@@ -48,6 +48,7 @@ public class SignUp extends AppCompatActivity {
     boolean showpassword;
     private ProgressBar progressBar;
     RadioGroup radioGroup;
+    ImageView btn_showpass;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,6 +62,7 @@ public class SignUp extends AppCompatActivity {
         email = (EditText)findViewById(R.id.edtEmail);
         password = (EditText)findViewById(R.id.edtPass);
         showpassword = false;
+        btn_showpass = (ImageView)findViewById(R.id.view_eye);
         mAuth = FirebaseAuth.getInstance();
         database = FirebaseDatabase.getInstance("https://doan-3672e-default-rtdb.asia-southeast1.firebasedatabase.app/");
         progressBar=(ProgressBar) findViewById(R.id.progressBar);
@@ -107,7 +109,19 @@ public class SignUp extends AppCompatActivity {
                 createUser();
             }
         });
-
+        btn_showpass.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(showpassword) {
+                    password.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                    showpassword=false;
+                }
+                else {
+                    password.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                    showpassword = true;
+                }
+            }
+        });
     }
     private void createUser(){
         String emaill = email.getText().toString();
