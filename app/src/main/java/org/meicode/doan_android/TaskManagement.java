@@ -90,6 +90,7 @@ public class TaskManagement extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(TaskManagement.this,CreateTask.class));
+                finish();
             }
         });
     }
@@ -111,6 +112,7 @@ public class TaskManagement extends AppCompatActivity {
                     Intent intent = new Intent(TaskManagement.this,TaskMaster.class);
                     intent.putExtra("HeaderTitle",expandableListView.getItemAtPosition(position).toString());
                     startActivity(intent);
+                    finish();
                     //intent.putExtra("HeaderTitle",);
                     //onGroupLongClick(groupPosition);
                 }
@@ -139,16 +141,17 @@ public class TaskManagement extends AppCompatActivity {
 
                     for(DataSnapshot ds : snapshot.child("Tasks").getChildren())
                     {
-                        String groupname =(String) ds.getKey();
-                        listGroup.add(groupname);
-                        childItem = new ArrayList<>();
-                        for (DataSnapshot dschild : ds.getChildren())
-                        {
-                            if(!"Detail".equals(dschild.getKey()))
-                                childItem.add(dschild.getKey().toString());
+                        if(!ds.getKey().equals("Lịch sử công việc")) {
+                            String groupname = (String) ds.getKey();
+                            listGroup.add(groupname);
+                            childItem = new ArrayList<>();
+                            for (DataSnapshot dschild : ds.getChildren()) {
+                                if (!"Detail".equals(dschild.getKey()))
+                                    childItem.add(dschild.getKey().toString());
+                            }
+                            listChild.put(listGroup.get(counter), childItem);
+                            counter++;
                         }
-                        listChild.put(listGroup.get(counter),childItem);
-                        counter++;
                     }
                     adapter.notifyDataSetChanged();
                 }
@@ -193,6 +196,7 @@ public class TaskManagement extends AppCompatActivity {
         {
             startActivity(new Intent(TaskManagement.this,TaskMaster.class));
             Toast.makeText(getApplicationContext(), "Notify", Toast.LENGTH_SHORT).show();
+            finish();
         }
         return true;
     }

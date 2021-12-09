@@ -174,6 +174,7 @@ public class CreateTask extends AppCompatActivity {
                     }
                     Toast.makeText(CreateTask.this, "Add task Success", Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(CreateTask.this,TaskManagement.class));
+                    finish();
                 }
             }
 
@@ -310,9 +311,11 @@ public class CreateTask extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch ( (item.getItemId()))
         {
-            case android.R.id.home:
-                onBackPressed();
+            case android.R.id.home: {
+                startActivity(new Intent(CreateTask.this,TaskManagement.class));
+                finish();
                 return true;
+            }
             default: break;
         }
         return super.onOptionsItemSelected(item);

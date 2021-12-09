@@ -114,6 +114,7 @@ public class TaskChildPerson extends AppCompatActivity {
                 Intent intent = new Intent(TaskChildPerson.this,TaskMaster.class);
                 intent.putExtra("HeaderTitle",headerTitle);
                 startActivity(intent);
+                finish();
             }
         });
         btn_timestart.setOnClickListener(new View.OnClickListener() {

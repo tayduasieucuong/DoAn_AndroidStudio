@@ -6,13 +6,8 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ExpandableListView;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -30,69 +25,56 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class TaskMaster extends AppCompatActivity {
+public class HistoryTasks extends AppCompatActivity {
     ActionBar actionBar;
     BottomNavigationView bottomNavigationView;
-    FloatingActionButton btn_add_task;
-    String headerTitle;
-    TextView tv_group;
-    FirebaseDatabase database;
-    DatabaseReference reference;
-    String userid;
+    ExpandableListView expandableListView;
     ArrayList<String> listGroup = new ArrayList<>();
     Context context;
     HashMap<String,ArrayList<String>> listChild = new HashMap<>();
-    AdapterTaskItem adapter;
-    ExpandableListView expandableListView;
-    private void initView(){
-        expandableListView = findViewById(R.id.exp_list_view);
-        Intent intent = getIntent();
-        headerTitle = intent.getStringExtra("HeaderTitle");
-        tv_group = (TextView) findViewById(R.id.tv_group);
-        tv_group.setText(headerTitle);
-        database = FirebaseDatabase.getInstance("https://doan-3672e-default-rtdb.asia-southeast1.firebasedatabase.app/");
-        reference = database.getReference("Users");
+    String userid;
+    FirebaseDatabase database;
+    DatabaseReference reference;
+    AdapterHistory adapterTaskItem;
+    ArrayList<String> childItem;
+    private void getData(){
         final SharedPreferences sharedPreferences = getSharedPreferences("USERID", MODE_PRIVATE);
         userid = sharedPreferences.getString("UID",null);
-        adapter = new AdapterTaskItem(listGroup,listChild,headerTitle);
-        expandableListView.setAdapter(adapter);
+        database = FirebaseDatabase.getInstance("https://doan-3672e-default-rtdb.asia-southeast1.firebasedatabase.app/");
+        reference = database.getReference("Users");
+        expandableListView = (ExpandableListView) findViewById(R.id.exp_list_view);
     }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_task_master);
-        initView();
+        setContentView(R.layout.activity_history_tasks);
         setActionBar();
         setBottomNavigation();
-        readTasks();
-        onClick();
+        getData();
+        onReadTasks();
+        adapterTaskItem = new AdapterHistory(listGroup,listChild);
+        expandableListView.setAdapter(adapterTaskItem);
     }
-    public void readTasks()
-    {
-
+    private void onReadTasks(){
         reference.addChildEventListener(new ChildEventListener() {
             int counter = 0;
-            ArrayList<String> childItem;
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-                String key = snapshot.getKey().toString();
-                if(userid.equals(key)) {
-                    //listGroup.add(snapshot.child("UserInfo").child("Tasks").getKey());
-
-                    for(DataSnapshot ds : snapshot.child("Tasks").child(headerTitle).getChildren())
+                if(userid.equals(snapshot.getKey()))
+                {
+                    for(DataSnapshot ds : snapshot.child("Tasks").child("Lịch sử công việc").getChildren())
                     {
                         String groupname =(String) ds.getKey();
                         listGroup.add(groupname);
                         childItem = new ArrayList<>();
                         for (DataSnapshot dschild : ds.child("TasksChild").getChildren())
                         {
-                            if(!"Detail".equals(dschild.getKey()))
-                                childItem.add(dschild.getKey().toString());
+                                childItem.add(dschild.getKey().toString()+"/"+dschild.getValue());
                         }
                         listChild.put(listGroup.get(counter),childItem);
                         counter++;
                     }
-                    adapter.notifyDataSetChanged();
+                    adapterTaskItem.notifyDataSetChanged();
                 }
             }
 
@@ -117,16 +99,6 @@ public class TaskMaster extends AppCompatActivity {
             }
         });
     }
-    private void onClick(){
-        FloatingActionButton btn_add_task = findViewById(R.id.addbottom);
-        btn_add_task.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(TaskMaster.this,CreateTask.class));
-                finish();
-            }
-        });
-    }
     private void setActionBar()
     {
         actionBar = getSupportActionBar();
@@ -145,55 +117,16 @@ public class TaskMaster extends AppCompatActivity {
         FloatingActionButton add_btn = (FloatingActionButton) findViewById(R.id.addbottom);
     }
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu,menu);
-        return true;
-    }
-
-    @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
 
         if(id == android.R.id.home)
         {
-            startActivity(new Intent(this,TaskManagement.class));
+            Intent intent = new Intent(HistoryTasks.this,TaskManagement.class);
+            startActivity(intent);
             finish();
-        }else if( id == R.id.notify)
-        {
-            Toast.makeText(getApplicationContext(), "Notify", Toast.LENGTH_SHORT).show();
-            startActivity(new Intent(TaskMaster.this,HistoryTasks.class));
-            finish();
+
         }
         return true;
-    }
-    private  void setOnClickExpandListView()
-    {
-        expandableListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int position, long id) {
-                long packedPosition = expandableListView.getExpandableListPosition(position);
-
-                int itemType = ExpandableListView.getPackedPositionType(packedPosition);
-                int groupPosition = ExpandableListView.getPackedPositionGroup(packedPosition);
-                int childPosition = ExpandableListView.getPackedPositionChild(packedPosition);
-
-
-                /*  if group item clicked */
-                if (itemType == ExpandableListView.PACKED_POSITION_TYPE_GROUP) {
-                    //  ...
-
-                    //onGroupLongClick(groupPosition);
-                }
-
-                /*  if child item clicked */
-                else if (itemType == ExpandableListView.PACKED_POSITION_TYPE_CHILD) {
-                    //  ...
-                    //onChildLongClick(groupPosition, childPosition);
-
-                }
-
-                return false;
-            }
-        });
     }
 }

@@ -24,6 +24,8 @@ public class AdapterTaskItem extends BaseExpandableListAdapter{
     FirebaseDatabase database;
     DatabaseReference reference;
     SharedPreferences sharedPreferences;
+    String userid;
+    String tag;
     private Context context;
     public AdapterTaskItem(ArrayList<String> listGroup, HashMap<String,ArrayList<String>> listChild, String headerTitle)
     {
@@ -103,6 +105,8 @@ public class AdapterTaskItem extends BaseExpandableListAdapter{
         textView.setText(sChild);
         ImageView btn_add_child_task = view.findViewById(R.id.btn_add_child_task);
         ImageView btn_star = view.findViewById(R.id.btn_star);
+        ImageView btn_complete = view.findViewById(R.id.btn_checkbox);
+        btn_star.setTag("0");
         btn_add_child_task.setVisibility(View.GONE);
         String temp = listGroup.get(i).toString();
         int amountItem=listChild.get(listGroup.get(i).toString()).size();
@@ -111,10 +115,25 @@ public class AdapterTaskItem extends BaseExpandableListAdapter{
             btn_add_child_task.setImageResource(R.drawable.ic_baseline_add_circle_24);
            btn_add_child_task.setVisibility(View.VISIBLE);
         }
+        btn_complete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(view.getContext(),CompleteForm.class);
+                intent.putExtra("NameOfChildTask",listChild.get(listGroup.get(i)).get(i1).toString());
+                intent.putExtra("NameOfTask",listGroup.get(i).toString());
+                intent.putExtra("HeaderTitle",headerTitle);
+                view.getContext().startActivity(intent);
+                //Toast.makeText(view.getContext(),listChild.get(listGroup.get(i)).get(i1).toString(), Toast.LENGTH_SHORT).show();
+            }
+        });
         btn_star.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+//                btn_star.setImageResource(R.drawable.ic_baseline_star_24);
+//                Intent intent = new Intent(view.getContext(),TaskMaster .class);
+//                intent.putExtra("NameOfTask",listGroup.get(i).toString());
+//                intent.putExtra("HeaderTitle",headerTitle);
+//                view.getContext().startActivity(intent);
             }
         });
         btn_add_child_task.setOnClickListener(new View.OnClickListener() {

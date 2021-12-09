@@ -12,6 +12,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.DoAn_Android">
+        <activity
+            android:name=".HistoryTasks"
+            android:exported="false" />
+        <activity
+            android:name=".CompleteForm"
+            android:exported="false" />
         <activity android:name=".CheckMail"
             android:exported="true"/>
         <activity
