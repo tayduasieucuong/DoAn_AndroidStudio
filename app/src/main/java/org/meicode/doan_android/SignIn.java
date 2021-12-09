@@ -60,12 +60,15 @@ public class SignIn extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(SignIn.this,ForgetPass.class));
+                finish();
             }
         });
         btn_regis.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(SignIn.this,SignUp.class));
+                finish();
+
             }
         });
         btn_login.setOnClickListener(new View.OnClickListener() {
@@ -120,6 +123,7 @@ public class SignIn extends AppCompatActivity {
                         editor.commit();
                         progressBar.setVisibility(View.GONE);
                         startActivity(intent);
+                        finish();
                     } else {
                         Toast.makeText(SignIn.this, "Log in Error", Toast.LENGTH_LONG).show();
                         progressBar.setVisibility(View.GONE);

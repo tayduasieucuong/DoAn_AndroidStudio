@@ -20,6 +20,7 @@ public class CheckMail extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(CheckMail.this,SignIn.class);
                 startActivity(intent);
+                finish();
             }
         });
     }

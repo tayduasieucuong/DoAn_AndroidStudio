@@ -39,6 +39,7 @@ public class ForgetPass extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(ForgetPass.this,SignIn.class);
                 startActivity(intent);
+                finish();
             }
         });
         btn.setOnClickListener(new View.OnClickListener() {
@@ -69,6 +70,7 @@ public class ForgetPass extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             Intent intent = new Intent(ForgetPass.this,CheckMail.class);
                             startActivity(intent);
+                            finish();
                             Toast.makeText(ForgetPass.this, "Success", Toast.LENGTH_LONG).show();
                             progressBar.setVisibility(View.GONE);
                         } else {

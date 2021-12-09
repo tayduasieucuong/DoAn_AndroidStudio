@@ -101,6 +101,7 @@ public class SignUp extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(SignUp.this, SignIn.class);
                 startActivity(intent);
+                finish();
             }
         });
         btn_regis.setOnClickListener(new View.OnClickListener() {
@@ -180,6 +181,7 @@ public class SignUp extends AppCompatActivity {
                         Toast.makeText(SignUp.this, "User has been registered successfull", Toast.LENGTH_LONG).show();
                         progressBar.setVisibility(View.GONE);
                         startActivity(new Intent(SignUp.this,SignIn.class));
+                        finish();
                     } else {
                         Toast.makeText(SignUp.this, "Failed to registered! Try again", Toast.LENGTH_LONG).show();
                         progressBar.setVisibility(View.GONE);
