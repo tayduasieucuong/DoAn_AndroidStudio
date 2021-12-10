@@ -3,7 +3,9 @@ package org.meicode.doan_android;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.SeekBar;
@@ -12,6 +14,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.database.ChildEventListener;
@@ -35,14 +38,23 @@ public class CompleteForm extends AppCompatActivity {
     ImageView btn_complete;
     ImageView btn_delete;
     String headerTitle;
+    String tasktemp;
+    int indexGroup;
+    int indexItem;
+    ImageView btn_back;
+    ActionBar actionBar;
     private void getDatafromAnotherActivity(){
         Intent intent = getIntent();
         taskMaster = intent.getStringExtra("NameOfTask");
         headerTitle = intent.getStringExtra("HeaderTitle");
         taskChild = intent.getStringExtra("NameOfChildTask");
+        indexGroup = intent.getIntExtra("Index Group",0);
+        indexItem = intent.getIntExtra("Index Item",0);
         final SharedPreferences sharedPreferences = getSharedPreferences("USERID", MODE_PRIVATE);
         userid = sharedPreferences.getString("UID",null);
-        title.setText(taskChild);
+        String[] task = taskChild.split("/");
+        tasktemp = task[0];
+        title.setText(tasktemp);
         database = FirebaseDatabase.getInstance("https://doan-3672e-default-rtdb.asia-southeast1.firebasedatabase.app/");
         reference = database.getReference("Users");
     }
@@ -58,15 +70,40 @@ public class CompleteForm extends AppCompatActivity {
         tv_desc = (TextView) findViewById(R.id.tv_des);
         btn_complete = (ImageView) findViewById(R.id.btn_complete);
         btn_delete = (ImageView) findViewById(R.id.btn_delete);
+        btn_back = (ImageView) findViewById(R.id.btn_back);
+        actionBar = getSupportActionBar();
+        actionBar.hide();
     }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_complete_form);
         initView();
+        setActionBar();
         getDatafromAnotherActivity();
         onClick();
         onReadTask();
+    }
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        int id = item.getItemId();
+
+        if(id == android.R.id.home)
+        {
+            onBackPressed();
+        }
+        return true;
+    }
+    private void setActionBar()
+    {
+        actionBar = getSupportActionBar();
+        actionBar.setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_baseline_chevron_left_24);
+        //actionBar.setDisplayUseLogoEnabled(true);
+        actionBar.setTitle("");
+        actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#FFFFFF")));
+        actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#ECB7F0")));
     }
     private void onReadTask(){
         reference.addChildEventListener(new ChildEventListener() {
@@ -74,7 +111,9 @@ public class CompleteForm extends AppCompatActivity {
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                 if(userid.equals(snapshot.getKey()))
                 {
-                    descript = snapshot.child("Tasks").child("Tất cả công việc").child(taskMaster).child("TasksChild").child(taskChild).child("Detail").child("Mô tả").getValue().toString();
+                    try {
+                        descript = snapshot.child("Tasks").child("Tất cả công việc").child(taskMaster).child("TasksChild").child(taskChild).child("Detail").child("Mô tả").getValue().toString();
+                    }catch (Exception ex) {}
                     tv_desc.setText(descript);
                 }
             }
@@ -106,7 +145,7 @@ public class CompleteForm extends AppCompatActivity {
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                 if (userid.equals(snapshot.getKey()))
                 {
-                    DatabaseReference dr = reference.child(snapshot.getKey()).child("Tasks").child("Tất cả công việc").child(taskMaster).child("TasksChild").child(taskChild);
+                    DatabaseReference dr = reference.child(snapshot.getKey()).child("Tasks").child("Tất cả công việc").child(taskMaster).child("TasksChild").child(tasktemp);
                     dr.removeValue();
                 }
             }
@@ -138,10 +177,12 @@ public class CompleteForm extends AppCompatActivity {
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                 if (userid.equals(snapshot.getKey()))
                 {
+                    String[] temp = taskChild.split("/");
+                    taskChild = temp[0];
                     DatabaseReference dr2 = reference.child(snapshot.getKey()).child("Tasks").child("Lịch sử công việc").child(taskMaster).child("TasksChild").child(taskChild);
                     dr2.setValue(tv_percent.getText().toString());
-                    DatabaseReference dr = reference.child(snapshot.getKey()).child("Tasks").child("Tất cả công việc").child(taskMaster).child("TasksChild").child(taskChild);
-                    dr.removeValue();
+                    DatabaseReference dr = reference.child(snapshot.getKey()).child("Tasks").child("Tất cả công việc").child(taskMaster).child("TasksChild").child(taskChild).child("Detail").child("Trạng thái");
+                    dr.setValue("Xong");
                 }
             }
 
@@ -215,6 +256,15 @@ public class CompleteForm extends AppCompatActivity {
             public void onClick(View view) {
                 onCompleteTask();
                 Toast.makeText(CompleteForm.this, "Task is completed", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(CompleteForm.this,TaskMaster.class);
+                intent.putExtra("HeaderTitle",headerTitle);
+                startActivity(intent);
+                finish();
+            }
+        });
+        btn_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
                 Intent intent = new Intent(CompleteForm.this,TaskMaster.class);
                 intent.putExtra("HeaderTitle",headerTitle);
                 startActivity(intent);

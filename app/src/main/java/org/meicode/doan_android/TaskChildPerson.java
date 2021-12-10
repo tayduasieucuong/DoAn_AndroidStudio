@@ -166,6 +166,7 @@ public class TaskChildPerson extends AppCompatActivity {
                     DatabaseReference dr = reference.child(snapshot.getKey()).child("Tasks").child("Tất cả công việc").child(NameOfTask).child("TasksChild");
                     if(!et_descript.getText().toString().equals("")) {
                         dr.child(et_title.getText().toString()).child("Detail").child("Mô tả").setValue(et_descript.getText().toString());
+                        dr.child(et_title.getText().toString()).child("Detail").child("Trạng thái").setValue("Chưa xong");
                         Toast.makeText(TaskChildPerson.this,"Create Task Success",Toast.LENGTH_SHORT).show();
                     }
                 }

@@ -86,8 +86,10 @@ public class TaskMaster extends AppCompatActivity {
                         childItem = new ArrayList<>();
                         for (DataSnapshot dschild : ds.child("TasksChild").getChildren())
                         {
-                            if(!"Detail".equals(dschild.getKey()))
-                                childItem.add(dschild.getKey().toString());
+                            if(!"Detail".equals(dschild.getKey())) {
+                                String temp = dschild.child("Detail").child("Trạng thái").getValue().toString();
+                                childItem.add(dschild.getKey().toString()+"/"+temp);
+                            }
                         }
                         listChild.put(listGroup.get(counter),childItem);
                         counter++;

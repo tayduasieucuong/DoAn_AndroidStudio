@@ -99,21 +99,29 @@ public class AdapterTaskItem extends BaseExpandableListAdapter{
 
     @Override
     public View getChildView(int i, int i1, boolean b, View view, ViewGroup viewGroup) {
-        view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.layout_item_child_taskmaster,viewGroup,false);
+        view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.layout_item_child_taskmaster, viewGroup, false);
         TextView textView = view.findViewById(R.id.tv_content);
-        String sChild = String.valueOf(getChild(i,i1));
-        textView.setText(sChild);
+        String sChild = String.valueOf(getChild(i, i1));
+        String[] temp = sChild.split("/");
+        String content = temp[0];
+        String status = temp[1];
+        textView.setText(content);
         ImageView btn_add_child_task = view.findViewById(R.id.btn_add_child_task);
         ImageView btn_star = view.findViewById(R.id.btn_star);
         ImageView btn_complete = view.findViewById(R.id.btn_checkbox);
+        if (status.equals("Xong")){
+            btn_complete.setImageResource(R.drawable.ic_baseline_radio_button_checked_24);
+            btn_complete.setEnabled(false);
+        }else{
+            btn_complete.setImageResource(R.drawable.ic_baseline_radio_button_unchecked_24);
+        }
         btn_star.setTag("0");
         btn_add_child_task.setVisibility(View.GONE);
-        String temp = listGroup.get(i).toString();
         int amountItem=listChild.get(listGroup.get(i).toString()).size();
         if(amountItem-1==i1)
         {
             btn_add_child_task.setImageResource(R.drawable.ic_baseline_add_circle_24);
-           btn_add_child_task.setVisibility(View.VISIBLE);
+            btn_add_child_task.setVisibility(View.VISIBLE);
         }
         btn_complete.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -122,6 +130,8 @@ public class AdapterTaskItem extends BaseExpandableListAdapter{
                 intent.putExtra("NameOfChildTask",listChild.get(listGroup.get(i)).get(i1).toString());
                 intent.putExtra("NameOfTask",listGroup.get(i).toString());
                 intent.putExtra("HeaderTitle",headerTitle);
+                intent.putExtra("Index Group",i);
+                intent.putExtra("Index item",i1);
                 view.getContext().startActivity(intent);
                 //Toast.makeText(view.getContext(),listChild.get(listGroup.get(i)).get(i1).toString(), Toast.LENGTH_SHORT).show();
             }
