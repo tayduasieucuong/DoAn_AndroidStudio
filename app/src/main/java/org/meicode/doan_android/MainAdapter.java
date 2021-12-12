@@ -1,10 +1,13 @@
 package org.meicode.doan_android;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -60,6 +63,15 @@ public class MainAdapter extends BaseExpandableListAdapter {
         TextView textView = view.findViewById(R.id.tv_group);
         String sGroup = String.valueOf(getGroup(i));
         textView.setText(sGroup);
+        ImageView btn_detail = view.findViewById(R.id.btn_detail);
+        btn_detail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(view.getContext(),TaskMaster.class);
+                intent.putExtra("HeaderTitle",sGroup);
+                view.getContext().startActivity(intent);
+            }
+        });
         return view;
     }
 
@@ -67,8 +79,10 @@ public class MainAdapter extends BaseExpandableListAdapter {
     public View getChildView(int i, int i1, boolean b, View view, ViewGroup viewGroup) {
         view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.layout_item,viewGroup,false);
         TextView textView = view.findViewById(R.id.tv_item);
+
         String sChild = String.valueOf(getChild(i,i1));
         textView.setText(sChild);
+
         return view;
     }
 

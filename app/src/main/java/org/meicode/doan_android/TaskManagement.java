@@ -121,8 +121,8 @@ public class TaskManagement extends AppCompatActivity {
         actionBar.setHomeAsUpIndicator(R.drawable.ic_menu);
         actionBar.setTitle("");
 //        actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#FFFFFF")));
-        actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#E6ADF0")));
-        actionBar.setElevation(2);
+        actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#ECB7F0")));
+        actionBar.setElevation(1);
     }
 
 
@@ -190,8 +190,10 @@ public class TaskManagement extends AppCompatActivity {
                     username = snapshot.child("UserInfo").child("Name").getValue().toString();
                     userName = (TextView) findViewById(R.id.usr_name);
                     userEmail = (TextView) findViewById(R.id.usr_email);
-                    userEmail.setText(email);
-                    userName.setText(username);
+                    try {
+                        userEmail.setText(email);
+                        userName.setText(username);
+                    }catch (Exception ex){}
                     for(DataSnapshot ds : snapshot.child("Tasks").getChildren())
                     {
                         if(!ds.getKey().equals("Lịch sử công việc")) {

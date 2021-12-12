@@ -137,8 +137,9 @@ public class TaskMaster extends AppCompatActivity {
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_baseline_chevron_left_24);
         //actionBar.setDisplayUseLogoEnabled(true);
         actionBar.setTitle("");
-        actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#FFFFFF")));
+
         actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#ECB7F0")));
+        actionBar.setElevation(1);
     }
     private  void setBottomNavigation()
     {
