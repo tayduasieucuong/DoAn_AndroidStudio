@@ -46,6 +46,15 @@
             android:name=".CreateTask"
             android:exported="true" />
         <activity
+            android:name=".UserInfo"
+            android:exported="true" />
+        <activity
+            android:name=".input_time"
+            android:exported="true" />
+        <activity
+            android:name=".TimeCoutDown"
+            android:exported="true" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>

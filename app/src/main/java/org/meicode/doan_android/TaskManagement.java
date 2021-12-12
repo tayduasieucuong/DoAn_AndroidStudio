@@ -85,6 +85,8 @@ public class TaskManagement extends AppCompatActivity {
                 int id = item.getItemId();
                 if(id == R.id.profile)
                 {
+                    startActivity(new Intent(TaskManagement.this,UserInfo.class));
+                    finish();
                     return true;
                 }else if(id == R.id.history)
                 {
@@ -96,6 +98,8 @@ public class TaskManagement extends AppCompatActivity {
                     return true;
                 }else if(id == R.id.share)
                 {
+                    startActivity(new Intent(TaskManagement.this,input_time.class));
+                    finish();
                     return true;
                 }else if(id == R.id.setting)
                 {
