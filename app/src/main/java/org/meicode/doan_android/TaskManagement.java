@@ -10,15 +10,20 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ExpandableListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -45,12 +50,20 @@ public class TaskManagement extends AppCompatActivity {
     DatabaseReference reference;
     FirebaseUser user;
     String userid;
+    DrawerLayout drawerLayout;
+    NavigationView navigationView;
+    String username;
+    String email;
+    TextView userName;
+    TextView userEmail;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_task_management);
         setActionBar();
         setBottomNavigation();
+        drawerLayout = (DrawerLayout)findViewById(R.id.drawerLayout);
+        navigationView = (NavigationView) findViewById(R.id.navigationView);
         expandableListView = findViewById(R.id.exp_list_view);
         //Database
         database = FirebaseDatabase.getInstance("https://doan-3672e-default-rtdb.asia-southeast1.firebasedatabase.app/");
@@ -63,7 +76,40 @@ public class TaskManagement extends AppCompatActivity {
         expandableListView.setAdapter(adapter);
         setOnClickAddTask();
         setOnClickExpandListView();
-
+        onClick();
+    }
+    private void onClick(){
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                int id = item.getItemId();
+                if(id == R.id.profile)
+                {
+                    return true;
+                }else if(id == R.id.history)
+                {
+                    startActivity(new Intent(TaskManagement.this,HistoryTasks.class));
+                    finish();
+                    return true;
+                }else if(id == R.id.analyst)
+                {
+                    return true;
+                }else if(id == R.id.share)
+                {
+                    return true;
+                }else if(id == R.id.setting)
+                {
+                    return true;
+                }else if(id == R.id.help)
+                {
+                    return true;
+                }else if(id == R.id.logout)
+                {
+                    return true;
+                }
+                return false;
+            }
+        });
     }
     private void setActionBar()
     {
@@ -138,7 +184,12 @@ public class TaskManagement extends AppCompatActivity {
                 String key = snapshot.getKey().toString();
                 if(userid.equals(key)) {
                     //listGroup.add(snapshot.child("UserInfo").child("Tasks").getKey());
-
+                    email = snapshot.child("UserInfo").child("Email").getValue().toString();
+                    username = snapshot.child("UserInfo").child("Name").getValue().toString();
+                    userName = (TextView) findViewById(R.id.usr_name);
+                    userEmail = (TextView) findViewById(R.id.usr_email);
+                    userEmail.setText(email);
+                    userName.setText(username);
                     for(DataSnapshot ds : snapshot.child("Tasks").getChildren())
                     {
                         if(!ds.getKey().equals("Lịch sử công việc")) {
@@ -191,7 +242,7 @@ public class TaskManagement extends AppCompatActivity {
 
         if(id == android.R.id.home)
         {
-            Toast.makeText(TaskManagement.this, "Ok", Toast.LENGTH_SHORT).show();
+            drawerLayout.openDrawer(GravityCompat.START);
         }else if( id == R.id.notify)
         {
             Toast.makeText(getApplicationContext(), "Notify", Toast.LENGTH_SHORT).show();

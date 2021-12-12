@@ -163,8 +163,7 @@ public class TaskMaster extends AppCompatActivity {
         }else if( id == R.id.notify)
         {
             Toast.makeText(getApplicationContext(), "Notify", Toast.LENGTH_SHORT).show();
-            startActivity(new Intent(TaskMaster.this,HistoryTasks.class));
-            finish();
+
         }
         return true;
     }
