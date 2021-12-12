@@ -120,9 +120,11 @@ public class TaskManagement extends AppCompatActivity {
         //actionBar.setDisplayUseLogoEnabled(true);
         actionBar.setHomeAsUpIndicator(R.drawable.ic_menu);
         actionBar.setTitle("");
-        actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#FFFFFF")));
-        actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#ECB7F0")));
+//        actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#FFFFFF")));
+        actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#E6ADF0")));
+        actionBar.setElevation(2);
     }
+
 
     private  void setBottomNavigation()
     {

@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/gradient_background"
     tools:context=".TaskManagement">
     <androidx.drawerlayout.widget.DrawerLayout
         android:layout_width="match_parent"
@@ -15,10 +16,13 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
             <ExpandableListView
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginTop="20dp"
                 android:id="@+id/exp_list_view"
                 android:layout_width="match_parent"
                 android:groupIndicator="@null"
-                android:layout_height="532dp" />
+                android:layout_height="500dp" />
             <com.google.android.material.bottomappbar.BottomAppBar
                 android:layout_width="match_parent"
                 android:layout_height="70dp"
@@ -26,7 +30,7 @@
                 app:fabCradleMargin="10dp"
                 app:fabCradleVerticalOffset="10dp"
                 app:fabCradleRoundedCornerRadius="25dp"
-                android:backgroundTint="@color/primaryy"
+                android:backgroundTint="@android:color/transparent"
                 android:layout_gravity="bottom">
                 <com.google.android.material.bottomnavigation.BottomNavigationView
                     android:layout_width="match_parent"
@@ -34,7 +38,7 @@
                     android:id="@+id/bottom_navigation"
                     app:menu="@menu/bottom_menu"
                     app:itemIconSize="30dp"
-                    app:itemIconTint="@color/black"
+                    app:itemIconTint="#E8E0E0"
                     android:layout_marginEnd="16dp"
                     android:background="@android:color/transparent"
 
@@ -49,10 +53,10 @@
                 android:src="@drawable/ic_baseline_add_24"
                 android:translationZ="10dp"
                 app:borderWidth="0dp"
-                app:fabCustomSize="80dp"
+                app:fabCustomSize="60dp"
                 app:layout_anchor="@+id/bottomAppBar"
                 app:layout_anchorGravity="top|center"
-                app:maxImageSize="70dp"
+                app:maxImageSize="50dp"
                 tools:ignore="SpeakableTextPresentCheck" />
         </androidx.coordinatorlayout.widget.CoordinatorLayout>
         <com.google.android.material.navigation.NavigationView
