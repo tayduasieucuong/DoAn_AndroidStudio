@@ -194,9 +194,7 @@ public class TaskManagement extends AppCompatActivity {
             Toast.makeText(TaskManagement.this, "Ok", Toast.LENGTH_SHORT).show();
         }else if( id == R.id.notify)
         {
-            startActivity(new Intent(TaskManagement.this,TaskMaster.class));
             Toast.makeText(getApplicationContext(), "Notify", Toast.LENGTH_SHORT).show();
-            finish();
         }
         return true;
     }
