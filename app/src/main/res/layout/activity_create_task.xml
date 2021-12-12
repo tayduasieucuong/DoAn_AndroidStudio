@@ -17,7 +17,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layout_constraintStart_toStartOf="parent"
-            tools:layout_editor_absoluteY="0dp">
+            tools:layout_editor_absoluteY="-16dp">
 
             <EditText
                 android:id="@+id/et_title"
@@ -57,17 +57,6 @@
                 app:layout_constraintTop_toBottomOf="@id/et_title"
                 app:srcCompat="@drawable/ic_baseline_event_24" />
 
-            <TextView
-                android:id="@+id/ps_textviewattach"
-                android:layout_width="0dp"
-                android:layout_height="20dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="50dp"
-                android:layout_marginEnd="10dp"
-                app:layout_constraintEnd_toStartOf="@+id/ps_btnattach"
-                app:layout_constraintStart_toEndOf="@+id/ps_imageView6"
-                app:layout_constraintTop_toBottomOf="@+id/ps_textView3" />
-
             <ImageView
                 android:id="@+id/ps_imageView4"
                 android:layout_width="40dp"
@@ -89,24 +78,14 @@
                 app:srcCompat="@drawable/ic_baseline_loop_24" />
 
             <ImageView
-                android:id="@+id/ps_imageView6"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginStart="30dp"
-                android:layout_marginTop="30dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/ps_imageView5"
-                app:srcCompat="@drawable/ic_baseline_attachment_24" />
-
-            <ImageView
                 android:id="@+id/ps_imageView7"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:layout_marginStart="30dp"
-                android:layout_marginTop="30dp"
+                android:layout_marginStart="32dp"
 
+                android:layout_marginTop="30dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/ps_imageView6"
+                app:layout_constraintTop_toBottomOf="@+id/ps_imageView5"
                 app:srcCompat="@drawable/ic_baseline_format_list_bulleted_24" />
 
             <Button
@@ -149,29 +128,11 @@
 
             <Spinner
                 android:id="@+id/ps_nhacnho"
-                android:layout_width="0dp"
+                android:layout_width="214dp"
                 android:layout_height="20dp"
-                android:layout_marginStart="8dp"
+                android:layout_marginStart="28dp"
                 android:layout_marginTop="40dp"
-                android:layout_marginEnd="10dp"
-                app:layout_constraintEnd_toStartOf="@+id/ps_btnadd"
-                app:layout_constraintStart_toEndOf="@+id/ps_textView2"
-                app:layout_constraintTop_toBottomOf="@+id/ps_btnstart" />
-
-            <TextView
-                android:id="@+id/ps_laplai"
-                android:layout_width="100dp"
-                android:layout_height="20dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="40dp"
-                android:textSize="16dp"
-                android:layout_marginEnd="55dp"
-                android:text="Không"
-                android:textAlignment="center"
-                android:textColor="#ff0000"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.246"
-                android:textStyle="bold"
+                app:layout_constraintStart_toEndOf="@+id/ps_textView3"
                 app:layout_constraintTop_toBottomOf="@+id/ps_editTextTextMultiLine" />
 
             <Spinner
@@ -183,32 +144,17 @@
                 android:layout_marginEnd="10dp"
                 app:layout_constraintEnd_toStartOf="@+id/ps_btnadd2"
                 app:layout_constraintStart_toEndOf="@+id/ps_imageView7"
-                app:layout_constraintTop_toBottomOf="@+id/ps_textviewattach" />
-
-            <ImageButton
-                android:id="@+id/ps_btnadd"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="40dp"
-                android:layout_marginEnd="30dp"
-                android:padding="10dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintTop_toBottomOf="@+id/ps_btnstart"
-                app:srcCompat="@drawable/ic_baseline_add_circle_24" />
+                app:layout_constraintTop_toBottomOf="@+id/ps_nhacnho" />
 
             <ImageButton
                 android:id="@+id/ps_btnadd2"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="40dp"
+                android:layout_marginTop="50dp"
                 android:layout_marginEnd="30dp"
                 android:padding="10dp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.181"
-                app:layout_constraintTop_toBottomOf="@+id/ps_btnattach"
+                app:layout_constraintTop_toBottomOf="@+id/ps_nhacnho"
                 app:srcCompat="@drawable/ic_baseline_add_circle_24" />
 
             <EditText
@@ -216,9 +162,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="38dp"
+                android:layout_marginTop="36dp"
                 android:layout_marginEnd="30dp"
-                android:layout_marginRight="20dp"
                 android:background="@drawable/bogoc_button"
                 android:ems="10"
                 android:gravity="start|top"
@@ -229,21 +174,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toEndOf="@+id/ps_imageView4"
-                app:layout_constraintTop_toBottomOf="@+id/ps_nhacnho" />
-
-            <Button
-                android:id="@+id/ps_btnattach"
-                android:layout_width="80dp"
-                android:layout_height="40dp"
-                android:layout_marginTop="40dp"
-                android:layout_marginEnd="30dp"
-                android:background="@drawable/bogoc_button"
-                android:text="Tải lên"
-                android:textColor="@color/black"
-                android:textSize="10dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintTop_toBottomOf="@+id/ps_laplai" />
+                app:layout_constraintTop_toBottomOf="@+id/ps_textView2" />
 
             <ImageView
                 android:id="@+id/ps_imageView3"
@@ -290,38 +221,61 @@
                 android:text="Lặp lại"
                 app:layout_constraintStart_toEndOf="@+id/ps_imageView5"
                 app:layout_constraintTop_toBottomOf="@+id/ps_editTextTextMultiLine" />
+
             <ImageView
                 android:id="@+id/btn_close_calender"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:src="@drawable/ic_baseline_close_24"
                 app:layout_constraintBottom_toTopOf="@id/calendarView2"
-                app:layout_constraintEnd_toEndOf="@id/calendarView2"
-                />
+                app:layout_constraintEnd_toEndOf="@id/calendarView2" />
+
             <CalendarView
-                android:background="@drawable/gradient_background"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
                 android:id="@+id/calendarView2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                tools:layout_editor_absoluteX="33dp"
-                android:translationZ="100dp"
-                tools:layout_editor_absoluteY="170dp" />
-            <CalendarView
+                android:layout_marginTop="116dp"
                 android:background="@drawable/gradient_background"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
+                android:translationZ="100dp"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.491"
                 app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <CalendarView
                 android:id="@+id/calendarViewEnd"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                tools:layout_editor_absoluteX="33dp"
+                android:layout_marginTop="116dp"
+                android:background="@drawable/gradient_background"
                 android:translationZ="100dp"
-                tools:layout_editor_absoluteY="170dp" />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.54"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_nhacnho"
+                android:layout_width="160dp"
+                android:layout_height="25dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="37dp"
+                android:textColor="@color/black"
+                android:background="@drawable/outline_edt"
+                android:gravity="center"
+                app:layout_constraintStart_toEndOf="@+id/ps_textView2"
+                app:layout_constraintTop_toBottomOf="@+id/ps_btnend" />
+
+            <CheckBox
+                android:id="@+id/checkBox2"
+                android:layout_width="41dp"
+                android:layout_height="42dp"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="28dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toEndOf="@+id/tv_nhacnho"
+                app:layout_constraintTop_toBottomOf="@+id/ps_btnend" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

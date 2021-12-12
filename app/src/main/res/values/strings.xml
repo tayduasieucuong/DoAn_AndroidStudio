@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">DoAn_Android</string>
+    <string name="channel_name">Channel</string>
+    <string name="channel_description">Channel Des</string>
 </resources>
