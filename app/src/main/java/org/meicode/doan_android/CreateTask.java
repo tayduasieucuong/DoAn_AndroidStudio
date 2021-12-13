@@ -67,8 +67,7 @@ public class CreateTask extends AppCompatActivity {
     EditText et_title;
     TextView tv_repeat;
     TextView tv_nhacnho;
-    CalendarView calendarView;
-    CalendarView calendarViewEnd;
+
     ImageView btn_cross;
     FirebaseDatabase database;
     DatabaseReference reference;
@@ -96,10 +95,8 @@ public class CreateTask extends AppCompatActivity {
         btn_star = (ImageView) findViewById(R.id.ps_favorite);
         important = 0;
         btn_important = (ImageView)findViewById(R.id.ps_importain);
-        calendarView = (CalendarView) findViewById(R.id.calendarView2);
-        calendarViewEnd = (CalendarView) findViewById(R.id.calendarViewEnd);
-        calendarViewEnd.setVisibility(View.INVISIBLE);
-        calendarView.setVisibility(View.INVISIBLE);
+
+
         btn_cross.setVisibility(View.INVISIBLE);
         spinnerRemind = (Spinner)findViewById(R.id.ps_nhacnho);
         spinnerList= (Spinner) findViewById(R.id.ps_list);
@@ -261,39 +258,31 @@ public class CreateTask extends AppCompatActivity {
         tv_timestart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                calendarView.setVisibility(View.VISIBLE);
-                btn_cross.setVisibility(View.VISIBLE);
+                final Calendar currentDate = android.icu.util.Calendar.getInstance();
+                new DatePickerDialog(CreateTask.this, new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                        monthOfYear++;
+                        tv_timestart.setText(dayOfMonth+"/"+monthOfYear+"/"+year);
+                    }
+                }, currentDate.get(android.icu.util.Calendar.YEAR), currentDate.get(android.icu.util.Calendar.MONTH), currentDate.get(Calendar.DATE)).show();
             }
         });
         tv_timeend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                calendarViewEnd.setVisibility(View.VISIBLE);
-                btn_cross.setVisibility(View.VISIBLE);
+                final Calendar currentDate = android.icu.util.Calendar.getInstance();
+                new DatePickerDialog(CreateTask.this, new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                        monthOfYear++;
+                        tv_timeend.setText(dayOfMonth+"/"+monthOfYear+"/"+year);
+                    }
+                }, currentDate.get(android.icu.util.Calendar.YEAR), currentDate.get(android.icu.util.Calendar.MONTH), currentDate.get(Calendar.DATE)).show();
             }
         });
-        calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
-            @Override
-            public void onSelectedDayChange(@NonNull CalendarView calendarView, int year, int month, int day) {
-                month++;
-                tv_timestart.setText((day+"/"+month+'/'+year));
-            }
-        });
-        calendarViewEnd.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
-            @Override
-            public void onSelectedDayChange(@NonNull CalendarView calendarView, int year, int month, int day) {
-                month++;
-                tv_timeend.setText((day+"/"+month+'/'+year));
-            }
-        });
-        btn_cross.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                calendarView.setVisibility(View.INVISIBLE);
-                calendarViewEnd.setVisibility(View.INVISIBLE);
-                btn_cross.setVisibility(View.INVISIBLE);
-            }
-        });
+
+
         btn_add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
