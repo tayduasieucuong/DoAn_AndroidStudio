@@ -12,29 +12,31 @@
         android:layout_height="wrap_content"
         android:paddingTop="30dp"
         android:id="@+id/headetop"
-        android:background="@color/white"
+        android:background="@drawable/border_radius_large"
         android:paddingBottom="10dp"
-        android:translationZ="1dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:translationZ="50dp"
         xmlns:app="http://schemas.android.com/apk/res-auto">
         <ImageView
             android:id="@+id/listgroupimg"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_marginLeft="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
             app:layout_constraintStart_toStartOf="parent"
-            android:src="@drawable/list"
+            android:src="@drawable/task_car"
             tools:ignore="MissingConstraints" />
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:id="@+id/tv_group"
             android:textSize="30dp"
-            android:layout_marginLeft="20dp"
+            android:textColor="@color/white"
             android:textStyle="bold"
+            android:text="Discover"
+            android:textAlignment="center"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@id/listgroupimg"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/listgroupimg"
             tools:ignore="MissingConstraints" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -42,7 +44,8 @@
 
         android:id="@+id/exp_list_view"
         android:layout_width="match_parent"
-        android:layout_height="443dp"
+        android:layout_height="300dp"
+        android:layout_marginTop="50dp"
         android:layout_gravity="center"
         android:groupIndicator="@null" />
 
@@ -58,6 +61,7 @@
 
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/bottom_navigation"
+            android:translationZ="30dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginEnd="16dp"
