@@ -193,6 +193,7 @@ public class TaskManagement extends AppCompatActivity {
                     Intent intent = new Intent(TaskManagement.this,TaskMaster.class);
                     intent.putExtra("HeaderTitle",expandableListView.getItemAtPosition(position).toString());
                     startActivity(intent);
+                    Toast.makeText(getApplicationContext(), "Notify", Toast.LENGTH_SHORT).show();
                     finish();
                     //intent.putExtra("HeaderTitle",);
                     //onGroupLongClick(groupPosition);
@@ -202,11 +203,14 @@ public class TaskManagement extends AppCompatActivity {
                 else if (itemType == ExpandableListView.PACKED_POSITION_TYPE_CHILD) {
                     //  ...
                    //onChildLongClick(groupPosition, childPosition);
-                }
+                    Toast.makeText(getApplicationContext(), "Notify", Toast.LENGTH_SHORT).show();
+                    finish();
 
+                }
                 return false;
             }
         });
+
     }
     public void readTasks()
     {

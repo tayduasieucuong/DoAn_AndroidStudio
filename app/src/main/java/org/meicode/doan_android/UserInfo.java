@@ -51,7 +51,7 @@ public class UserInfo extends AppCompatActivity {
     TextView Email;
     EditText Birthday;
     EditText PhoneNumber;
-    ImageView profileImage;
+    ImageView profileImage,img1;
     RadioGroup rdtG;
     RadioButton radioButtonnam;
     RadioButton radioButtonnu;
@@ -85,6 +85,7 @@ public class UserInfo extends AppCompatActivity {
         rdtG =(RadioGroup) findViewById(R.id.radioGroup);
         changeProfileImage = (Button) findViewById(R.id.buttonAvatar);
         profileImage = (ImageView) findViewById(R.id.profileImage);
+        img1=(ImageView) findViewById(R.id.imageView);
         final SharedPreferences sharedPreferences = getSharedPreferences("USERID", MODE_PRIVATE);
 
         userid = sharedPreferences.getString("UID",null);
@@ -134,7 +135,13 @@ public class UserInfo extends AppCompatActivity {
                 startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST);
             }
         });
+        img1.setOnClickListener(new View.OnClickListener(){
 
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(UserInfo.this,TaskManagement.class));
+            }
+        });
 
 
 

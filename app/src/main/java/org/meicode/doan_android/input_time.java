@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TimePicker;
 
 import androidx.appcompat.app.ActionBar;
@@ -19,6 +20,7 @@ public class input_time extends AppCompatActivity {
     EditText edt1,edt2,edt3;
     Button btn;
     Intent intent;
+    ImageView img1;
     FirebaseDatabase database;
     DatabaseReference reference;
     FirebaseAuth mAuth;
@@ -33,6 +35,7 @@ public class input_time extends AppCompatActivity {
         edt2=(EditText) findViewById(R.id.edt2);
         edt3=(EditText) findViewById(R.id.edt3);
         btn=(Button) findViewById(R.id.btn);
+        img1=(ImageView) findViewById(R.id.imageView);
         mAuth = FirebaseAuth.getInstance();
         database = FirebaseDatabase.getInstance("https://doan-3672e-default-rtdb.asia-southeast1.firebasedatabase.app/");
         intent = new Intent(input_time.this, TimeCoutDown.class);
@@ -102,6 +105,13 @@ public class input_time extends AppCompatActivity {
                 reference.child(uid).child("FocusTask").child(nametask).child("Nghỉ sau").setValue(t2);
                 intent.putExtra("name",edt1.getText().toString());
                 startActivity(intent);
+            }
+        });
+        img1.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(input_time.this,TaskManagement.class));
             }
         });
     }
