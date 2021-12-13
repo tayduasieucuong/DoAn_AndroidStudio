@@ -21,9 +21,13 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -46,6 +50,7 @@ public class TaskManagement extends AppCompatActivity {
     //Adapter for job
     MainAdapter adapter;
     //Database Firebase
+    FirebaseAuth AuthUI;
     FirebaseDatabase database;
     DatabaseReference reference;
     FirebaseUser user;
@@ -107,6 +112,9 @@ public class TaskManagement extends AppCompatActivity {
                     return true;
                 }else if(id == R.id.logout)
                 {
+                    AuthUI.getInstance().signOut();
+                    Intent intent2 = new Intent(TaskManagement.this,SignIn.class);
+                    startActivity(intent2);
                     return true;
                 }
                 return false;
