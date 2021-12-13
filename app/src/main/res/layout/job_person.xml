@@ -38,19 +38,22 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1"
+        android:background="#FFFFFF"
+        android:backgroundTint="#FFFFFF"
         android:orientation="vertical">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:background="#FFFFFF">
 
             <ImageButton
                 android:id="@+id/ps_save"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:layout_marginTop="28dp"
-                android:scaleType="fitCenter"
                 android:background="@color/white"
+                android:scaleType="fitCenter"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.474"
                 app:layout_constraintStart_toEndOf="@+id/ps_importain"
@@ -168,7 +171,7 @@
             <Spinner
                 android:id="@+id/ps_laplai"
                 android:layout_width="200dp"
-                android:layout_height="20dp"
+                android:layout_height="22dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="40dp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -191,11 +194,11 @@
                 android:layout_height="20dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="40dp"
+                android:padding="10dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toEndOf="@+id/ps_nhacnho"
                 app:layout_constraintTop_toBottomOf="@+id/ps_btnstart"
-                android:padding="10dp"
                 app:srcCompat="@drawable/ic_baseline_add_circle_24" />
 
             <ImageButton
@@ -205,11 +208,11 @@
 
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="40dp"
+                android:padding="10dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.181"
                 app:layout_constraintStart_toEndOf="@+id/ps_list"
                 app:layout_constraintTop_toBottomOf="@+id/ps_btnattach"
-                android:padding="10dp"
                 app:srcCompat="@drawable/ic_baseline_add_circle_24" />
 
             <EditText
@@ -222,9 +225,9 @@
                 android:ems="10"
                 android:gravity="start|top"
                 android:inputType="textMultiLine"
+                android:lines="2"
                 android:maxLines="2"
                 android:minLines="1"
-                android:lines="2"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toEndOf="@+id/ps_imageView4"
@@ -261,9 +264,9 @@
                 android:layout_height="60dp"
                 android:layout_marginStart="40dp"
                 android:layout_marginTop="28dp"
+                android:background="@color/white"
                 android:scaleType="fitCenter"
                 app:layout_constraintStart_toStartOf="parent"
-                android:background="@color/white"
                 app:layout_constraintTop_toBottomOf="@+id/ps_list"
                 app:srcCompat="@drawable/recyclebin60" />
 
@@ -273,8 +276,8 @@
                 android:layout_height="60dp"
                 android:layout_marginStart="32dp"
                 android:layout_marginTop="28dp"
-                android:scaleType="fitCenter"
                 android:background="@color/white"
+                android:scaleType="fitCenter"
                 app:layout_constraintStart_toEndOf="@+id/ps_delete"
                 app:layout_constraintTop_toBottomOf="@+id/ps_list"
                 app:srcCompat="@drawable/star48" />
@@ -285,8 +288,8 @@
                 android:layout_height="60dp"
                 android:layout_marginStart="32dp"
                 android:layout_marginTop="28dp"
-                android:scaleType="fitCenter"
                 android:background="@color/white"
+                android:scaleType="fitCenter"
                 app:layout_constraintStart_toEndOf="@+id/ps_favorite"
                 app:layout_constraintTop_toBottomOf="@+id/ps_list"
                 app:srcCompat="@drawable/redcircle48" />

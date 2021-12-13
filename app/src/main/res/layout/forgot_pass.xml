@@ -9,11 +9,12 @@
 
     <TextView
         android:id="@+id/textView"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="72dp"
-        android:text="Forgot password"
         android:fontFamily="sans-serif-black"
+        android:text="Forgot password"
+        android:gravity="center"
         android:textColor="#000000"
         android:textSize="48sp"
         android:textStyle="bold"
@@ -23,17 +24,19 @@
 
     <EditText
         android:id="@+id/edtEmail"
-        android:layout_width="354dp"
+        android:layout_width="0dp"
         android:layout_height="53dp"
+        android:layout_marginStart="20dp"
         android:layout_marginTop="136dp"
+        android:layout_marginEnd="20dp"
         android:background="@drawable/rounded_edittext"
         android:drawableLeft="@drawable/icon_mail"
         android:drawablePadding="11dp"
         android:ems="10"
         android:hint="Email"
+
         android:inputType="textPersonName"
         android:paddingLeft="8dp"
-
         android:textSize="22dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.508"
@@ -43,7 +46,7 @@
 
     <Button
         android:id="@+id/button2"
-        android:layout_width="150dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="108dp"
         android:text="SEND EMAIL"

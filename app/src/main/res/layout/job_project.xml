@@ -38,11 +38,13 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1"
+        android:backgroundTint="#FFFFFF"
         android:orientation="vertical">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:background="#FFFFFF">
 
             <Button
                 android:id="@+id/jp_btnstart"
@@ -142,10 +144,10 @@
                 android:layout_height="40dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="10dp"
+                android:background="@drawable/bogoc_button"
                 android:text="Tải lên"
                 android:textColor="@color/black"
                 android:textSize="10dp"
-                android:background="@drawable/bogoc_button"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.086"
                 app:layout_constraintStart_toEndOf="@+id/ps_textviewattach"
@@ -233,9 +235,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
+                android:background="@drawable/bogoc_button"
                 android:text="SAVE"
                 android:textColor="@color/black"
-                android:background="@drawable/bogoc_button"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.498"
                 app:layout_constraintStart_toStartOf="parent"
