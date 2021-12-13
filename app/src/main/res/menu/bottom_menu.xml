@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/person"
         android:enabled="true"
         android:icon="@drawable/ic_person_24dp"
-        />
+        tools:ignore="MenuTitle" />
     <item
         android:id="@+id/group"
         android:enabled="true"
         android:icon="@drawable/ic__group_24"
-        />
+        tools:ignore="MenuTitle" />
     <item
         android:id="@+id/placeholder"
         android:title=" "/>
@@ -17,11 +18,11 @@
         android:id="@+id/calendar"
         android:enabled="true"
         android:icon="@drawable/ic_baseline_calendar_today_24"
-        />
+        tools:ignore="MenuTitle" />
     <item
         android:id="@+id/alarm"
         android:enabled="true"
         android:icon="@drawable/ic_baseline_alarm_24"
-        />
+        tools:ignore="MenuTitle" />
 
 </menu>

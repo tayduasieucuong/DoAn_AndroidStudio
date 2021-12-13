@@ -4,7 +4,7 @@
     package="org.meicode.doan_android">
 
     <uses-permission android:name="android.permission.INTERNET" />
-
+    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM"/>
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -12,6 +12,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.DoAn_Android">
+        <receiver android:name=".Receiver"
+            android:enabled="true"/>
         <activity
             android:name=".HistoryTasks"
             android:exported="false" />

@@ -98,8 +98,6 @@ public class TaskManagement extends AppCompatActivity {
                     return true;
                 }else if(id == R.id.share)
                 {
-                    startActivity(new Intent(TaskManagement.this,input_time.class));
-                    finish();
                     return true;
                 }else if(id == R.id.setting)
                 {
@@ -135,6 +133,28 @@ public class TaskManagement extends AppCompatActivity {
         bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
         bottomNavigationView.setBackground(null);
         FloatingActionButton add_btn = (FloatingActionButton) findViewById(R.id.addbottom);
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId())
+                {
+                    case R.id.person:
+                        Toast.makeText(TaskManagement.this, "Person", Toast.LENGTH_SHORT).show();
+                        return true;
+                    case R.id.group:
+                        Toast.makeText(TaskManagement.this, "Group", Toast.LENGTH_SHORT).show();
+                        return true;
+                    case R.id.calendar:
+                        Toast.makeText(TaskManagement.this, "Calendar", Toast.LENGTH_SHORT).show();
+                        return true;
+                    case R.id.alarm:
+                        startActivity(new Intent(TaskManagement.this,input_time.class));
+                        finish();
+                        return true;
+                }
+                return false;
+            }
+        });
     }
     private void setOnClickAddTask(){
         FloatingActionButton btn_add_task = findViewById(R.id.addbottom);

@@ -59,10 +59,18 @@ public class MainAdapter extends BaseExpandableListAdapter {
 
     @Override
     public View getGroupView(int i, boolean b, View view, ViewGroup viewGroup) {
+        int images[] = {R.drawable.task_calculator,R.drawable.task_abacus,R.drawable.task_pen,R.drawable.task_blackboard,R.drawable.task_cylinder,R.drawable.task_barchart};
+        int flag = i;
+        if(flag > 5)
+        {
+            flag = 0;
+        }
         view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.layout_item_group,viewGroup,false);
         TextView textView = view.findViewById(R.id.tv_group);
         String sGroup = String.valueOf(getGroup(i));
         textView.setText(sGroup);
+        ImageView image = view.findViewById(R.id.listgroupimg);
+        image.setImageResource(images[flag]);
         ImageView btn_detail = view.findViewById(R.id.btn_detail);
         btn_detail.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -79,7 +87,12 @@ public class MainAdapter extends BaseExpandableListAdapter {
     public View getChildView(int i, int i1, boolean b, View view, ViewGroup viewGroup) {
         view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.layout_item,viewGroup,false);
         TextView textView = view.findViewById(R.id.tv_item);
-
+        int images[] = {R.drawable.task_area,R.drawable.task_subtraction,R.drawable.task_car,R.drawable.task_pen,R.drawable.task_barchart,R.drawable.task_cylinder};
+        int flag = i1;
+        if (flag > 5)
+            flag = 0;
+        ImageView imageView = view.findViewById(R.id.img);
+        imageView.setImageResource(images[flag]);
         String sChild = String.valueOf(getChild(i,i1));
         textView.setText(sChild);
 
