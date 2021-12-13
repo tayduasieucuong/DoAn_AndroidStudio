@@ -5,13 +5,13 @@
         android:title="Search"
         android:id="@+id/search"
         android:icon="@drawable/ic_search"
-        app:showAsAction="always"
+        app:showAsAction="always|collapseActionView"
+        app:actionViewClass="androidx.appcompat.widget.SearchView"
         />
     <item
         android:title="Notify"
         android:id="@+id/notify"
         android:icon="@drawable/ic_baseline_notifications_24"
         app:showAsAction="always"/>
-
 
 </menu>

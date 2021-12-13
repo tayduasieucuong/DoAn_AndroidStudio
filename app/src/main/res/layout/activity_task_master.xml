@@ -45,8 +45,8 @@
         android:id="@+id/exp_list_view"
         android:layout_width="match_parent"
         android:layout_height="300dp"
-        android:layout_marginTop="50dp"
         android:layout_gravity="center"
+        android:layout_marginTop="50dp"
         android:groupIndicator="@null" />
 
     <com.google.android.material.bottomappbar.BottomAppBar
