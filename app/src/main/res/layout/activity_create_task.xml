@@ -227,32 +227,8 @@
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:src="@drawable/ic_baseline_close_24"
-                app:layout_constraintBottom_toTopOf="@id/calendarView2"
-                app:layout_constraintEnd_toEndOf="@id/calendarView2" />
-
-            <CalendarView
-                android:id="@+id/calendarView2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="116dp"
-                android:background="@drawable/gradient_background"
-                android:translationZ="100dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.491"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <CalendarView
-                android:id="@+id/calendarViewEnd"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="116dp"
-                android:background="@drawable/gradient_background"
-                android:translationZ="100dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.54"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                tools:layout_editor_absoluteX="340dp"
+                tools:layout_editor_absoluteY="76dp" />
 
             <TextView
                 android:id="@+id/tv_nhacnho"
@@ -260,9 +236,9 @@
                 android:layout_height="25dp"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="37dp"
-                android:textColor="@color/black"
                 android:background="@drawable/outline_edt"
                 android:gravity="center"
+                android:textColor="@color/black"
                 app:layout_constraintStart_toEndOf="@+id/ps_textView2"
                 app:layout_constraintTop_toBottomOf="@+id/ps_btnend" />
 
