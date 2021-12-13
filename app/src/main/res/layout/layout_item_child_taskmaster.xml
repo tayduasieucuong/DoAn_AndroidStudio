@@ -3,46 +3,59 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingTop="10dp"
-    android:paddingBottom="10dp"
+    android:paddingBottom="5dp"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:backgroundTint="#E2000000"
+        android:id="@+id/ctlayout"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
+        android:background="@drawable/border_radius"
+        android:layout_height="match_parent">
     <ImageView
         android:id="@+id/btn_checkbox"
-        android:layout_width="45dp"
-        android:layout_height="45dp"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
         app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginLeft="23dp"
+        android:layout_marginLeft="10dp"
         android:src="@drawable/ic_baseline_radio_button_unchecked_24"
         tools:ignore="MissingConstraints" />
     <TextView
         app:layout_constraintTop_toTopOf="parent"
         android:layout_width="0dp"
-        android:layout_height="40dp"
-        android:textSize="22dp"
+        android:layout_height="wrap_content"
+        android:textSize="18dp"
         app:layout_constraintStart_toEndOf="@+id/btn_checkbox"
         android:id="@+id/tv_content"
-        android:paddingTop="6dp"
+        android:textStyle="bold"
+        android:textColor="@color/white"
         android:layout_marginLeft="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/btn_star"
         tools:ignore="MissingConstraints" />
     <ImageView
         android:id="@+id/btn_star"
-        android:layout_width="45dp"
-        android:layout_height="45dp"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginRight="10dp"
         android:src="@drawable/ic_baseline_star_border_24"
 
         />
+    </androidx.constraintlayout.widget.ConstraintLayout>
     <ImageView
         android:id="@+id/btn_add_child_task"
-        android:layout_width="45dp"
-        android:layout_height="45dp"
-        android:layout_marginTop="20dp"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginBottom="10dp"
         android:src="@drawable/ic_baseline_add_circle_24"
-        app:layout_constraintEnd_toEndOf="@id/btn_checkbox"
-        app:layout_constraintTop_toBottomOf="@+id/btn_checkbox"
+        app:layout_constraintStart_toStartOf="@+id/ctlayout"
+        app:layout_constraintTop_toBottomOf="@+id/ctlayout"
         />
-
 </androidx.constraintlayout.widget.ConstraintLayout>
