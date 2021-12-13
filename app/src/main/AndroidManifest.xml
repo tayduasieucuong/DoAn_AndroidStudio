@@ -4,7 +4,8 @@
     package="org.meicode.doan_android">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM"/>
+    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -12,16 +13,29 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.DoAn_Android">
-        <receiver android:name=".Receiver"
-            android:enabled="true"/>
+        <activity
+            android:name=".WelcomeActivity"
+            android:exported="true" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <receiver
+            android:name=".Receiver"
+            android:enabled="true" />
+
         <activity
             android:name=".HistoryTasks"
             android:exported="false" />
         <activity
             android:name=".CompleteForm"
             android:exported="false" />
-        <activity android:name=".CheckMail"
-            android:exported="true"/>
+        <activity
+            android:name=".CheckMail"
+            android:exported="true" />
         <activity
             android:name=".TaskChildPerson"
             android:exported="false" />
@@ -59,11 +73,7 @@
         <activity
             android:name=".MainActivity"
             android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
     </application>
 
