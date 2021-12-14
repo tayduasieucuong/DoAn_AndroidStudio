@@ -53,7 +53,7 @@ public class TaskManagement extends AppCompatActivity {
     //Database Firebase
     FirebaseAuth AuthUI;
     FirebaseDatabase database;
-    DatabaseReference reference;
+    DatabaseReference reference,rf1;
     FirebaseUser user;
     String userid;
     DrawerLayout drawerLayout;
@@ -293,6 +293,47 @@ public class TaskManagement extends AppCompatActivity {
             searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
                 @Override
                 public boolean onQueryTextSubmit(String query) {
+                    reference.addChildEventListener(new ChildEventListener() {
+                        boolean kt = false;
+                        Intent intent = new Intent(TaskManagement.this, DetailTask.class);
+                        @Override
+                        public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                            if(userid.equals(snapshot.getKey())) {
+                                for (DataSnapshot ds : snapshot.child("Tasks").child("Tất cả công việc").getChildren()) {
+                                    String groupname = (String) ds.getKey();
+                                    if (groupname.equals(query)) {
+                                    intent.putExtra("Name",query);
+                                    kt=true;
+                                    }
+                                }
+                            }
+                            if(kt==true){
+                                startActivity(intent);
+                            }else{
+                                Toast.makeText(getApplicationContext(), "Không tìm thấy", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+
+                        @Override
+                        public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+                        }
+
+                        @Override
+                        public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+
+                        }
+
+                        @Override
+                        public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
                     return false;
                 }
 

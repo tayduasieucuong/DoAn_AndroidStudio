@@ -134,8 +134,14 @@ public class CreateTask extends AppCompatActivity {
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                 if(userid.equals(snapshot.getKey()))
                 {
+                    String repeat="";
                     String favorite = "";
                     String Important = "";
+                    if(checkBox.isChecked()){
+                        repeat = "Có";
+                    }else{
+                        repeat = "Không";
+                    }
                     if(important==0)
                         Important = "Không";
                     else
@@ -171,7 +177,7 @@ public class CreateTask extends AppCompatActivity {
                     dr.child("Detail").child("Quan trọng").setValue(Important);
                     dr.child("Detail").child("Ngày bắt đầu").setValue(tv_timestart.getText().toString());
                     dr.child("Detail").child("Ngày kết thúc").setValue(tv_timeend.getText().toString());
-                    dr.child("Detail").child("Nhắc nhở").setValue(spinnerRemind.getSelectedItem()).toString();
+                    dr.child("Detail").child("Nhắc nhở").setValue(repeat);
                     dr.child("Detail").child("Danh sách").setValue(spinnerList.getSelectedItem().toString());
                     dr.child("Detail").child("Trạng thái").setValue("Chưa xong");
                     if(btn_ic_star==1)
@@ -182,7 +188,7 @@ public class CreateTask extends AppCompatActivity {
                         dr2.child("Detail").child("Quan trọng").setValue(Important);
                         dr2.child("Detail").child("Ngày bắt đầu").setValue(tv_timestart.getText().toString());
                         dr2.child("Detail").child("Ngày kết thúc").setValue(tv_timeend.getText().toString());
-                        dr2.child("Detail").child("Nhắc nhở").setValue(spinnerRemind.getSelectedItem()).toString();
+                        dr2.child("Detail").child("Nhắc nhở").setValue(repeat);
                         dr2.child("Detail").child("Danh sách").setValue(spinnerList.getSelectedItem().toString());
                         dr2.child("Detail").child("Trạng thái").setValue("Chưa xong");
                     }
@@ -194,7 +200,7 @@ public class CreateTask extends AppCompatActivity {
                         dr3.child("Detail").child("Quan trọng").setValue(Important);
                         dr3.child("Detail").child("Ngày bắt đầu").setValue(tv_timestart.getText().toString());
                         dr3.child("Detail").child("Ngày kết thúc").setValue(tv_timeend.getText().toString());
-                        dr3.child("Detail").child("Nhắc nhở").setValue(spinnerRemind.getSelectedItem()).toString();
+                        dr3.child("Detail").child("Nhắc nhở").setValue(repeat);
                         dr3.child("Detail").child("Danh sách").setValue(spinnerList.getSelectedItem().toString());
                         dr3.child("Detail").child("Trạng thái").setValue("Chưa xong");
                     }
