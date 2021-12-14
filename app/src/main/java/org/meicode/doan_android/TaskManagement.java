@@ -1,5 +1,6 @@
 package org.meicode.doan_android;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -16,6 +17,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -113,9 +115,24 @@ public class TaskManagement extends AppCompatActivity {
                     return true;
                 }else if(id == R.id.logout)
                 {
-                    AuthUI.getInstance().signOut();
-                    Intent intent2 = new Intent(TaskManagement.this,SignIn.class);
-                    startActivity(intent2);
+                    AlertDialog.Builder builder =new AlertDialog.Builder(TaskManagement.this);
+                    builder.setTitle("Bạn muốn đăng xuất");
+                    builder.setIcon(R.drawable.logout);
+                    builder.setPositiveButton("Có", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            AuthUI.getInstance().signOut();
+                            Intent intent2 = new Intent(TaskManagement.this,SignIn.class);
+                            startActivity(intent2);
+                        }
+                    });
+                    builder.setNegativeButton("Không", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+
+                        }
+                    });
+                    builder.show();
                     return true;
                 }
                 return false;

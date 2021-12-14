@@ -25,6 +25,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -67,7 +68,7 @@ public class CreateTask extends AppCompatActivity {
     EditText et_title;
     TextView tv_repeat;
     TextView tv_nhacnho;
-
+    NotificationManager notificationManager;
     ImageView btn_cross;
     FirebaseDatabase database;
     DatabaseReference reference;
@@ -95,8 +96,6 @@ public class CreateTask extends AppCompatActivity {
         btn_star = (ImageView) findViewById(R.id.ps_favorite);
         important = 0;
         btn_important = (ImageView)findViewById(R.id.ps_importain);
-
-
         btn_cross.setVisibility(View.INVISIBLE);
         spinnerRemind = (Spinner)findViewById(R.id.ps_nhacnho);
         spinnerList= (Spinner) findViewById(R.id.ps_list);
@@ -127,7 +126,9 @@ public class CreateTask extends AppCompatActivity {
         displaySpinner();
         onClick();
         createNotification();
+        tv_nhacnho.setEnabled(false);
     }
+
     private void onPushTask(){
         reference.addChildEventListener(new ChildEventListener() {
             @Override
@@ -288,7 +289,6 @@ public class CreateTask extends AppCompatActivity {
             }
         });
 
-
         btn_add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -300,12 +300,21 @@ public class CreateTask extends AppCompatActivity {
                 }
             }
         });
-        tv_nhacnho.setOnClickListener(new View.OnClickListener() {
-            @RequiresApi(api = Build.VERSION_CODES.N)
+        checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
-            public void onClick(View v) {
-                showDateTimePicker();
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked){
+                    tv_nhacnho.setEnabled(true);
+                }
+                else tv_nhacnho.setEnabled(false);
             }
+        });
+        tv_nhacnho.setOnClickListener(new View.OnClickListener() {
+                @RequiresApi(api = Build.VERSION_CODES.N)
+                @Override
+                public void onClick(View v) {
+                    showDateTimePicker();
+                }
         });
         //onClick Spinner item
         spinnerRemind.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -376,7 +385,7 @@ public class CreateTask extends AppCompatActivity {
             channel.setSound(uri,audioAttributes);
             // Register the channel with the system; you can't change the importance
             // or other notification behaviors after this
-            NotificationManager notificationManager = getSystemService(NotificationManager.class);
+            notificationManager = getSystemService(NotificationManager.class);
             notificationManager.createNotificationChannel(channel);
         }
     }
@@ -413,5 +422,6 @@ public class CreateTask extends AppCompatActivity {
             alarmManager= (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         }
         alarmManager.cancel(notifyPendingIntent);
+        notificationManager.cancel(1);
     }
 }
