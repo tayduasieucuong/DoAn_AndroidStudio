@@ -1,6 +1,7 @@
 package org.meicode.doan_android;
 
 import android.content.Intent;
+import android.media.Image;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -95,7 +96,14 @@ public class MainAdapter extends BaseExpandableListAdapter {
         imageView.setImageResource(images[flag]);
         String sChild = String.valueOf(getChild(i,i1));
         textView.setText(sChild);
-
+        ImageView btn_goto = view.findViewById(R.id.btn_gotodetail);
+        btn_goto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(view.getContext(),DetailTask.class);
+                view.getContext().startActivity(intent);
+            }
+        });
         return view;
     }
 
