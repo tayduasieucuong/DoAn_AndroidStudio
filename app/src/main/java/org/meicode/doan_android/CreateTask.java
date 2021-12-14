@@ -53,6 +53,8 @@ import java.util.Date;
 
 @RequiresApi(api = Build.VERSION_CODES.N)
 public class CreateTask extends AppCompatActivity {
+    public static String edt_tittle, edt_message;
+    public static final int NOTIFICICATION_ID = getNotificationID();
     Intent intent;
     PendingIntent notifyPendingIntent;
     AlarmManager alarmManager;
@@ -66,7 +68,6 @@ public class CreateTask extends AppCompatActivity {
     EditText et_des;
     CheckBox checkBox;
     EditText et_title;
-    TextView tv_repeat;
     TextView tv_nhacnho;
     NotificationManager notificationManager;
     ImageView btn_cross;
@@ -126,7 +127,6 @@ public class CreateTask extends AppCompatActivity {
         displaySpinner();
         onClick();
         createNotification();
-        tv_nhacnho.setEnabled(false);
     }
 
     private void onPushTask(){
@@ -181,6 +181,8 @@ public class CreateTask extends AppCompatActivity {
                     dr.child("Detail").child("Nhắc nhở").setValue(repeat);
                     dr.child("Detail").child("Danh sách").setValue(spinnerList.getSelectedItem().toString());
                     dr.child("Detail").child("Trạng thái").setValue("Chưa xong");
+                    dr.child("Detail").child("ID notification").setValue(NOTIFICICATION_ID);
+                    dr.child("Detail").child("Thời gian nhắc nhở").setValue(tv_nhacnho.getText().toString());
                     if(btn_ic_star==1)
                     {
                         dr2.child("Detail").child("Mô tả").setValue(et_des.getText().toString());
@@ -192,6 +194,8 @@ public class CreateTask extends AppCompatActivity {
                         dr2.child("Detail").child("Nhắc nhở").setValue(repeat);
                         dr2.child("Detail").child("Danh sách").setValue(spinnerList.getSelectedItem().toString());
                         dr2.child("Detail").child("Trạng thái").setValue("Chưa xong");
+                        dr2.child("Detail").child("ID notification").setValue(NOTIFICICATION_ID);
+                        dr2.child("Detail").child("Thời gian nhắc nhở").setValue(tv_nhacnho.getText().toString());
                     }
                     if (important==1)
                     {
@@ -204,6 +208,8 @@ public class CreateTask extends AppCompatActivity {
                         dr3.child("Detail").child("Nhắc nhở").setValue(repeat);
                         dr3.child("Detail").child("Danh sách").setValue(spinnerList.getSelectedItem().toString());
                         dr3.child("Detail").child("Trạng thái").setValue("Chưa xong");
+                        dr3.child("Detail").child("ID notification").setValue(NOTIFICICATION_ID);
+                        dr3.child("Detail").child("Thời gian nhắc nhở").setValue(tv_nhacnho.getText().toString());
                     }
                     Toast.makeText(CreateTask.this, "Add task Success", Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(CreateTask.this,TaskManagement.class));
@@ -380,7 +386,7 @@ public class CreateTask extends AppCompatActivity {
             CharSequence name = getString(R.string.channel_name);
             String description = getString(R.string.channel_description);
             int importance = NotificationManager.IMPORTANCE_HIGH;
-            NotificationChannel channel = new NotificationChannel("Notification", name, importance);
+            NotificationChannel channel = new NotificationChannel(Receiver.CHANNEL_ID, name, importance);
             channel.setDescription(description);
             channel.setSound(uri,audioAttributes);
             // Register the channel with the system; you can't change the importance
@@ -391,7 +397,9 @@ public class CreateTask extends AppCompatActivity {
     }
     private void scheduleNotification() {
         intent=new Intent(getApplicationContext(),Receiver.class);
-        notifyPendingIntent=PendingIntent.getBroadcast(getApplicationContext(), 1,intent,PendingIntent.FLAG_IMMUTABLE | PendingIntent.FLAG_UPDATE_CURRENT);
+        notifyPendingIntent=PendingIntent.getBroadcast(getApplicationContext(),NOTIFICICATION_ID,intent,PendingIntent.FLAG_IMMUTABLE | PendingIntent.FLAG_UPDATE_CURRENT);
+        edt_tittle=et_title.getText().toString();
+        edt_message=et_des.getText().toString();
         alarmManager= (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP,getTime(),notifyPendingIntent);
         switch (spinnerRemind.getSelectedItem().toString()){
@@ -415,13 +423,16 @@ public class CreateTask extends AppCompatActivity {
         }
         return  date.getTimeInMillis();
     }
+    public static int getNotificationID(){
+        return (int) new Date().getTime();
+    }
     private void cancelAlarm() {
         intent=new Intent(this, Receiver.class);
-        notifyPendingIntent=PendingIntent.getBroadcast(this,1,intent,PendingIntent.FLAG_CANCEL_CURRENT);
+        notifyPendingIntent=PendingIntent.getBroadcast(this,NOTIFICICATION_ID,intent,PendingIntent.FLAG_CANCEL_CURRENT);
         if(alarmManager==null){
             alarmManager= (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         }
         alarmManager.cancel(notifyPendingIntent);
-        notificationManager.cancel(1);
+        notificationManager.cancel(NOTIFICICATION_ID);
     }
 }

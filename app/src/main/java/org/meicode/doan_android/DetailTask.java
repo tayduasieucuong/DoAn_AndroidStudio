@@ -53,6 +53,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class DetailTask extends AppCompatActivity {
+    int IDNoti;
     Intent intent;
     DatabaseReference mData;
     PendingIntent notifyPendingIntent;
@@ -61,6 +62,7 @@ public class DetailTask extends AppCompatActivity {
     ImageView btn_star;
     ImageView btn_important;
     int important;
+    String tg_time;
     String date_string;
     Button tv_timestart;
     Button tv_timeend;
@@ -73,6 +75,7 @@ public class DetailTask extends AppCompatActivity {
     ImageView btn_cross;
     FirebaseDatabase database;
     DatabaseReference reference,rf;
+    NotificationManager notificationManager;
     Calendar date;
     String userid;
     String Name;
@@ -139,6 +142,29 @@ public class DetailTask extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 et_des.setText(snapshot.getValue().toString());
             }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+        rf.child("ID notification").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                IDNoti=Integer.parseInt(snapshot.getValue().toString());
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+        rf.child("Thời gian nhắc nhở").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                tv_nhacnho.setText(snapshot.getValue().toString());
+                tg_time=snapshot.getValue().toString();
+            }
+
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
@@ -310,6 +336,7 @@ public class DetailTask extends AppCompatActivity {
                     dr.child("Detail").child("Nhắc nhở").setValue(repeat);
                     dr.child("Detail").child("Danh sách").setValue(spinnerList.getSelectedItem().toString());
                     dr.child("Detail").child("Trạng thái").setValue("Chưa xong");
+                    dr.child("Detail").child("Thời gian nhắc nhở").setValue(tv_nhacnho.getText().toString());
                     if(btn_ic_star==1)
                     {
                         dr2.child("Detail").child("Mô tả").setValue(et_des.getText().toString());
@@ -321,6 +348,7 @@ public class DetailTask extends AppCompatActivity {
                         dr2.child("Detail").child("Nhắc nhở").setValue(repeat);
                         dr2.child("Detail").child("Danh sách").setValue(spinnerList.getSelectedItem().toString());
                         dr2.child("Detail").child("Trạng thái").setValue("Chưa xong");
+                        dr2.child("Detail").child("Thời gian nhắc nhở").setValue(tv_nhacnho.getText().toString());
                     }
                     if (important==1)
                     {
@@ -333,6 +361,7 @@ public class DetailTask extends AppCompatActivity {
                         dr3.child("Detail").child("Nhắc nhở").setValue(repeat);
                         dr3.child("Detail").child("Danh sách").setValue(spinnerList.getSelectedItem().toString());
                         dr3.child("Detail").child("Trạng thái").setValue("Chưa xong");
+                        dr3.child("Detail").child("Thời gian nhắc nhở").setValue(tv_nhacnho.getText().toString());
                     }
                     Toast.makeText(DetailTask.this, "Add task Success", Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(DetailTask.this,TaskManagement.class));
@@ -427,9 +456,10 @@ public class DetailTask extends AppCompatActivity {
             public void onClick(View view) {
                 onPushTask();
                 if (checkBox.isChecked()) {
+                    if (!tv_nhacnho.getText().equals(tg_time))
                     scheduleNotification();
                 }else {
-                    cancelAlarm();
+                    //cancelAlarm();
                 }
             }
         });
@@ -550,6 +580,6 @@ public class DetailTask extends AppCompatActivity {
             alarmManager= (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         }
         alarmManager.cancel(notifyPendingIntent);
+        notificationManager.cancel(IDNoti);
     }
-
 }

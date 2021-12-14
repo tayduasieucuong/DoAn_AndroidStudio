@@ -3,7 +3,15 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Android/DoAn_AndroidStudio/app/src/main/res/layout/activity_create_task.xml" value="0.264" />
         <entry key="..\:/DoAn_Android/app/src/main/res/drawable/rounded_edittext.xml" value="0.3125" />
+<<<<<<< HEAD
+=======
+        <entry key="..\:/DoAn_Android/app/src/main/res/layout/activity_complete_form.xml" value="0.37135416666666665" />
+        <entry key="..\:/DoAn_Android/app/src/main/res/layout/activity_create_task.xml" value="0.37135416666666665" />
+        <entry key="..\:/DoAn_Android/app/src/main/res/layout/activity_history_tasks.xml" value="0.37135416666666665" />
+        <entry key="..\:/DoAn_Android/app/src/main/res/layout/activity_input_time.xml" value="0.37135416666666665" />
+>>>>>>> 667f995c0a0164b923a06835d3dccdf70551f9d0
         <entry key="..\:/DoAn_Android/app/src/main/res/layout/activity_main.xml" value="0.21875" />
         <entry key="..\:/DoAn_Android/app/src/main/res/layout/activity_task_management.xml" value="0.38697916666666665" />
         <entry key="..\:/DoAn_Android/app/src/main/res/layout/activity_taskmangerment.xml" value="0.18385416666666668" />
