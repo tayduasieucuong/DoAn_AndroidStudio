@@ -154,7 +154,8 @@ public class TaskManagement extends AppCompatActivity {
                         Toast.makeText(TaskManagement.this, "Group", Toast.LENGTH_SHORT).show();
                         return true;
                     case R.id.calendar:
-                        Toast.makeText(TaskManagement.this, "Calendar", Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(TaskManagement.this,calendar_task.class));
+                        finish();
                         return true;
                     case R.id.alarm:
                         startActivity(new Intent(TaskManagement.this,input_time.class));
@@ -193,6 +194,7 @@ public class TaskManagement extends AppCompatActivity {
                     Intent intent = new Intent(TaskManagement.this,TaskMaster.class);
                     intent.putExtra("HeaderTitle",expandableListView.getItemAtPosition(position).toString());
                     startActivity(intent);
+                    Toast.makeText(getApplicationContext(), "Notify", Toast.LENGTH_SHORT).show();
                     finish();
                     //intent.putExtra("HeaderTitle",);
                     //onGroupLongClick(groupPosition);
@@ -202,11 +204,14 @@ public class TaskManagement extends AppCompatActivity {
                 else if (itemType == ExpandableListView.PACKED_POSITION_TYPE_CHILD) {
                     //  ...
                    //onChildLongClick(groupPosition, childPosition);
-                }
+                    Toast.makeText(getApplicationContext(), "Notify", Toast.LENGTH_SHORT).show();
+                    finish();
 
+                }
                 return false;
             }
         });
+
     }
     public void readTasks()
     {
