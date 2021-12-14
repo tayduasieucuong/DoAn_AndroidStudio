@@ -1,5 +1,13 @@
 package org.meicode.doan_android;
 
+import static android.text.InputType.TYPE_NULL;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+
 import android.app.AlarmManager;
 import android.app.DatePickerDialog;
 import android.app.NotificationChannel;
@@ -23,9 +31,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.CalendarView;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -34,26 +40,21 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
-
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-@RequiresApi(api = Build.VERSION_CODES.N)
-public class CreateTask extends AppCompatActivity {
+public class DetailTask extends AppCompatActivity {
     Intent intent;
+    DatabaseReference mData;
     PendingIntent notifyPendingIntent;
     AlarmManager alarmManager;
     ImageView btn_add;
@@ -68,12 +69,13 @@ public class CreateTask extends AppCompatActivity {
     EditText et_title;
     TextView tv_repeat;
     TextView tv_nhacnho;
-    NotificationManager notificationManager;
+    String NameOfTask;
     ImageView btn_cross;
     FirebaseDatabase database;
-    DatabaseReference reference;
+    DatabaseReference reference,rf;
     Calendar date;
     String userid;
+    String Name;
     int btn_ic_star = 0;
     Spinner spinnerRemind;
     Spinner spinnerList;
@@ -84,6 +86,14 @@ public class CreateTask extends AppCompatActivity {
         actionBar.setTitle("");
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_baseline_chevron_left_24);
         actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#ECB7F0")));
+
+        Bundle bundle = getIntent().getExtras();
+
+        if(bundle.getString("Name")!= null)
+        {
+            Name=bundle.getString("Name");
+        }
+
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         btn_add = (ImageView) findViewById(R.id.ps_save);
         tv_timeend = (Button) findViewById(R.id.ps_btnend);
@@ -92,6 +102,8 @@ public class CreateTask extends AppCompatActivity {
         et_des = (EditText) findViewById(R.id.ps_editTextTextMultiLine);
         btn_cross = (ImageView)findViewById(R.id.btn_close_calender);
         et_title = (EditText)findViewById(R.id.et_title);
+        et_title.setFocusable(false);
+        et_title.setFocusableInTouchMode(false);
         checkBox=(CheckBox)findViewById(R.id.checkBox2);
         btn_star = (ImageView) findViewById(R.id.ps_favorite);
         important = 0;
@@ -100,6 +112,7 @@ public class CreateTask extends AppCompatActivity {
         spinnerRemind = (Spinner)findViewById(R.id.ps_nhacnho);
         spinnerList= (Spinner) findViewById(R.id.ps_list);
         //Get uid
+        mData = FirebaseDatabase.getInstance().getReference();
         database = FirebaseDatabase.getInstance("https://doan-3672e-default-rtdb.asia-southeast1.firebasedatabase.app/");
         reference = database.getReference("Users");
         final SharedPreferences sharedPreferences = getSharedPreferences("USERID", MODE_PRIVATE);
@@ -118,17 +131,133 @@ public class CreateTask extends AppCompatActivity {
         adapter1.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
         spinnerList.setAdapter(adapter1);
     }
+    private  void LoadData() {
+        et_title.setText(Name);
+        rf= mData.child("Users").child(userid).child("Tasks").child("Tất cả công việc").child(Name).child("Detail");
+        rf.child("Mô tả").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                et_des.setText(snapshot.getValue().toString());
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+        rf.child("Lặp lại").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                switch(snapshot.getValue().toString()) {
+                    case "Không":
+                        spinnerRemind.setSelection(0);
+                        break;
+                    case "Theo ngày":
+                        spinnerRemind.setSelection(1);
+                        break;
+                    case "Theo tuần":
+                        spinnerRemind.setSelection(2);
+                        break;
+                    case "Theo tháng":
+                        spinnerRemind.setSelection(3);
+                        break;
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+        rf.child("Ngày bắt đầu").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                tv_timestart.setText(snapshot.getValue().toString());
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+        rf.child("Ngày kết thúc").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                tv_timeend.setText(snapshot.getValue().toString());
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+        rf.child("Nhắc nhở").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.getValue().toString().equals("Không")){
+                    checkBox.setChecked(false);
+                }
+                else{
+                    checkBox.setChecked(true);
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+        rf.child("Quan trọng").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.getValue().toString().equals("Có")){
+                    important =1;
+                    btn_important.setImageResource(R.drawable.ic_baseline_radio_button_unchecked_24);
+                }
+                else {
+                    important=0;
+                    btn_important.setImageResource(R.drawable.ic_baseline_radio_button_checked_24);
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+        rf.child("Yêu thích").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.getValue().toString().equals("Có")){
+                    btn_star.setImageResource(R.drawable.ic_baseline_star_24);
+                    btn_ic_star=1;
+                }
+                else {
+                    btn_star.setImageResource(R.drawable.ic_baseline_star_border_24);
+                    btn_ic_star=0;
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_create_task);
+        setContentView(R.layout.activity_detail_task);
         initView();
         displaySpinner();
+        LoadData();
+
+        if (savedInstanceState == null) {
+            Bundle extras = getIntent().getExtras();
+            if (extras == null) {
+                NameOfTask = null;
+            } else {
+                NameOfTask = extras.getString("Name");
+            }
+        }
         onClick();
         createNotification();
-        tv_nhacnho.setEnabled(false);
     }
-
     private void onPushTask(){
         reference.addChildEventListener(new ChildEventListener() {
             @Override
@@ -136,13 +265,13 @@ public class CreateTask extends AppCompatActivity {
                 if(userid.equals(snapshot.getKey()))
                 {
                     String repeat="";
-                    String favorite = "";
-                    String Important = "";
                     if(checkBox.isChecked()){
                         repeat = "Có";
                     }else{
                         repeat = "Không";
                     }
+                    String favorite = "";
+                    String Important = "";
                     if(important==0)
                         Important = "Không";
                     else
@@ -154,19 +283,19 @@ public class CreateTask extends AppCompatActivity {
                     //Check information
                     if(et_title==null || TextUtils.isEmpty(et_title.getText()))//Validate Title
                     {
-                        Toast.makeText(CreateTask.this, "Vui lòng nhập tiêu đề", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(DetailTask.this, "Vui lòng nhập tiêu đề", Toast.LENGTH_SHORT).show();
                         return;
                     }
                     try {//Validate Date
                         int rs = compareDate();
                         if (rs == 0 || rs > 0)
                         {
-                            Toast.makeText(CreateTask.this, "Chọn ngày sai !!!", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(DetailTask.this, "Chọn ngày sai !!!", Toast.LENGTH_SHORT).show();
                             return;
                         }
                     } catch (ParseException e) {
                         e.printStackTrace();
-                        Toast.makeText(CreateTask.this, "Vui lòng chọn ngày", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(DetailTask.this, "Vui lòng chọn ngày", Toast.LENGTH_SHORT).show();
                         return;
                     }
                     DatabaseReference dr3 = reference.child(snapshot.getKey()).child("Tasks").child("Công việc quan trọng").child(et_title.getText().toString());
@@ -205,8 +334,8 @@ public class CreateTask extends AppCompatActivity {
                         dr3.child("Detail").child("Danh sách").setValue(spinnerList.getSelectedItem().toString());
                         dr3.child("Detail").child("Trạng thái").setValue("Chưa xong");
                     }
-                    Toast.makeText(CreateTask.this, "Add task Success", Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(CreateTask.this,TaskManagement.class));
+                    Toast.makeText(DetailTask.this, "Add task Success", Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(DetailTask.this,TaskManagement.class));
                     finish();
                 }
             }
@@ -263,10 +392,11 @@ public class CreateTask extends AppCompatActivity {
             }
         });
         tv_timestart.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onClick(View view) {
                 final Calendar currentDate = android.icu.util.Calendar.getInstance();
-                new DatePickerDialog(CreateTask.this, new DatePickerDialog.OnDateSetListener() {
+                new DatePickerDialog(DetailTask.this, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                         monthOfYear++;
@@ -276,10 +406,11 @@ public class CreateTask extends AppCompatActivity {
             }
         });
         tv_timeend.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onClick(View view) {
                 final Calendar currentDate = android.icu.util.Calendar.getInstance();
-                new DatePickerDialog(CreateTask.this, new DatePickerDialog.OnDateSetListener() {
+                new DatePickerDialog(DetailTask.this, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                         monthOfYear++;
@@ -289,7 +420,9 @@ public class CreateTask extends AppCompatActivity {
             }
         });
 
+
         btn_add.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onClick(View view) {
                 onPushTask();
@@ -300,21 +433,12 @@ public class CreateTask extends AppCompatActivity {
                 }
             }
         });
-        checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(isChecked){
-                    tv_nhacnho.setEnabled(true);
-                }
-                else tv_nhacnho.setEnabled(false);
-            }
-        });
         tv_nhacnho.setOnClickListener(new View.OnClickListener() {
-                @RequiresApi(api = Build.VERSION_CODES.N)
-                @Override
-                public void onClick(View v) {
-                    showDateTimePicker();
-                }
+            @RequiresApi(api = Build.VERSION_CODES.N)
+            @Override
+            public void onClick(View v) {
+                showDateTimePicker();
+            }
         });
         //onClick Spinner item
         spinnerRemind.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -339,7 +463,7 @@ public class CreateTask extends AppCompatActivity {
             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                 date.set(year, monthOfYear, dayOfMonth);
                 date_string=dayOfMonth+"/"+monthOfYear+"/"+year;
-                new TimePickerDialog(CreateTask.this, new TimePickerDialog.OnTimeSetListener() {
+                new TimePickerDialog(DetailTask.this, new TimePickerDialog.OnTimeSetListener() {
                     @Override
                     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
                         date.set(Calendar.HOUR_OF_DAY, hourOfDay);
@@ -365,7 +489,7 @@ public class CreateTask extends AppCompatActivity {
         switch ( (item.getItemId()))
         {
             case android.R.id.home: {
-                startActivity(new Intent(CreateTask.this,TaskManagement.class));
+                startActivity(new Intent(DetailTask.this,TaskManagement.class));
                 finish();
                 return true;
             }
@@ -385,15 +509,18 @@ public class CreateTask extends AppCompatActivity {
             channel.setSound(uri,audioAttributes);
             // Register the channel with the system; you can't change the importance
             // or other notification behaviors after this
-            notificationManager = getSystemService(NotificationManager.class);
+            NotificationManager notificationManager = getSystemService(NotificationManager.class);
             notificationManager.createNotificationChannel(channel);
         }
     }
+    @RequiresApi(api = Build.VERSION_CODES.N)
     private void scheduleNotification() {
         intent=new Intent(getApplicationContext(),Receiver.class);
         notifyPendingIntent=PendingIntent.getBroadcast(getApplicationContext(), 1,intent,PendingIntent.FLAG_IMMUTABLE | PendingIntent.FLAG_UPDATE_CURRENT);
         alarmManager= (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-        alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP,getTime(),notifyPendingIntent);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP,getTime(),notifyPendingIntent);
+        }
         switch (spinnerRemind.getSelectedItem().toString()){
             case "Không":
                 break;
@@ -409,6 +536,7 @@ public class CreateTask extends AppCompatActivity {
         }
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     private long getTime() {
         if(Calendar.getInstance().after(date)){
             date.add(Calendar.DAY_OF_MONTH,1);
@@ -422,6 +550,6 @@ public class CreateTask extends AppCompatActivity {
             alarmManager= (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         }
         alarmManager.cancel(notifyPendingIntent);
-        notificationManager.cancel(1);
     }
+
 }

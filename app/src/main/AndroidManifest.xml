@@ -15,6 +15,10 @@
         android:theme="@style/Theme.DoAn_Android">
         <activity
             android:name=".calendar_task"
+            android:exported="true"
+            />
+        <activity
+            android:name=".DetailTask"
             android:exported="false" />
         <activity
             android:name=".WelcomeActivity"

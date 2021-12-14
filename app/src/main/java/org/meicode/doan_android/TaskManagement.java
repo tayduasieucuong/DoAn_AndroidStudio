@@ -1,5 +1,6 @@
 package org.meicode.doan_android;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -16,6 +17,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -53,7 +55,7 @@ public class TaskManagement extends AppCompatActivity {
     //Database Firebase
     FirebaseAuth AuthUI;
     FirebaseDatabase database;
-    DatabaseReference reference;
+    DatabaseReference reference,rf1;
     FirebaseUser user;
     String userid;
     DrawerLayout drawerLayout;
@@ -113,9 +115,24 @@ public class TaskManagement extends AppCompatActivity {
                     return true;
                 }else if(id == R.id.logout)
                 {
-                    AuthUI.getInstance().signOut();
-                    Intent intent2 = new Intent(TaskManagement.this,SignIn.class);
-                    startActivity(intent2);
+                    AlertDialog.Builder builder =new AlertDialog.Builder(TaskManagement.this);
+                    builder.setTitle("Bạn muốn đăng xuất");
+                    builder.setIcon(R.drawable.logout);
+                    builder.setPositiveButton("Có", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            AuthUI.getInstance().signOut();
+                            Intent intent2 = new Intent(TaskManagement.this,SignIn.class);
+                            startActivity(intent2);
+                        }
+                    });
+                    builder.setNegativeButton("Không", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+
+                        }
+                    });
+                    builder.show();
                     return true;
                 }
                 return false;
@@ -294,6 +311,47 @@ public class TaskManagement extends AppCompatActivity {
             searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
                 @Override
                 public boolean onQueryTextSubmit(String query) {
+                    reference.addChildEventListener(new ChildEventListener() {
+                        boolean kt = false;
+                        Intent intent = new Intent(TaskManagement.this, DetailTask.class);
+                        @Override
+                        public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                            if(userid.equals(snapshot.getKey())) {
+                                for (DataSnapshot ds : snapshot.child("Tasks").child("Tất cả công việc").getChildren()) {
+                                    String groupname = (String) ds.getKey();
+                                    if (groupname.equals(query)) {
+                                    intent.putExtra("Name",query);
+                                    kt=true;
+                                    }
+                                }
+                            }
+                            if(kt==true){
+                                startActivity(intent);
+                            }else{
+                                Toast.makeText(getApplicationContext(), "Không tìm thấy", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+
+                        @Override
+                        public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+                        }
+
+                        @Override
+                        public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+
+                        }
+
+                        @Override
+                        public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
                     return false;
                 }
 
