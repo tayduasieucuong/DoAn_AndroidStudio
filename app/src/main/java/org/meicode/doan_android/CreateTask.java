@@ -182,6 +182,7 @@ public class CreateTask extends AppCompatActivity {
                     dr.child("Detail").child("Danh sách").setValue(spinnerList.getSelectedItem().toString());
                     dr.child("Detail").child("Trạng thái").setValue("Chưa xong");
                     dr.child("Detail").child("ID notification").setValue(NOTIFICICATION_ID);
+                    dr.child("Detail").child("Thời gian nhắc nhở").setValue(tv_nhacnho.getText().toString());
                     if(btn_ic_star==1)
                     {
                         dr2.child("Detail").child("Mô tả").setValue(et_des.getText().toString());
@@ -194,6 +195,7 @@ public class CreateTask extends AppCompatActivity {
                         dr2.child("Detail").child("Danh sách").setValue(spinnerList.getSelectedItem().toString());
                         dr2.child("Detail").child("Trạng thái").setValue("Chưa xong");
                         dr2.child("Detail").child("ID notification").setValue(NOTIFICICATION_ID);
+                        dr2.child("Detail").child("Thời gian nhắc nhở").setValue(tv_nhacnho.getText().toString());
                     }
                     if (important==1)
                     {
@@ -207,6 +209,7 @@ public class CreateTask extends AppCompatActivity {
                         dr3.child("Detail").child("Danh sách").setValue(spinnerList.getSelectedItem().toString());
                         dr3.child("Detail").child("Trạng thái").setValue("Chưa xong");
                         dr3.child("Detail").child("ID notification").setValue(NOTIFICICATION_ID);
+                        dr3.child("Detail").child("Thời gian nhắc nhở").setValue(tv_nhacnho.getText().toString());
                     }
                     Toast.makeText(CreateTask.this, "Add task Success", Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(CreateTask.this,TaskManagement.class));
