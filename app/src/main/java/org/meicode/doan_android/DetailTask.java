@@ -53,6 +53,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class DetailTask extends AppCompatActivity {
+    int IDNoti;
     Intent intent;
     DatabaseReference mData;
     PendingIntent notifyPendingIntent;
@@ -73,6 +74,7 @@ public class DetailTask extends AppCompatActivity {
     ImageView btn_cross;
     FirebaseDatabase database;
     DatabaseReference reference,rf;
+    NotificationManager notificationManager;
     Calendar date;
     String userid;
     String Name;
@@ -139,6 +141,17 @@ public class DetailTask extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 et_des.setText(snapshot.getValue().toString());
             }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+        rf.child("ID notification").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                IDNoti=Integer.parseInt(snapshot.getValue().toString());
+            }
+
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
@@ -427,7 +440,7 @@ public class DetailTask extends AppCompatActivity {
             public void onClick(View view) {
                 onPushTask();
                 if (checkBox.isChecked()) {
-                    scheduleNotification();
+                    //scheduleNotification();
                 }else {
                     cancelAlarm();
                 }
@@ -550,6 +563,6 @@ public class DetailTask extends AppCompatActivity {
             alarmManager= (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         }
         alarmManager.cancel(notifyPendingIntent);
+        notificationManager.cancel(IDNoti);
     }
-
 }

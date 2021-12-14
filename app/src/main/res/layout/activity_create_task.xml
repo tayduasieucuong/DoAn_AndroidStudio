@@ -90,27 +90,27 @@
 
             <Button
                 android:id="@+id/ps_btnstart"
-                android:layout_width="wrap_content"
+                android:layout_width="130dp"
                 android:layout_height="40dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="40dp"
                 android:background="@drawable/bogoc_button"
                 android:text="Ngày bắt đầu"
                 android:textColor="@color/black"
-                android:textSize="10dp"
+                android:textSize="11dp"
                 app:layout_constraintStart_toEndOf="@+id/ps_imageView2"
                 app:layout_constraintTop_toBottomOf="@id/et_title" />
 
             <Button
                 android:id="@+id/ps_btnend"
-                android:layout_width="wrap_content"
+                android:layout_width="130dp"
                 android:layout_height="40dp"
                 android:layout_marginStart="15dp"
                 android:layout_marginTop="40dp"
                 android:background="@drawable/bogoc_button"
                 android:text="Ngày kết thúc "
                 android:textColor="@color/black"
-                android:textSize="10dp"
+                android:textSize="11dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toEndOf="@+id/ps_btnstart"
@@ -232,11 +232,13 @@
 
             <TextView
                 android:id="@+id/tv_nhacnho"
+                android:enabled="false"
                 android:layout_width="160dp"
                 android:layout_height="25dp"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="37dp"
                 android:background="@drawable/outline_edt"
+                android:textSize="10dp"
                 android:gravity="center"
                 android:textColor="@color/black"
                 app:layout_constraintStart_toEndOf="@+id/ps_textView2"
