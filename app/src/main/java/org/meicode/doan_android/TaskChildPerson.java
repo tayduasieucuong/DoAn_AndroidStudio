@@ -45,7 +45,7 @@ public class TaskChildPerson extends AppCompatActivity {
     Button btn_timestart;
     Button btn_timend;
     ImageView btn_close_calendar;
-
+    String forwardTo;
     private void initView(){
         Intent intent = getIntent();
         headerTitle = intent.getStringExtra("HeaderTitle");
@@ -66,6 +66,7 @@ public class TaskChildPerson extends AppCompatActivity {
         Intent intent = getIntent();
         actionBar = getSupportActionBar();
         actionBar.hide();
+        forwardTo = intent.getStringExtra("forwardTo");
         NameOfTask = intent.getStringExtra("NameOfTask");
         final SharedPreferences sharedPreferences = getSharedPreferences("USERID", MODE_PRIVATE);
         userid = sharedPreferences.getString("UID",null);
@@ -111,9 +112,24 @@ public class TaskChildPerson extends AppCompatActivity {
                     return;
                 }
                 onPushChildTask();
-                Intent intent = new Intent(TaskChildPerson.this,TaskMaster.class);
-                intent.putExtra("HeaderTitle",headerTitle);
-                startActivity(intent);
+                try{
+                    if(forwardTo.equals("TaskMasterChild"))
+                    {
+                        Intent intent = new Intent(TaskChildPerson.this,TaskMasterChild.class);
+                        intent.putExtra("HeaderMaster",headerTitle);
+                        intent.putExtra("HeaderName",NameOfTask);
+                        startActivity(intent);
+                    }else{
+                        Intent intent = new Intent(TaskChildPerson.this,TaskMaster.class);
+                        intent.putExtra("HeaderTitle",headerTitle);
+                        startActivity(intent);
+                    }
+                }catch (Exception exception)
+                {
+                    Intent intent = new Intent(TaskChildPerson.this,TaskMaster.class);
+                    intent.putExtra("HeaderTitle",headerTitle);
+                    startActivity(intent);
+                }
                 finish();
             }
         });

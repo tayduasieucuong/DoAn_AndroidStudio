@@ -39,14 +39,15 @@ public class TaskMasterChild extends AppCompatActivity {
     String headerMaster;
     FirebaseDatabase database;
     DatabaseReference reference;
+    ListViewAdapter adapter;
     private void InitView(){
         tv = (TextView) findViewById(R.id.tv_title);
         btn_add_child_task = (ImageView) findViewById(R.id.btn_add_task);
     }
     private void getData(){
         Intent intent = getIntent();
-        headername = intent.getStringExtra("HeaderName");
-        headerMaster = intent.getStringExtra("HeaderMaster");
+        headername = intent.getStringExtra("HeaderName"); // OK
+        headerMaster = intent.getStringExtra("HeaderMaster");//tat ca cong viec
         tv.setText(headername);
         database = FirebaseDatabase.getInstance("https://doan-3672e-default-rtdb.asia-southeast1.firebasedatabase.app/");
         reference = database.getReference("Users");
@@ -63,16 +64,29 @@ public class TaskMasterChild extends AppCompatActivity {
         getData();
         lv = (ListView) findViewById(R.id.lv);
         list = new ArrayList<String>();
-        readTasks();
-        ListViewAdapter adapter = new ListViewAdapter(this, R.layout.layout_item_child_taskmaster,list,headerMaster,headername);
+        adapter = new ListViewAdapter(this, R.layout.layout_item_child_taskmaster,list,headerMaster,headername);
         lv.setAdapter(adapter);
+        readTasks();
         onClick();
     }
     private void onClick(){
         btn_add_child_task.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Intent intent = new Intent(TaskMasterChild.this,TaskChildPerson.class);
+                intent.putExtra("NameOfTask",headername);
+                intent.putExtra("HeaderTitle",headerMaster);
+                intent.putExtra("forwardTo","TaskMasterChild");
+                startActivity(intent);
+                finish();
+            }
+        });
+        FloatingActionButton btn_add_task = findViewById(R.id.addbottom);
+        btn_add_task.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(TaskMasterChild.this,CreateTask.class));
+                finish();
             }
         });
     }
@@ -83,11 +97,11 @@ public class TaskMasterChild extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         //actionBar.setLogo(R.drawable.ic_menu);
         //actionBar.setDisplayUseLogoEnabled(true);
-        actionBar.setHomeAsUpIndicator(R.drawable.ic_menu);
+        actionBar.setHomeAsUpIndicator(R.drawable.ic_baseline_chevron_left_24);
         actionBar.setTitle("");
 //        actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#FFFFFF")));
         actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#ECB7F0")));
-        actionBar.setElevation(1);
+        actionBar.setElevation(3);
     }
     private  void setBottomNavigation()
     {
@@ -106,7 +120,8 @@ public class TaskMasterChild extends AppCompatActivity {
                         Toast.makeText(TaskMasterChild.this, "Group", Toast.LENGTH_SHORT).show();
                         return true;
                     case R.id.calendar:
-                        Toast.makeText(TaskMasterChild.this, "Calendar", Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(TaskMasterChild.this,calendar_task.class));
+                        finish();
                         return true;
                     case R.id.alarm:
                         startActivity(new Intent(TaskMasterChild.this,input_time.class));
@@ -129,6 +144,7 @@ public class TaskMasterChild extends AppCompatActivity {
                         list.add(ds.getKey().toString()+"/"+ds.child("Detail").child("Trạng thái").getValue().toString());
                     }
                 }
+                adapter.notifyDataSetChanged();
             }
 
             @Override
@@ -151,5 +167,16 @@ public class TaskMasterChild extends AppCompatActivity {
 
             }
         });
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        int id = item.getItemId();
+        if(id == android.R.id.home)
+        {
+            startActivity(new Intent(TaskMasterChild.this,TaskManagement.class));
+            finish();
+        }
+        return true;
     }
 }

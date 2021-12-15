@@ -139,7 +139,7 @@ public class TaskMaster extends AppCompatActivity {
         actionBar.setTitle("");
 
         actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#ECB7F0")));
-        actionBar.setElevation(1);
+        actionBar.setElevation(3);
     }
     private  void setBottomNavigation()
     {
