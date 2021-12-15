@@ -38,11 +38,20 @@
             android:id="@+id/btn_gotodetail"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginEnd="20dp"
+            app:layout_constraintEnd_toStartOf="@+id/btn_info"
             android:src="@drawable/ic_baseline_arrow_right_24"
             tools:ignore="MissingConstraints" />
+        <ImageView
+            android:id="@+id/btn_info"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:src="@drawable/ic_baseline_info_24"
+            android:layout_marginEnd="15dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

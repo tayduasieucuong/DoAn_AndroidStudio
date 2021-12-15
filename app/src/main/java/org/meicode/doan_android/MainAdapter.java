@@ -97,7 +97,14 @@ public class MainAdapter extends BaseExpandableListAdapter {
         String sChild = String.valueOf(getChild(i,i1));
         textView.setText(sChild);
         ImageView btn_goto = view.findViewById(R.id.btn_gotodetail);
+        ImageView btn_info = view.findViewById(R.id.btn_info);
         btn_goto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(view.getContext(), "GOTO TASK", Toast.LENGTH_SHORT).show();
+            }
+        });
+        btn_info.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(view.getContext(),DetailTask.class);
