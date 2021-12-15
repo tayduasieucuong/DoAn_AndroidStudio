@@ -71,19 +71,19 @@ public class AdapterHistory extends BaseExpandableListAdapter {
         TextView textView = view.findViewById(R.id.tv_name);
         TextView tv_percent = view.findViewById(R.id.tv_percent);
         String sChild = String.valueOf(getChild(i,i1));
-        String text1,text2;
-        String[] temp = sChild.split("/");
-        text1 = temp[0];
-        text2 = temp[1];
-        textView.setText(text1);
-        temp = text2.split("%");
-        if(Integer.parseInt(temp[0].toString())<=50)
+        String title,dateCompleted, percent;
+        String[] temp = sChild.split("=",3);
+        title = temp[0].split("/")[0].toString();
+        dateCompleted = temp[1].split(",")[0].toString();
+        percent = temp[2].split("%")[0].toString();
+        textView.setText(title);
+        if(Integer.parseInt(percent)<=50)
         {
             tv_percent.setTextColor(Color.parseColor("#fc0331"));
         }else{
             tv_percent.setTextColor(Color.parseColor("#76ff03"));
         }
-        tv_percent.setText(text2);
+        tv_percent.setText(percent+"%");
         return view;
     }
 
