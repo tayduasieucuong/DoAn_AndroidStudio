@@ -2,16 +2,18 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    >
+    android:background="#FFFFFF"
+    android:backgroundTint="#FFFFFF"
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="horizontal"
-        android:layout_weight="13">
+        android:layout_weight="13"
+        android:backgroundTint="#FFFFFF"
+        android:orientation="horizontal">
 
         <ImageButton
             android:id="@+id/ps_back"
@@ -52,9 +54,9 @@
                 android:id="@+id/ps_save"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
-                android:layout_marginTop="28dp"
                 android:background="@color/white"
                 android:scaleType="fitCenter"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.474"
                 app:layout_constraintStart_toEndOf="@+id/ps_importain"
@@ -264,9 +266,9 @@
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:layout_marginStart="40dp"
-                android:layout_marginTop="28dp"
                 android:background="@color/white"
                 android:scaleType="fitCenter"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/ps_list"
                 app:srcCompat="@drawable/recyclebin60" />
@@ -276,9 +278,9 @@
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:layout_marginStart="32dp"
-                android:layout_marginTop="28dp"
                 android:background="@color/white"
                 android:scaleType="fitCenter"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/ps_delete"
                 app:layout_constraintTop_toBottomOf="@+id/ps_list"
                 app:srcCompat="@drawable/star48" />
@@ -288,9 +290,9 @@
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:layout_marginStart="32dp"
-                android:layout_marginTop="28dp"
                 android:background="@color/white"
                 android:scaleType="fitCenter"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/ps_favorite"
                 app:layout_constraintTop_toBottomOf="@+id/ps_list"
                 app:srcCompat="@drawable/redcircle48" />

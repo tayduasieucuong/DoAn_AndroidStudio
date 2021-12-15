@@ -14,9 +14,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.DoAn_Android">
         <activity
+            android:name=".charts_task"
+            android:exported="false" />
+        <activity
             android:name=".calendar_task"
-            android:exported="true"
-            />
+            android:exported="true" />
         <activity
             android:name=".DetailTask"
             android:exported="false" />
@@ -79,7 +81,7 @@
             android:exported="true" />
         <activity
             android:name=".MainActivity"
-            android:exported="true"></activity>
+            android:exported="true" />
     </application>
 
 </manifest>

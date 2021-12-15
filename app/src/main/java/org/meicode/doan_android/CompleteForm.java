@@ -23,6 +23,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.Calendar;
+
 public class CompleteForm extends AppCompatActivity {
     String taskChild;
     String taskMaster;
@@ -177,12 +179,18 @@ public class CompleteForm extends AppCompatActivity {
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                 if (userid.equals(snapshot.getKey()))
                 {
+
+                    Calendar calendar = Calendar.getInstance();
                     String[] temp = taskChild.split("/");
                     taskChild = temp[0];
-                    DatabaseReference dr2 = reference.child(snapshot.getKey()).child("Tasks").child("Lịch sử công việc").child(taskMaster).child("TasksChild").child(taskChild);
+                    DatabaseReference dr2 = reference.child(snapshot.getKey()).child("Tasks").child("Lịch sử công việc").child(taskMaster).child("TasksChild").child(taskChild).child("Phần trăm hoàn thành");
                     dr2.setValue(tv_percent.getText().toString());
                     DatabaseReference dr = reference.child(snapshot.getKey()).child("Tasks").child("Tất cả công việc").child(taskMaster).child("TasksChild").child(taskChild).child("Detail").child("Trạng thái");
                     dr.setValue("Xong");
+                    DatabaseReference dr3 = reference.child(snapshot.getKey()).child("Tasks").child("Lịch sử công việc").child(taskMaster).child("TasksChild").child(taskChild).child("Ngày hoàn thành");
+
+                    dr3.setValue(calendar.getTimeInMillis()).toString();
+
                 }
             }
 

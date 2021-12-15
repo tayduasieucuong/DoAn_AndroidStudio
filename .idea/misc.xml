@@ -3,15 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Android/DoAn_AndroidStudio/app/src/main/res/layout/activity_create_task.xml" value="0.264" />
         <entry key="..\:/DoAn_Android/app/src/main/res/drawable/rounded_edittext.xml" value="0.3125" />
-<<<<<<< HEAD
-=======
-        <entry key="..\:/DoAn_Android/app/src/main/res/layout/activity_complete_form.xml" value="0.37135416666666665" />
-        <entry key="..\:/DoAn_Android/app/src/main/res/layout/activity_create_task.xml" value="0.37135416666666665" />
-        <entry key="..\:/DoAn_Android/app/src/main/res/layout/activity_history_tasks.xml" value="0.37135416666666665" />
-        <entry key="..\:/DoAn_Android/app/src/main/res/layout/activity_input_time.xml" value="0.37135416666666665" />
->>>>>>> 667f995c0a0164b923a06835d3dccdf70551f9d0
         <entry key="..\:/DoAn_Android/app/src/main/res/layout/activity_main.xml" value="0.21875" />
         <entry key="..\:/DoAn_Android/app/src/main/res/layout/activity_task_management.xml" value="0.38697916666666665" />
         <entry key="..\:/DoAn_Android/app/src/main/res/layout/activity_taskmangerment.xml" value="0.18385416666666668" />
@@ -49,14 +41,17 @@
         <entry key="..\:/Git Everything/DoAn_AndroidStudio/app/src/main/res/layout/activity_create_task.xml" value="0.2318840579710145" />
         <entry key="..\:/Git Everything/DoAn_AndroidStudio/app/src/main/res/layout/activity_history_tasks.xml" value="0.2318840579710145" />
         <entry key="..\:/Users/nguyen thi nhan/Desktop/DoAn_AndroidStudio/app/src/main/res/drawable/bogoc_button.xml" value="0.19166666666666668" />
+        <entry key="..\:/Users/nguyen thi nhan/Desktop/DoAn_AndroidStudio/app/src/main/res/layout/activity_bar_chart.xml" value="0.1" />
         <entry key="..\:/Users/nguyen thi nhan/Desktop/DoAn_AndroidStudio/app/src/main/res/layout/activity_calendar_task.xml" value="0.12454710144927536" />
+        <entry key="..\:/Users/nguyen thi nhan/Desktop/DoAn_AndroidStudio/app/src/main/res/layout/activity_charts_task.xml" value="0.1" />
         <entry key="..\:/Users/nguyen thi nhan/Desktop/DoAn_AndroidStudio/app/src/main/res/layout/activity_complete_form.xml" value="0.13768115942028986" />
         <entry key="..\:/Users/nguyen thi nhan/Desktop/DoAn_AndroidStudio/app/src/main/res/layout/activity_create_task.xml" value="0.1" />
         <entry key="..\:/Users/nguyen thi nhan/Desktop/DoAn_AndroidStudio/app/src/main/res/layout/activity_detail_task.xml" value="0.22" />
         <entry key="..\:/Users/nguyen thi nhan/Desktop/DoAn_AndroidStudio/app/src/main/res/layout/activity_history_tasks.xml" value="0.14719202898550723" />
         <entry key="..\:/Users/nguyen thi nhan/Desktop/DoAn_AndroidStudio/app/src/main/res/layout/activity_input_time.xml" value="0.22" />
         <entry key="..\:/Users/nguyen thi nhan/Desktop/DoAn_AndroidStudio/app/src/main/res/layout/activity_main.xml" value="0.13768115942028986" />
-        <entry key="..\:/Users/nguyen thi nhan/Desktop/DoAn_AndroidStudio/app/src/main/res/layout/activity_task_child_person.xml" value="0.1" />
+        <entry key="..\:/Users/nguyen thi nhan/Desktop/DoAn_AndroidStudio/app/src/main/res/layout/activity_pie_chart.xml" value="0.1" />
+        <entry key="..\:/Users/nguyen thi nhan/Desktop/DoAn_AndroidStudio/app/src/main/res/layout/activity_task_child_person.xml" value="0.22" />
         <entry key="..\:/Users/nguyen thi nhan/Desktop/DoAn_AndroidStudio/app/src/main/res/layout/activity_task_management.xml" value="0.1" />
         <entry key="..\:/Users/nguyen thi nhan/Desktop/DoAn_AndroidStudio/app/src/main/res/layout/activity_task_master.xml" value="0.1" />
         <entry key="..\:/Users/nguyen thi nhan/Desktop/DoAn_AndroidStudio/app/src/main/res/layout/activity_taskmangerment.xml" value="0.1" />
@@ -68,7 +63,7 @@
         <entry key="..\:/Users/nguyen thi nhan/Desktop/DoAn_AndroidStudio/app/src/main/res/layout/forgot_pass.xml" value="0.14719202898550723" />
         <entry key="..\:/Users/nguyen thi nhan/Desktop/DoAn_AndroidStudio/app/src/main/res/layout/header_drawer.xml" value="0.16666666666666666" />
         <entry key="..\:/Users/nguyen thi nhan/Desktop/DoAn_AndroidStudio/app/src/main/res/layout/job_person.xml" value="0.16666666666666666" />
-        <entry key="..\:/Users/nguyen thi nhan/Desktop/DoAn_AndroidStudio/app/src/main/res/layout/job_project.xml" value="0.1" />
+        <entry key="..\:/Users/nguyen thi nhan/Desktop/DoAn_AndroidStudio/app/src/main/res/layout/job_project.xml" value="0.3333333333333333" />
         <entry key="..\:/Users/nguyen thi nhan/Desktop/DoAn_AndroidStudio/app/src/main/res/layout/layout_group_history.xml" value="0.1" />
         <entry key="..\:/Users/nguyen thi nhan/Desktop/DoAn_AndroidStudio/app/src/main/res/layout/layout_item.xml" value="0.1" />
         <entry key="..\:/Users/nguyen thi nhan/Desktop/DoAn_AndroidStudio/app/src/main/res/layout/layout_item_child_taskmaster.xml" value="0.1" />
