@@ -101,7 +101,8 @@ public class MainAdapter extends BaseExpandableListAdapter {
         btn_goto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(view.getContext(), "GOTO TASK", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(view.getContext(),TaskMasterChild.class);
+                view.getContext().startActivity(intent);
             }
         });
         btn_info.setOnClickListener(new View.OnClickListener() {
