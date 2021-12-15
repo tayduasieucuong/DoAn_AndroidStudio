@@ -102,6 +102,8 @@ public class MainAdapter extends BaseExpandableListAdapter {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(view.getContext(),TaskMasterChild.class);
+                intent.putExtra("HeaderMaster",listGroup.get(i).toString());
+                intent.putExtra("HeaderName",sChild);
                 view.getContext().startActivity(intent);
             }
         });

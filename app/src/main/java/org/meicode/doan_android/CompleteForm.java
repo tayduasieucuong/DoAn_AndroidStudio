@@ -41,12 +41,14 @@ public class CompleteForm extends AppCompatActivity {
     ImageView btn_delete;
     String headerTitle;
     String tasktemp;
+    String forwardTo;
     int indexGroup;
     int indexItem;
     ImageView btn_back;
     ActionBar actionBar;
     private void getDatafromAnotherActivity(){
         Intent intent = getIntent();
+        forwardTo = intent.getStringExtra("forwardTo");
         taskMaster = intent.getStringExtra("NameOfTask");
         headerTitle = intent.getStringExtra("HeaderTitle");
         taskChild = intent.getStringExtra("NameOfChildTask");
@@ -55,8 +57,8 @@ public class CompleteForm extends AppCompatActivity {
         final SharedPreferences sharedPreferences = getSharedPreferences("USERID", MODE_PRIVATE);
         userid = sharedPreferences.getString("UID",null);
         String[] task = taskChild.split("/");
-        tasktemp = task[0];
-        title.setText(tasktemp);
+        taskChild = task[0];
+        title.setText(taskChild);
         database = FirebaseDatabase.getInstance("https://doan-3672e-default-rtdb.asia-southeast1.firebasedatabase.app/");
         reference = database.getReference("Users");
     }
@@ -147,7 +149,7 @@ public class CompleteForm extends AppCompatActivity {
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                 if (userid.equals(snapshot.getKey()))
                 {
-                    DatabaseReference dr = reference.child(snapshot.getKey()).child("Tasks").child("Tất cả công việc").child(taskMaster).child("TasksChild").child(tasktemp);
+                    DatabaseReference dr = reference.child(snapshot.getKey()).child("Tasks").child("Tất cả công việc").child(taskMaster).child("TasksChild").child(taskChild);
                     dr.removeValue();
                 }
             }
@@ -181,8 +183,6 @@ public class CompleteForm extends AppCompatActivity {
                 {
 
                     Calendar calendar = Calendar.getInstance();
-                    String[] temp = taskChild.split("/");
-                    taskChild = temp[0];
                     DatabaseReference dr2 = reference.child(snapshot.getKey()).child("Tasks").child("Lịch sử công việc").child(taskMaster).child("TasksChild").child(taskChild).child("Phần trăm hoàn thành");
                     dr2.setValue(tv_percent.getText().toString());
                     DatabaseReference dr = reference.child(snapshot.getKey()).child("Tasks").child("Tất cả công việc").child(taskMaster).child("TasksChild").child(taskChild).child("Detail").child("Trạng thái");
@@ -264,9 +264,23 @@ public class CompleteForm extends AppCompatActivity {
             public void onClick(View view) {
                 onCompleteTask();
                 Toast.makeText(CompleteForm.this, "Task is completed", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(CompleteForm.this,TaskMaster.class);
-                intent.putExtra("HeaderTitle",headerTitle);
-                startActivity(intent);
+                try {
+                    if (forwardTo.equals("TaskMasterChild")) {
+                        Intent intent = new Intent(CompleteForm.this, TaskMasterChild.class);
+                        intent.putExtra("HeaderName", taskMaster);//tatcacongviec
+                        intent.putExtra("HeaderMaster", headerTitle);
+                        startActivity(intent);
+                    } else {
+                        Intent intent = new Intent(CompleteForm.this, TaskMaster.class);
+                        intent.putExtra("HeaderTitle", headerTitle);
+                        startActivity(intent);
+                    }
+                }catch (Exception exception)
+                {
+                    Intent intent = new Intent(CompleteForm.this, TaskMaster.class);
+                    intent.putExtra("HeaderTitle", headerTitle);
+                    startActivity(intent);
+                }
                 finish();
             }
         });
