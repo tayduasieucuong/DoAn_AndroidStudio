@@ -31,6 +31,7 @@ public class TaskMasterChild extends AppCompatActivity {
     ActionBar actionBar;
     BottomNavigationView bottomNavigationView;
     ArrayList<String> list;
+    ArrayList<String> listTime;
     ListView lv;
     TextView tv;
     ImageView btn_add_child_task;
@@ -64,7 +65,8 @@ public class TaskMasterChild extends AppCompatActivity {
         getData();
         lv = (ListView) findViewById(R.id.lv);
         list = new ArrayList<String>();
-        adapter = new ListViewAdapter(this, R.layout.layout_item_child_taskmaster,list,headerMaster,headername);
+        listTime = new ArrayList<String>();
+        adapter = new ListViewAdapter(this, R.layout.layout_item_child_taskmaster,list,headerMaster,headername,listTime);
         lv.setAdapter(adapter);
         readTasks();
         onClick();
@@ -142,6 +144,7 @@ public class TaskMasterChild extends AppCompatActivity {
                     for (DataSnapshot ds : snapshot.child("Tasks").child(headerMaster).child(headername).child("TasksChild").getChildren())
                     {
                         list.add(ds.getKey().toString()+"/"+ds.child("Detail").child("Trạng thái").getValue().toString());
+                        listTime.add(ds.child("Detail").child("Ngày bắt đầu").getValue().toString() + "-" +ds.child("Detail").child("Ngày kết thúc").getValue().toString());
                     }
                 }
                 adapter.notifyDataSetChanged();

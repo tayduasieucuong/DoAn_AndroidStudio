@@ -8,7 +8,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CalendarView;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -137,28 +136,28 @@ public class TaskChildPerson extends AppCompatActivity {
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onClick(View view) {
-                final Calendar currentDate = android.icu.util.Calendar.getInstance();
+                final Calendar currentDate = Calendar.getInstance();
                 new DatePickerDialog(TaskChildPerson.this, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                         monthOfYear++;
                         btn_timestart.setText(dayOfMonth+"/"+monthOfYear+"/"+year);
                     }
-                }, currentDate.get(android.icu.util.Calendar.YEAR), currentDate.get(android.icu.util.Calendar.MONTH), currentDate.get(Calendar.DATE)).show();
+                }, currentDate.get(Calendar.YEAR), currentDate.get(Calendar.MONTH), currentDate.get(Calendar.DATE)).show();
             }
         });
         btn_timend.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onClick(View view) {
-                final Calendar currentDate = android.icu.util.Calendar.getInstance();
+                final Calendar currentDate = Calendar.getInstance();
                 new DatePickerDialog(TaskChildPerson.this, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                         monthOfYear++;
                         btn_timend.setText(dayOfMonth+"/"+monthOfYear+"/"+year);
                     }
-                }, currentDate.get(android.icu.util.Calendar.YEAR), currentDate.get(android.icu.util.Calendar.MONTH), currentDate.get(Calendar.DATE)).show();
+                }, currentDate.get(Calendar.YEAR), currentDate.get(Calendar.MONTH), currentDate.get(Calendar.DATE)).show();
             }
         });
 
@@ -176,6 +175,8 @@ public class TaskChildPerson extends AppCompatActivity {
                     if(!et_descript.getText().toString().equals("")) {
                         dr.child(et_title.getText().toString()).child("Detail").child("Mô tả").setValue(et_descript.getText().toString());
                         dr.child(et_title.getText().toString()).child("Detail").child("Trạng thái").setValue("Chưa xong");
+                        dr.child(et_title.getText().toString()).child("Detail").child("Ngày bắt đầu").setValue(btn_timestart.getText().toString());
+                        dr.child(et_title.getText().toString()).child("Detail").child("Ngày kết thúc").setValue(btn_timend.getText().toString());
                         Toast.makeText(TaskChildPerson.this,"Create Task Success",Toast.LENGTH_SHORT).show();
                     }
                 }

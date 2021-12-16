@@ -9,7 +9,6 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -22,7 +21,8 @@ public class ListViewAdapter extends ArrayAdapter {
     List<String> list;
     String nameofTask;
     String headerTitle;
-    public ListViewAdapter(Context context, int layout, List<String> list,String nameofTask, String headerTitle)
+    List<String> listTime;
+    public ListViewAdapter(Context context, int layout, List<String> list, String nameofTask, String headerTitle, List<String> listTime)
     {
         super(context,layout,list);
         this.layout = layout;
@@ -30,6 +30,7 @@ public class ListViewAdapter extends ArrayAdapter {
         this.context = context;
         this.nameofTask = nameofTask;
         this.headerTitle = headerTitle;
+        this.listTime = listTime;
     }
 
     @NonNull
@@ -47,6 +48,7 @@ public class ListViewAdapter extends ArrayAdapter {
             holder.imgright = (ImageView) row.findViewById(R.id.btn_star);
             holder.tv= (TextView) row.findViewById(R.id.tv_content);
             holder.btn_add = (ImageView) row.findViewById(R.id.btn_add_child_task);
+            holder.tv_time = (TextView) row.findViewById(R.id.tv_time);
             row.setTag(holder);
         }else
         {
@@ -58,7 +60,10 @@ public class ListViewAdapter extends ArrayAdapter {
         String content = dataSplited[0];
         String status = dataSplited[1];
         holder.tv.setText(content);
-
+        String[] dateData = listTime.get(position).toString().split("-");
+        String timeStart = dateData[0];
+        String timeEnd = dateData[1];
+        holder.tv_time.setText(timeStart + " -> " + timeEnd);
         if (status.equals("Xong")){
             holder.btn_complete.setImageResource(R.drawable.ic_baseline_radio_button_checked_24);
             holder.btn_complete.setEnabled(false);
@@ -85,5 +90,6 @@ public class ListViewAdapter extends ArrayAdapter {
         TextView tv;
         ImageView imgright;
         ImageView btn_add;
+        TextView tv_time;
     }
 }
