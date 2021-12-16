@@ -1,121 +1,130 @@
 package org.meicode.doan_android;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.icu.util.Calendar;
 import android.os.Build;
 import android.os.Bundle;
+
+import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.BaseAdapter;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.time.LocalDate;
-import java.time.YearMonth;
-import java.time.format.DateTimeFormatter;
+import com.github.sundeepk.compactcalendarview.CompactCalendarView;
+import com.github.sundeepk.compactcalendarview.domain.Event;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Locale;
 
-public class calendar_task extends AppCompatActivity implements CalendarAdapter.OnItemListener{
 
+public class calendar_task extends AppCompatActivity{
 
+    ImageView nextMonth,backMonth;
+    TextView textView;
+    ListView listView;
+    CompactCalendarView compactCalendar;
+    FirebaseDatabase database;
+    DatabaseReference mData, rf;
+    FirebaseAuth mAuth;
+    SimpleDateFormat sdf;
+    String userid;
+    String date,message;
+    Date date1;
+    Event ev;
+    ArrayList<Event_Calendar> arr=new ArrayList<>();
+    private SimpleDateFormat dateFormatMonth = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
 
-    //      calendar
-    private TextView monthYearText;
-    private RecyclerView calendarRecyclerView;
-    private LocalDate selectedDate;
-    @RequiresApi(api = Build.VERSION_CODES.O)
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.calendar);
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.hide();
-        initWidgets();
-        selectedDate = LocalDate.now();
-        setMonthView();
-    }
-
-
-
-
-
-//  calendar
-
-
-    private void initWidgets()
-    {
-        calendarRecyclerView = findViewById(R.id.calendarRecyclerView);
-        monthYearText = findViewById(R.id.monthYearTV);
-    }
-
-    @RequiresApi(api = Build.VERSION_CODES.O)
-    private void setMonthView()
-    {
-        monthYearText.setText(monthYearFromDate(selectedDate));
-        ArrayList<String> daysInMonth = daysInMonthArray(selectedDate);
-
-        CalendarAdapter calendarAdapter = new CalendarAdapter(daysInMonth, this);
-        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getApplicationContext(), 7);
-        calendarRecyclerView.setLayoutManager(layoutManager);
-        calendarRecyclerView.setAdapter(calendarAdapter);
-    }
-
-    @RequiresApi(api = Build.VERSION_CODES.O)
-    private ArrayList<String> daysInMonthArray(LocalDate date)
-    {
-        ArrayList<String> daysInMonthArray = new ArrayList<>();
-        YearMonth yearMonth = YearMonth.from(date);
-
-        int daysInMonth = yearMonth.lengthOfMonth();
-
-        LocalDate firstOfMonth = selectedDate.withDayOfMonth(1);
-        int dayOfWeek = firstOfMonth.getDayOfWeek().getValue();
-
-        for(int i = 1; i <= 42; i++)
-        {
-            if(i <= dayOfWeek || i > daysInMonth + dayOfWeek)
-            {
-                daysInMonthArray.add("");
+        final ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(false);
+        actionBar.setTitle(null);
+        textView=(TextView) findViewById(R.id.monthYearTV);
+        listView=(ListView) findViewById(R.id.lv_event);
+        nextMonth.findViewById(R.id.next_event);
+        backMonth.findViewById(R.id.back_event);
+        compactCalendar = (CompactCalendarView) findViewById(R.id.compactcalendar_view);
+        compactCalendar.setUseThreeLetterAbbreviation(true);
+        mAuth = FirebaseAuth.getInstance();
+        database = FirebaseDatabase.getInstance("https://doan-3672e-default-rtdb.asia-southeast1.firebasedatabase.app/");
+        mData = database.getReference("Users");
+        final SharedPreferences sharedPreferences = getSharedPreferences("USERID", MODE_PRIVATE);
+        userid = sharedPreferences.getString("UID", null);
+        sdf = new SimpleDateFormat("dd/MM/yyyy");
+        readTasks();
+        //Set an event for Teachers' Professional Day 2016 which is 21st of
+        compactCalendar.setListener(new CompactCalendarView.CompactCalendarViewListener() {
+            @Override
+            public void onDayClick(Date dateClicked) {
+                Context context = getApplicationContext();
+                ArrayList<Event_Calendar> list=new ArrayList<>();
+                for (int i=0;i<arr.size();i++){
+                    if(arr.get(i).getDate().compareTo(dateClicked)==0){
+                        list.add(arr.get(i));
+                    }
+                }
+                EventAdapter customAdapter=new EventAdapter(calendar_task.this,list);
+                listView.setAdapter(customAdapter);
+                customAdapter.notifyDataSetChanged();
             }
-            else
-            {
-                daysInMonthArray.add(String.valueOf(i - dayOfWeek));
+            @Override
+            public void onMonthScroll(Date firstDayOfNewMonth) {
+                textView.setText(dateFormatMonth.format(firstDayOfNewMonth));
             }
-        }
-        return  daysInMonthArray;
+        });
+
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
-    private String monthYearFromDate(LocalDate date)
-    {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMMM yyyy");
-        return date.format(formatter);
-    }
+    private void readTasks() {
+        ValueEventListener valueEventListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot dataSnapshot: snapshot.child(userid).child("Tasks").child("Tất cả công việc").getChildren()){
+                    date=dataSnapshot.child("Detail").child("Ngày kết thúc").getValue().toString();
+                    message=dataSnapshot.child("Detail").child("Mô tả").getValue().toString();
+                    try {
+                        date1=sdf.parse(date);
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                    ev = new Event(Color.RED,date1.getTime(),dataSnapshot.getKey());
+                    compactCalendar.addEvent(ev);
+                    arr.add(new Event_Calendar(date1,dataSnapshot.getKey(),message));
+                }
+            }
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
-    public void previousMonthAction(View view)
-    {
-        selectedDate = selectedDate.minusMonths(1);
-        setMonthView();
-    }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
-    public void nextMonthAction(View view)
-    {
-        selectedDate = selectedDate.plusMonths(1);
-        setMonthView();
-    }
-
-    @RequiresApi(api = Build.VERSION_CODES.O)
-    @Override
-    public void onItemClick(int position, String dayText)
-    {
-        if(!dayText.equals(""))
-        {
-            String message = "Selected Date " + dayText + " " + monthYearFromDate(selectedDate);
-            Toast.makeText(this, message, Toast.LENGTH_LONG).show();
-        }
+            }
+        };
+        mData.addValueEventListener(valueEventListener);
     }
 
 }

@@ -417,7 +417,7 @@ public class CreateTask extends AppCompatActivity {
         }
     }
 
-    private long getTime() {
+    public long getTime() {
         if(Calendar.getInstance().after(date)){
             date.add(Calendar.DAY_OF_MONTH,1);
         }
