@@ -22,7 +22,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
@@ -34,7 +33,10 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 
 public class TaskManagement extends AppCompatActivity {
@@ -60,6 +62,15 @@ public class TaskManagement extends AppCompatActivity {
     String email;
     TextView userName;
     TextView userEmail;
+    String DueTo;
+    String CurrentDate;
+    private void getCurrentDate(){
+        long millis=System.currentTimeMillis();
+        java.sql.Date date=new java.sql.Date(millis);
+        CurrentDate = date.toString();
+        String[] DateCurrentTemp = CurrentDate.split("-",3);
+        CurrentDate = DateCurrentTemp[2] + "/" + DateCurrentTemp[1] + "/" + DateCurrentTemp[0];
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,7 +85,11 @@ public class TaskManagement extends AppCompatActivity {
         reference = database.getReference("Users");
         final SharedPreferences sharedPreferences = getSharedPreferences("USERID", MODE_PRIVATE);
         userid = sharedPreferences.getString("UID",null);
+        //getCurrent Time
+        getCurrentDate();
+
         readTasks();
+        onDueTo();
         //
         adapter = new MainAdapter(listGroup,listChild);
         expandableListView.setAdapter(adapter);
@@ -82,6 +97,65 @@ public class TaskManagement extends AppCompatActivity {
         setOnClickExpandListView();
         onClick();
     }
+    private void onDueTo(){
+        reference.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                String key = snapshot.getKey().toString();
+                if(userid.equals(key))
+                {
+                    for(DataSnapshot ds : snapshot.child("Tasks").child("Tất cả công việc").getChildren())
+                    {
+                        String dateDue = ds.child("Detail").child("Ngày kết thúc").getValue().toString();
+                        int rs = 0;
+                        try {
+                            rs = compareDate(CurrentDate,dateDue);
+                        }catch (Exception exception){
+
+                        }
+                        if(rs > 0)
+                        {
+                            for(DataSnapshot dss : ds.child("Detail").getChildren())
+                            {
+                                DatabaseReference dr = reference.child(snapshot.getKey().toString()).child("Tasks").child("Lịch sử công việc");
+                                dr.child(ds.getKey().toString()).child("Detail").child(dss.getKey().toString()).setValue(dss.getValue().toString());
+                            }
+                            DatabaseReference dr = reference.child(key).child("Tasks").child("Tất cả công việc").child(ds.getKey().toString());
+                            dr.removeValue();
+                            recreate();
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+    private int compareDate(String dateA,String dateB) throws ParseException {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        Date date1 = sdf.parse(dateA);
+        Date date2 = sdf.parse(dateB);
+        int result = date1.compareTo(date2);
+        return result;
+    };
     private void onClick(){
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
