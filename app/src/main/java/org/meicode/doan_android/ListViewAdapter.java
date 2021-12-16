@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -45,7 +46,7 @@ public class ListViewAdapter extends ArrayAdapter {
             row = inflater.inflate(layout,parent,false);
             holder = new AdapterHolder();
             holder.btn_complete = (ImageView) row.findViewById(R.id.btn_checkbox);
-            holder.imgright = (ImageView) row.findViewById(R.id.btn_star);
+            holder.btn_info = (ImageView) row.findViewById(R.id.btn_star);
             holder.tv= (TextView) row.findViewById(R.id.tv_content);
             holder.btn_add = (ImageView) row.findViewById(R.id.btn_add_child_task);
             holder.tv_time = (TextView) row.findViewById(R.id.tv_time);
@@ -82,13 +83,19 @@ public class ListViewAdapter extends ArrayAdapter {
                 view.getContext().startActivity(intent);
             }
         });
+        holder.btn_info.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(view.getContext(), "Go to information", Toast.LENGTH_SHORT).show();
+            }
+        });
         return row;
     }
     class AdapterHolder
     {
         ImageView btn_complete;
         TextView tv;
-        ImageView imgright;
+        ImageView btn_info;
         ImageView btn_add;
         TextView tv_time;
     }
