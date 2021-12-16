@@ -99,7 +99,7 @@ public class TaskManagement extends AppCompatActivity {
                     return true;
                 }else if(id == R.id.analyst)
                 {
-                    startActivity(new Intent(TaskManagement.this,charts_task.class));
+                    startActivity(new Intent(TaskManagement.this,input_Chart.class));
                     finish();
                     return true;
                 }else if(id == R.id.share)

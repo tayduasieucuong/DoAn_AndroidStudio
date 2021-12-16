@@ -14,6 +14,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.DoAn_Android">
         <activity
+            android:name=".input_Chart"
+            android:exported="true" />
+        <activity
             android:name=".TaskMasterChild"
             android:exported="false" />
         <activity

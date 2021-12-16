@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlarmManager;
 import android.app.DatePickerDialog;
+import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -459,7 +460,9 @@ public class DetailTask extends AppCompatActivity {
                     if (!tv_nhacnho.getText().equals(tg_time))
                     scheduleNotification();
                 }else {
-                    //cancelAlarm();
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                        cancelAlarm();
+                    }
                 }
             }
         });
@@ -529,18 +532,21 @@ public class DetailTask extends AppCompatActivity {
     }
     private void createNotification() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            Uri uri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-            AudioAttributes audioAttributes=new AudioAttributes.Builder().setUsage(AudioAttributes.USAGE_NOTIFICATION).build();
-            CharSequence name = getString(R.string.channel_name);
-            String description = getString(R.string.channel_description);
-            int importance = NotificationManager.IMPORTANCE_HIGH;
-            NotificationChannel channel = new NotificationChannel("Notification", name, importance);
-            channel.setDescription(description);
-            channel.setSound(uri,audioAttributes);
-            // Register the channel with the system; you can't change the importance
-            // or other notification behaviors after this
-            NotificationManager notificationManager = getSystemService(NotificationManager.class);
-            notificationManager.createNotificationChannel(channel);
+//            Uri uri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+//            AudioAttributes audioAttributes=new AudioAttributes.Builder().setUsage(AudioAttributes.USAGE_NOTIFICATION).build();
+//            CharSequence name = getString(R.string.channel_name);
+//            String description = getString(R.string.channel_description);
+//            int importance = NotificationManager.IMPORTANCE_HIGH;
+//            NotificationChannel channel = new NotificationChannel("Notification", name, importance);
+//            channel.setDescription(description);
+//            channel.setSound(uri,audioAttributes);
+//            // Register the channel with the system; you can't change the importance
+//            // or other notification behaviors after this
+//            notificationManager = getSystemService(NotificationManager.class);
+//            notificationManager.createNotificationChannel(channel);
+              NotificationManager notificationManager =
+                    (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+
         }
     }
     @RequiresApi(api = Build.VERSION_CODES.N)
@@ -573,13 +579,15 @@ public class DetailTask extends AppCompatActivity {
         }
         return  date.getTimeInMillis();
     }
+    @RequiresApi(api = Build.VERSION_CODES.O)
     private void cancelAlarm() {
-        intent=new Intent(this, Receiver.class);
-        notifyPendingIntent=PendingIntent.getBroadcast(this,1,intent,PendingIntent.FLAG_CANCEL_CURRENT);
-        if(alarmManager==null){
-            alarmManager= (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-        }
-        alarmManager.cancel(notifyPendingIntent);
-        notificationManager.cancel(IDNoti);
+//        intent=new Intent(this, Receiver.class);
+//        notifyPendingIntent=PendingIntent.getBroadcast(this,1,intent,PendingIntent.FLAG_CANCEL_CURRENT);
+//        if(alarmManager==null){
+//            alarmManager= (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+//        }
+//        alarmManager.cancel(notifyPendingIntent);
+//        notificationManager.cancel(IDNoti);
+        notificationManager.deleteNotificationChannel("Notification");
     }
 }

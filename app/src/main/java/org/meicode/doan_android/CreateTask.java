@@ -386,7 +386,7 @@ public class CreateTask extends AppCompatActivity {
             CharSequence name = getString(R.string.channel_name);
             String description = getString(R.string.channel_description);
             int importance = NotificationManager.IMPORTANCE_HIGH;
-            NotificationChannel channel = new NotificationChannel(Receiver.CHANNEL_ID, name, importance);
+            NotificationChannel channel = new NotificationChannel("Notification", name, importance);
             channel.setDescription(description);
             channel.setSound(uri,audioAttributes);
             // Register the channel with the system; you can't change the importance
