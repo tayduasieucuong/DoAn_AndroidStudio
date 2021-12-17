@@ -42,7 +42,7 @@ public class EventAdapter extends BaseAdapter {
         TextView tittle=(TextView) convertView.findViewById(R.id.event_tittle);
         TextView message=(TextView) convertView.findViewById(R.id.event_message);
         imageView.setImageResource(R.drawable.tasks);
-        tittle.setText(event_calendar.getName() + " tới hạn.");
+        tittle.setText(event_calendar.getName() + " đến hạn");
         message.setText(event_calendar.getMess());
         return convertView;
     }

@@ -33,9 +33,11 @@
         <entry key="..\:/DoAn_AndroidStudio/app/src/main/res/layout/activity_complete_form.xml" value="0.10916919959473151" />
         <entry key="..\:/DoAn_AndroidStudio/app/src/main/res/layout/activity_history_tasks.xml" value="0.1334853090172239" />
         <entry key="..\:/DoAn_AndroidStudio/app/src/main/res/layout/activity_main.xml" value="0.21829710144927536" />
-        <entry key="..\:/DoAn_AndroidStudio/app/src/main/res/layout/activity_task_management.xml" value="0.1334853090172239" />
+        <entry key="..\:/DoAn_AndroidStudio/app/src/main/res/layout/activity_task_management.xml" value="0.2" />
         <entry key="..\:/DoAn_AndroidStudio/app/src/main/res/layout/activity_task_master.xml" value="0.1334853090172239" />
         <entry key="..\:/DoAn_AndroidStudio/app/src/main/res/layout/activity_taskmangerment.xml" value="0.1" />
+        <entry key="..\:/DoAn_AndroidStudio/app/src/main/res/layout/calendar.xml" value="0.27447916666666666" />
+        <entry key="..\:/DoAn_AndroidStudio/app/src/main/res/layout/event_calendar.xml" value="0.14375" />
         <entry key="..\:/DoAn_AndroidStudio/app/src/main/res/layout/header_drawer.xml" value="0.27447916666666666" />
         <entry key="..\:/DoAn_AndroidStudio/app/src/main/res/layout/layout_group_history.xml" value="0.1334853090172239" />
         <entry key="..\:/DoAn_AndroidStudio/app/src/main/res/layout/layout_item.xml" value="0.176" />

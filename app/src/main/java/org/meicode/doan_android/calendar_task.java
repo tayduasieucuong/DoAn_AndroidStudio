@@ -7,6 +7,7 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.icu.util.Calendar;
@@ -14,6 +15,7 @@ import android.os.Build;
 import android.os.Bundle;
 
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -63,8 +65,9 @@ public class calendar_task extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.calendar);
         final ActionBar actionBar = getSupportActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(false);
-        actionBar.setTitle(null);
+        actionBar.setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        actionBar.setTitle("Calendar");
         textView=(TextView) findViewById(R.id.monthYearTV);
         listView=(ListView) findViewById(R.id.lv_event);
         nextMonth=findViewById(R.id.n_event);
@@ -150,4 +153,14 @@ public class calendar_task extends AppCompatActivity{
         mData.addValueEventListener(valueEventListener);
     }
 
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        int id = item.getItemId();
+        if(id == android.R.id.home)
+        {
+            startActivity(new Intent(this,TaskManagement.class));
+            finish();
+        }
+        return true;
+    }
 }

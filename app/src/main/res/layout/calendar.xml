@@ -13,58 +13,61 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:layout_marginBottom="20dp"
-        android:background="#FFFFFF"
+
         android:backgroundTint="#FFFFFF"
         android:orientation="horizontal">
 
         <ImageView
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:src="@drawable/back_event"
+            android:src="@drawable/ic_baseline_chevron_left_24"
         android:id="@+id/b_event"></ImageView>
         <TextView
             android:id="@+id/monthYearTV"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="2"
             android:text="Feb 2021"
             android:textAlignment="center"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
+            android:textStyle="bold"
             android:textSize="25sp" />
 
         <ImageView
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:src="@drawable/next_event"
+            android:src="@drawable/ic_baseline_chevron_right_24"
             android:id="@+id/n_event"></ImageView>
             </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#FFFFFF"
-        android:backgroundTint="#FFFFFF"
+        android:backgroundTint="@color/black"
+        android:paddingTop="20dp"
         android:orientation="horizontal">
 
         <com.github.sundeepk.compactcalendarview.CompactCalendarView
+            android:backgroundTint="@android:color/transparent"
             android:id="@+id/compactcalendar_view"
             android:layout_width="fill_parent"
             android:layout_height="250dp"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
-            app:compactCalendarBackgroundColor="#ffffff"
-            app:compactCalendarCurrentDayBackgroundColor="#ffffff"
-            app:compactCalendarCurrentSelectedDayBackgroundColor="#ffff00"
-            app:compactCalendarMultiEventIndicatorColor="#ffffff"
+            app:compactCalendarBackgroundColor="@android:color/transparent"
+            app:compactCalendarCurrentDayBackgroundColor="@android:color/transparent"
+            app:compactCalendarCurrentSelectedDayBackgroundColor="#FF9800"
+            app:compactCalendarMultiEventIndicatorColor="@android:color/transparent"
             app:compactCalendarTargetHeight="250dp"
-            app:compactCalendarTextColor="#000000"
+            app:compactCalendarTextColor="@color/white"
             app:compactCalendarTextSize="23dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.132" />
+            app:layout_constraintVertical_bias="0.132"
+            tools:ignore="MissingClass" />
 
     </LinearLayout>
 
@@ -73,9 +76,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#F6F6F6"
-        android:backgroundTint="#FFFFFF"
+        android:backgroundTint="@android:color/transparent"
         android:orientation="vertical">
-
         <ListView
             android:id="@+id/lv_event"
             android:layout_width="match_parent"
