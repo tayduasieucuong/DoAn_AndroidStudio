@@ -127,6 +127,18 @@ public class calendar_task extends AppCompatActivity{
                     ev = new Event(Color.RED,date1.getTime(),dataSnapshot.getKey());
                     compactCalendar.addEvent(ev);
                     arr.add(new Event_Calendar(date1,dataSnapshot.getKey(),message));
+                    for (DataSnapshot dataChild:dataSnapshot.child("TasksChild").getChildren()){
+                        date=dataChild.child("Detail").child("Ngày kết thúc").getValue().toString();
+                        message=dataChild.child("Detail").child("Mô tả").getValue().toString();
+                        try {
+                            date1=sdf.parse(date);
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
+                        ev = new Event(Color.RED,date1.getTime(),dataChild.getKey());
+                        compactCalendar.addEvent(ev);
+                        arr.add(new Event_Calendar(date1,dataChild.getKey(),message));
+                    }
                 }
             }
 
