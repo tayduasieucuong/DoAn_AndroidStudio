@@ -37,6 +37,7 @@ public class HistoryTasks extends AppCompatActivity {
     DatabaseReference reference;
     AdapterHistory adapterTaskItem;
     ArrayList<String> childItem;
+    ArrayList<String> listGroupDetail = new ArrayList<>();
     private void getData(){
         final SharedPreferences sharedPreferences = getSharedPreferences("USERID", MODE_PRIVATE);
         userid = sharedPreferences.getString("UID",null);
@@ -52,7 +53,7 @@ public class HistoryTasks extends AppCompatActivity {
         setBottomNavigation();
         getData();
         onReadTasks();
-        adapterTaskItem = new AdapterHistory(listGroup,listChild);
+        adapterTaskItem = new AdapterHistory(listGroup,listChild,listGroupDetail);
         expandableListView.setAdapter(adapterTaskItem);
     }
     private void onReadTasks(){
@@ -66,6 +67,7 @@ public class HistoryTasks extends AppCompatActivity {
                     {
                         String groupname =(String) ds.getKey();
                         listGroup.add(groupname);
+                        listGroupDetail.add(ds.child("Detail").child("Ngày bắt đầu").getValue().toString() + "-" + ds.child("Detail").child("Ngày kết thúc").getValue().toString()+"-"+ds.child("Detail").child("Trạng thái").getValue().toString());
                         childItem = new ArrayList<>();
                         for (DataSnapshot dschild : ds.child("TasksChild").getChildren())
                         {
@@ -106,7 +108,7 @@ public class HistoryTasks extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_baseline_chevron_left_24);
         //actionBar.setDisplayUseLogoEnabled(true);
-        actionBar.setTitle("");
+        actionBar.setTitle("Lịch sử công việc");
         actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#FFFFFF")));
         actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#ECB7F0")));
     }

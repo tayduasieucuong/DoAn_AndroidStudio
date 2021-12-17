@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -13,12 +14,13 @@ import java.util.HashMap;
 public class AdapterHistory extends BaseExpandableListAdapter {
     //Init
     ArrayList<String>  listGroup;
+    ArrayList<String> listGroupDetail;
     HashMap<String,ArrayList<String>> listChild;
-    public AdapterHistory(ArrayList<String> listGroup, HashMap<String,ArrayList<String>> listChild)
+    public AdapterHistory(ArrayList<String> listGroup, HashMap<String,ArrayList<String>> listChild, ArrayList<String> listGroupDetail)
     {
         this.listChild = listChild;
         this.listGroup = listGroup;
-
+        this.listGroupDetail = listGroupDetail;
     }
     @Override
     public int getGroupCount() {
@@ -60,6 +62,16 @@ public class AdapterHistory extends BaseExpandableListAdapter {
     public View getGroupView(int i, boolean b, View view, ViewGroup viewGroup) {
         view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.layout_group_history,viewGroup,false);
         TextView textView = view.findViewById(R.id.tv_title);
+        TextView tv_time = view.findViewById(R.id.tv_time);
+        TextView tv_status = view.findViewById(R.id.tv_status);
+        ImageView img_status = view.findViewById(R.id.dot_status);
+        String[] dataDetail = listGroupDetail.get(i).split("-",3);
+        tv_time.setText(dataDetail[0]+" -> "+dataDetail[1]);
+        tv_status.setText(dataDetail[2]);
+        if(dataDetail[2].equals("Xong"))
+            img_status.setImageResource(R.drawable.ic_dot);
+        else
+            img_status.setImageResource(R.drawable.ic_dot_red);
         String sGroup = String.valueOf(getGroup(i));
         textView.setText(sGroup);
         return view;
