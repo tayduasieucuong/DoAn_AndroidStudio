@@ -2,22 +2,43 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    >
+    android:backgroundTint="#FFFFFF"
+    android:orientation="vertical">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="10dp"
+        android:layout_weight="13"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/ps_back"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginTop="10dp"
+            android:layout_weight="1"
+            android:background="@color/white"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_baseline_arrow_back_ios_new_24"
+            tools:ignore="MissingConstraints,SpeakableTextPresentCheck" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1"
+        android:backgroundTint="#FFFFFF"
         android:orientation="vertical">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:backgroundTint="#FFFFFF"
             app:layout_constraintStart_toStartOf="parent"
-            tools:layout_editor_absoluteY="-16dp">
+            tools:layout_editor_absoluteY="16dp">
 
             <EditText
                 android:id="@+id/et_title"
@@ -38,14 +59,25 @@
                 android:id="@+id/ps_save"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:layout_marginTop="50dp"
+                android:layout_marginTop="72dp"
+                android:layout_marginEnd="104dp"
                 android:background="@color/white"
                 android:scaleType="fitCenter"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.474"
-                app:layout_constraintStart_toEndOf="@+id/ps_importain"
-                app:layout_constraintTop_toBottomOf="@+id/ps_list"
+                app:layout_constraintTop_toBottomOf="@+id/ps_nhacnho"
                 app:srcCompat="@drawable/doubletick48" />
+
+            <ImageButton
+                android:id="@+id/ps_delete"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="116dp"
+                android:layout_marginTop="72dp"
+                android:background="@color/white"
+                android:scaleType="fitCenter"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ps_nhacnho"
+                app:srcCompat="@drawable/ic_baseline_delete_forever_24" />
 
             <ImageView
                 android:id="@+id/ps_imageView2"
@@ -77,17 +109,6 @@
                 app:layout_constraintTop_toBottomOf="@+id/ps_editTextTextMultiLine"
                 app:srcCompat="@drawable/ic_baseline_loop_24" />
 
-            <ImageView
-                android:id="@+id/ps_imageView7"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginStart="32dp"
-
-                android:layout_marginTop="30dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/ps_imageView5"
-                app:srcCompat="@drawable/ic_baseline_format_list_bulleted_24" />
-
             <Button
                 android:id="@+id/ps_btnstart"
                 android:layout_width="wrap_content"
@@ -105,14 +126,15 @@
                 android:id="@+id/ps_btnend"
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
-                android:layout_marginStart="15dp"
+                android:layout_marginStart="10dp"
                 android:layout_marginTop="40dp"
+                android:layout_marginEnd="10dp"
                 android:background="@drawable/bogoc_button"
                 android:text="Ngày kết thúc "
                 android:textColor="@color/black"
                 android:textSize="10dp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintHorizontal_bias="0.234"
                 app:layout_constraintStart_toEndOf="@+id/ps_btnstart"
                 app:layout_constraintTop_toBottomOf="@id/et_title" />
 
@@ -126,6 +148,32 @@
                 app:layout_constraintStart_toEndOf="@+id/ps_imageView3"
                 app:layout_constraintTop_toBottomOf="@+id/ps_btnstart" />
 
+            <TextView
+                android:id="@+id/tv_nhacnho"
+                android:layout_width="160dp"
+                android:layout_height="25dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="37dp"
+                android:background="@drawable/outline_edt"
+                android:enabled="false"
+                android:gravity="center"
+                android:textColor="@color/black"
+                android:textSize="10dp"
+                app:layout_constraintStart_toEndOf="@+id/ps_textView2"
+                app:layout_constraintTop_toBottomOf="@+id/ps_btnend" />
+
+            <CheckBox
+                android:id="@+id/checkBox2"
+                android:layout_width="41dp"
+                android:layout_height="42dp"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="28dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toEndOf="@+id/tv_nhacnho"
+                app:layout_constraintTop_toBottomOf="@+id/ps_btnend" />
+
+
             <Spinner
                 android:id="@+id/ps_nhacnho"
                 android:layout_width="214dp"
@@ -134,28 +182,6 @@
                 android:layout_marginTop="40dp"
                 app:layout_constraintStart_toEndOf="@+id/ps_textView3"
                 app:layout_constraintTop_toBottomOf="@+id/ps_editTextTextMultiLine" />
-
-            <Spinner
-                android:id="@+id/ps_list"
-                android:layout_width="0dp"
-                android:layout_height="20dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="50dp"
-                android:layout_marginEnd="10dp"
-                app:layout_constraintEnd_toStartOf="@+id/ps_btnadd2"
-                app:layout_constraintStart_toEndOf="@+id/ps_imageView7"
-                app:layout_constraintTop_toBottomOf="@+id/ps_nhacnho" />
-
-            <ImageButton
-                android:id="@+id/ps_btnadd2"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:layout_marginTop="50dp"
-                android:layout_marginEnd="30dp"
-                android:padding="10dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/ps_nhacnho"
-                app:srcCompat="@drawable/ic_baseline_add_circle_24" />
 
             <EditText
                 android:id="@+id/ps_editTextTextMultiLine"
@@ -174,7 +200,8 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toEndOf="@+id/ps_imageView4"
-                app:layout_constraintTop_toBottomOf="@+id/ps_textView2" />
+                app:layout_constraintTop_toBottomOf="@+id/tv_nhacnho"
+                tools:ignore="MissingConstraints" />
 
             <ImageView
                 android:id="@+id/ps_imageView3"
@@ -187,44 +214,6 @@
                 app:srcCompat="@drawable/ic_baseline_alarm_24" />
 
 
-            <ImageButton
-                android:id="@+id/ps_favorite"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginTop="50dp"
-                android:background="@color/white"
-                android:scaleType="fitCenter"
-                app:layout_constraintEnd_toStartOf="@+id/ps_importain"
-                app:layout_constraintStart_toEndOf="@+id/ps_delete"
-                app:layout_constraintTop_toBottomOf="@+id/ps_list"
-                app:srcCompat="@drawable/ic_baseline_star_border_24"
-                tools:ignore="MissingConstraints" />
-
-            <ImageButton
-                android:id="@+id/ps_delete"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginStart="52dp"
-                android:layout_marginTop="48dp"
-                android:background="@color/white"
-                android:scaleType="fitCenter"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/ps_list"
-                app:srcCompat="@drawable/ic_baseline_delete_forever_24"
-                tools:ignore="MissingConstraints" />
-
-            <ImageButton
-                android:id="@+id/ps_importain"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginTop="50dp"
-                android:background="@color/white"
-                android:scaleType="fitCenter"
-                app:layout_constraintEnd_toStartOf="@+id/ps_save"
-                app:layout_constraintStart_toEndOf="@+id/ps_favorite"
-                app:layout_constraintTop_toBottomOf="@+id/ps_list"
-                app:srcCompat="@drawable/ic_baseline_radio_button_unchecked_24" />
-
             <TextView
                 android:id="@+id/ps_textView3"
                 android:layout_width="0dp"
@@ -232,31 +221,9 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="40dp"
                 android:text="Lặp lại"
+
                 app:layout_constraintStart_toEndOf="@+id/ps_imageView5"
                 app:layout_constraintTop_toBottomOf="@+id/ps_editTextTextMultiLine" />
-
-            <TextView
-                android:id="@+id/tv_nhacnho"
-                android:layout_width="160dp"
-                android:layout_height="25dp"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="37dp"
-                android:background="@drawable/outline_edt"
-                android:gravity="center"
-                android:textColor="@color/black"
-                app:layout_constraintStart_toEndOf="@+id/ps_textView2"
-                app:layout_constraintTop_toBottomOf="@+id/ps_btnend" />
-
-            <CheckBox
-                android:id="@+id/checkBox2"
-                android:layout_width="41dp"
-                android:layout_height="42dp"
-                android:layout_marginStart="12dp"
-                android:layout_marginTop="28dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toEndOf="@+id/tv_nhacnho"
-                app:layout_constraintTop_toBottomOf="@+id/ps_btnend" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

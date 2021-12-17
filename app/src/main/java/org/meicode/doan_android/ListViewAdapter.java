@@ -86,7 +86,12 @@ public class ListViewAdapter extends ArrayAdapter {
         holder.btn_info.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(view.getContext(), "Go to information", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(view.getContext(),Detail_Child_Task.class);
+                intent.putExtra("NameOfChildTask",content);
+                intent.putExtra("NameOfTask",headerTitle);
+                intent.putExtra("HeaderTitle",nameofTask);
+                intent.putExtra("forwardTo","TaskMasterChild");
+                view.getContext().startActivity(intent);
             }
         });
         return row;

@@ -38,7 +38,7 @@
             android:layout_height="match_parent"
             android:backgroundTint="#FFFFFF"
             app:layout_constraintStart_toStartOf="parent"
-            tools:layout_editor_absoluteY="0dp">
+            tools:layout_editor_absoluteY="16dp">
 
             <EditText
                 android:id="@+id/et_title"
@@ -59,15 +59,15 @@
                 android:id="@+id/ps_save"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="20dp"
+                android:layout_marginBottom="220dp"
                 android:background="@color/white"
                 android:scaleType="fitCenter"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.474"
-                app:layout_constraintStart_toEndOf="@+id/ps_importain"
-                app:layout_constraintTop_toBottomOf="@+id/ps_list"
+                app:layout_constraintHorizontal_bias="0.886"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ps_nhacnho"
+                app:layout_constraintVertical_bias="1.0"
                 app:srcCompat="@drawable/doubletick48" />
 
             <ImageView
@@ -79,17 +79,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/et_title"
                 app:srcCompat="@drawable/ic_baseline_event_24" />
-
-            <TextView
-                android:id="@+id/ps_textviewattach"
-                android:layout_width="0dp"
-                android:layout_height="20dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="50dp"
-                android:layout_marginEnd="10dp"
-                app:layout_constraintEnd_toStartOf="@+id/ps_btnattach"
-                app:layout_constraintStart_toEndOf="@+id/ps_imageView6"
-                app:layout_constraintTop_toBottomOf="@+id/ps_textView3" />
 
             <ImageView
                 android:id="@+id/ps_imageView4"
@@ -110,27 +99,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/ps_editTextTextMultiLine"
                 app:srcCompat="@drawable/ic_baseline_loop_24" />
-
-            <ImageView
-                android:id="@+id/ps_imageView6"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginStart="30dp"
-                android:layout_marginTop="30dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/ps_imageView5"
-                app:srcCompat="@drawable/ic_baseline_attachment_24" />
-
-            <ImageView
-                android:id="@+id/ps_imageView7"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginStart="30dp"
-                android:layout_marginTop="30dp"
-
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/ps_imageView6"
-                app:srcCompat="@drawable/ic_baseline_format_list_bulleted_24" />
 
             <Button
                 android:id="@+id/ps_btnstart"
@@ -171,74 +139,48 @@
                 app:layout_constraintStart_toEndOf="@+id/ps_imageView3"
                 app:layout_constraintTop_toBottomOf="@+id/ps_btnstart" />
 
-            <Spinner
-                android:id="@+id/ps_nhacnho"
-                android:layout_width="0dp"
-                android:layout_height="20dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="40dp"
-                android:layout_marginEnd="10dp"
-                app:layout_constraintEnd_toStartOf="@+id/ps_btnadd"
+            <TextView
+                android:id="@+id/tv_nhacnho"
+                android:layout_width="160dp"
+                android:layout_height="25dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="37dp"
+                android:background="@drawable/outline_edt"
+                android:enabled="false"
+                android:gravity="center"
+                android:textColor="@color/black"
+                android:textSize="10dp"
                 app:layout_constraintStart_toEndOf="@+id/ps_textView2"
-                app:layout_constraintTop_toBottomOf="@+id/ps_btnstart" />
+                app:layout_constraintTop_toBottomOf="@+id/ps_btnend" />
 
-            <Spinner
-                android:id="@+id/ps_laplai"
-                android:layout_width="0dp"
-                android:layout_height="20dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="40dp"
-                android:layout_marginEnd="30dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.246"
-                app:layout_constraintStart_toEndOf="@+id/ps_textView3"
-                app:layout_constraintTop_toBottomOf="@+id/ps_editTextTextMultiLine" />
-
-            <Spinner
-                android:id="@+id/ps_list"
-                android:layout_width="0dp"
-                android:layout_height="20dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="50dp"
-                android:layout_marginEnd="10dp"
-                app:layout_constraintEnd_toStartOf="@+id/ps_btnadd2"
-                app:layout_constraintStart_toEndOf="@+id/ps_imageView7"
-                app:layout_constraintTop_toBottomOf="@+id/ps_textviewattach" />
-
-            <ImageButton
-                android:id="@+id/ps_btnadd"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="40dp"
-                android:layout_marginEnd="30dp"
-                android:padding="10dp"
+            <CheckBox
+                android:id="@+id/checkBox2"
+                android:layout_width="41dp"
+                android:layout_height="42dp"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="28dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintTop_toBottomOf="@+id/ps_btnstart"
-                app:srcCompat="@drawable/ic_baseline_add_circle_24" />
+                app:layout_constraintStart_toEndOf="@+id/tv_nhacnho"
+                app:layout_constraintTop_toBottomOf="@+id/ps_btnend" />
 
-            <ImageButton
-                android:id="@+id/ps_btnadd2"
-                android:layout_width="20dp"
+
+            <Spinner
+                android:id="@+id/ps_nhacnho"
+                android:layout_width="214dp"
                 android:layout_height="20dp"
-                android:layout_marginStart="20dp"
+                android:layout_marginStart="28dp"
                 android:layout_marginTop="40dp"
-                android:layout_marginEnd="30dp"
-                android:padding="10dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.181"
-                app:layout_constraintTop_toBottomOf="@+id/ps_btnattach"
-                app:srcCompat="@drawable/ic_baseline_add_circle_24" />
+                app:layout_constraintStart_toEndOf="@+id/ps_textView3"
+                app:layout_constraintTop_toBottomOf="@+id/ps_editTextTextMultiLine" />
 
             <EditText
                 android:id="@+id/ps_editTextTextMultiLine"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="38dp"
+                android:layout_marginTop="36dp"
                 android:layout_marginEnd="30dp"
-                android:layout_marginRight="20dp"
                 android:background="@drawable/bogoc_button"
                 android:ems="10"
                 android:gravity="start|top"
@@ -249,21 +191,8 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toEndOf="@+id/ps_imageView4"
-                app:layout_constraintTop_toBottomOf="@+id/ps_nhacnho" />
-
-            <Button
-                android:id="@+id/ps_btnattach"
-                android:layout_width="80dp"
-                android:layout_height="40dp"
-                android:layout_marginTop="40dp"
-                android:layout_marginEnd="30dp"
-                android:background="@drawable/bogoc_button"
-                android:text="Tải lên"
-                android:textColor="@color/black"
-                android:textSize="10dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintTop_toBottomOf="@+id/ps_laplai" />
+                app:layout_constraintTop_toBottomOf="@+id/tv_nhacnho"
+                tools:ignore="MissingConstraints" />
 
             <ImageView
                 android:id="@+id/ps_imageView3"
@@ -276,35 +205,6 @@
                 app:srcCompat="@drawable/ic_baseline_alarm_24" />
 
 
-            <ImageButton
-                android:id="@+id/ps_favorite"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="20dp"
-                android:background="@color/white"
-                android:scaleType="fitCenter"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/ps_importain"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/ps_list"
-                app:srcCompat="@drawable/ic_baseline_star_border_24"
-                tools:ignore="MissingConstraints" />
-
-            <ImageButton
-                android:id="@+id/ps_importain"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="20dp"
-                android:background="@color/white"
-                android:scaleType="fitCenter"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/ps_save"
-                app:layout_constraintStart_toEndOf="@+id/ps_favorite"
-                app:layout_constraintTop_toBottomOf="@+id/ps_list"
-                app:srcCompat="@drawable/ic_baseline_radio_button_unchecked_24" />
-
             <TextView
                 android:id="@+id/ps_textView3"
                 android:layout_width="0dp"
@@ -315,14 +215,6 @@
 
                 app:layout_constraintStart_toEndOf="@+id/ps_imageView5"
                 app:layout_constraintTop_toBottomOf="@+id/ps_editTextTextMultiLine" />
-
-            <ImageView
-                android:id="@+id/btn_close_calender"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:src="@drawable/ic_baseline_close_24"
-                tools:layout_editor_absoluteX="310dp"
-                tools:layout_editor_absoluteY="300dp" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

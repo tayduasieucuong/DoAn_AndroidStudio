@@ -1,5 +1,7 @@
 package org.meicode.doan_android;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,6 +18,13 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -26,9 +35,9 @@ public class input_Chart extends AppCompatActivity {
     Button btn;
     Intent intent;
     String t1,t2;
-    Calendar cal1,cal2;
-    Date date1,date2;
-    SimpleDateFormat sdf;
+    Date date1, date2, tgD;
+    int k,count;
+    private static int[] percent_Date;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -86,6 +95,8 @@ public class input_Chart extends AppCompatActivity {
                     Toast.makeText(input_Chart.this, "Chọn ngày sai !!!", Toast.LENGTH_SHORT).show();
                 }
                 else {
+                    count = (int) ((date2.getTime() - date1.getTime()) / 86400000) + 1;
+                    intent.putExtra("length",count);
                     intent.putExtra("date1",edt2.getText().toString());
                     intent.putExtra("date2",edt3.getText().toString());
                     startActivity(intent);
@@ -94,8 +105,6 @@ public class input_Chart extends AppCompatActivity {
         });
 
     }
-    private int compareDate() throws ParseException {
-        int result = date1.compareTo(date2);
-        return result;
-    };
+
+
 }

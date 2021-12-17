@@ -24,8 +24,12 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class TaskMasterChild extends AppCompatActivity {
     ActionBar actionBar;
@@ -39,8 +43,9 @@ public class TaskMasterChild extends AppCompatActivity {
     String userid;
     String headerMaster;
     FirebaseDatabase database;
-    DatabaseReference reference;
+    DatabaseReference reference,rf;
     ListViewAdapter adapter;
+    SimpleDateFormat sdf;
     private void InitView(){
         tv = (TextView) findViewById(R.id.tv_title);
         btn_add_child_task = (ImageView) findViewById(R.id.btn_add_task);
@@ -54,7 +59,11 @@ public class TaskMasterChild extends AppCompatActivity {
         reference = database.getReference("Users");
         final SharedPreferences sharedPreferences = getSharedPreferences("USERID", MODE_PRIVATE);
         userid = sharedPreferences.getString("UID",null);
+        sdf = new SimpleDateFormat("dd/MM/yyyy");
+
+
     }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

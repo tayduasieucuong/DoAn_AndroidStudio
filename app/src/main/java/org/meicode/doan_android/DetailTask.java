@@ -9,6 +9,7 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlarmManager;
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Notification;
 import android.app.NotificationChannel;
@@ -16,6 +17,7 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.TimePickerDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -62,6 +64,7 @@ public class DetailTask extends AppCompatActivity {
     ImageView btn_add;
     ImageView btn_star;
     ImageView btn_important;
+    ImageView btn_delete;
     int important;
     String tg_time;
     String date_string;
@@ -73,7 +76,6 @@ public class DetailTask extends AppCompatActivity {
     TextView tv_repeat;
     TextView tv_nhacnho;
     String NameOfTask;
-    ImageView btn_cross;
     FirebaseDatabase database;
     DatabaseReference reference,rf;
     NotificationManager notificationManager;
@@ -97,22 +99,20 @@ public class DetailTask extends AppCompatActivity {
         {
             Name=bundle.getString("Name");
         }
-
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         btn_add = (ImageView) findViewById(R.id.ps_save);
         tv_timeend = (Button) findViewById(R.id.ps_btnend);
         tv_timestart = (Button) findViewById(R.id.ps_btnstart);
         tv_nhacnho=(TextView) findViewById(R.id.tv_nhacnho);
         et_des = (EditText) findViewById(R.id.ps_editTextTextMultiLine);
-        btn_cross = (ImageView)findViewById(R.id.btn_close_calender);
         et_title = (EditText)findViewById(R.id.et_title);
         et_title.setFocusable(false);
         et_title.setFocusableInTouchMode(false);
         checkBox=(CheckBox)findViewById(R.id.checkBox2);
         btn_star = (ImageView) findViewById(R.id.ps_favorite);
+        btn_delete =(ImageView) findViewById(R.id.ps_delete);
         important = 0;
         btn_important = (ImageView)findViewById(R.id.ps_importain);
-        btn_cross.setVisibility(View.INVISIBLE);
         spinnerRemind = (Spinner)findViewById(R.id.ps_nhacnho);
         spinnerList= (Spinner) findViewById(R.id.ps_list);
         //Get uid
@@ -449,7 +449,14 @@ public class DetailTask extends AppCompatActivity {
                 }, currentDate.get(android.icu.util.Calendar.YEAR), currentDate.get(android.icu.util.Calendar.MONTH), currentDate.get(Calendar.DATE)).show();
             }
         });
-
+        btn_delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(DetailTask.this);
+                builder.setMessage("Bạn có chắc chắn muốn xóa không?").setPositiveButton("Có", dialogClickListener)
+                        .setNegativeButton("No", dialogClickListener).show();
+            }
+        });
 
         btn_add.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.N)
@@ -590,4 +597,63 @@ public class DetailTask extends AppCompatActivity {
 //        notificationManager.cancel(IDNoti);
         notificationManager.deleteNotificationChannel("Notification");
     }
+    DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+        @Override
+        public void onClick(DialogInterface dialog, int which) {
+            switch (which){
+                case DialogInterface.BUTTON_POSITIVE:
+                    Intent int1 = new Intent(DetailTask.this, TaskManagement.class);
+                    startActivity(int1);
+                    String favorite = "";
+                    String Important = "";
+                    if(important==0)
+                        Important = "Không";
+                    else
+                        Important = "Có";
+                    if(btn_ic_star==0)
+                        favorite = "Không";
+                    else
+                        favorite = "Có";
+                    //Check information
+                    if(et_title==null || TextUtils.isEmpty(et_title.getText()))//Validate Title
+                    {
+                        Toast.makeText(DetailTask.this, "Vui lòng nhập tiêu đề", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                    try {//Validate Date
+                        int rs = compareDate();
+                        if (rs == 0 || rs > 0)
+                        {
+                            Toast.makeText(DetailTask.this, "Chọn ngày sai !!!", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                        Toast.makeText(DetailTask.this, "Vui lòng chọn ngày", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                    DatabaseReference dr3 = FirebaseDatabase.getInstance().getReference().child("Users").child(userid).child("Tasks").child("Công việc quan trọng").child(et_title.getText().toString());
+                    DatabaseReference dr2 = FirebaseDatabase.getInstance().getReference().child("Users").child(userid).child("Tasks").child("Công việc yêu thích").child(et_title.getText().toString());
+                    DatabaseReference dr = FirebaseDatabase.getInstance().getReference().child("Users").child(userid).child("Tasks").child("Tất cả công việc").child(et_title.getText().toString());
+                    dr.removeValue();
+
+                    if(btn_ic_star==1)
+                    {
+                        dr2.removeValue();
+                    }
+                    if (important==1)
+                    {
+                        dr3.removeValue();
+                    }
+                    Toast.makeText(DetailTask.this, "Delete task Success", Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(DetailTask.this,TaskManagement.class));
+                    finish();
+
+                    break;
+                case DialogInterface.BUTTON_NEGATIVE:
+                    //No button clicked
+                    break;
+            }
+        }
+    };
 }

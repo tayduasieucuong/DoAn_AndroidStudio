@@ -70,7 +70,6 @@ public class CreateTask extends AppCompatActivity {
     EditText et_title;
     TextView tv_nhacnho;
     NotificationManager notificationManager;
-    ImageView btn_cross;
     FirebaseDatabase database;
     DatabaseReference reference;
     Calendar date;
@@ -91,13 +90,11 @@ public class CreateTask extends AppCompatActivity {
         tv_timestart = (Button) findViewById(R.id.ps_btnstart);
         tv_nhacnho=(TextView) findViewById(R.id.tv_nhacnho);
         et_des = (EditText) findViewById(R.id.ps_editTextTextMultiLine);
-        btn_cross = (ImageView)findViewById(R.id.btn_close_calender);
         et_title = (EditText)findViewById(R.id.et_title);
         checkBox=(CheckBox)findViewById(R.id.checkBox2);
         btn_star = (ImageView) findViewById(R.id.ps_favorite);
         important = 0;
         btn_important = (ImageView)findViewById(R.id.ps_importain);
-        btn_cross.setVisibility(View.INVISIBLE);
         spinnerRemind = (Spinner)findViewById(R.id.ps_nhacnho);
         spinnerList= (Spinner) findViewById(R.id.ps_list);
         //Get uid
@@ -302,7 +299,7 @@ public class CreateTask extends AppCompatActivity {
                 if (checkBox.isChecked()) {
                     scheduleNotification();
                 }else {
-                    cancelAlarm();
+                    //cancelAlarm();
                 }
             }
         });
@@ -311,6 +308,7 @@ public class CreateTask extends AppCompatActivity {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(isChecked){
                     tv_nhacnho.setEnabled(true);
+                    tv_nhacnho.performClick();
                 }
                 else tv_nhacnho.setEnabled(false);
             }
