@@ -56,7 +56,7 @@ public class calendar_task extends AppCompatActivity{
     Date date1;
     Event ev;
     ArrayList<Event_Calendar> arr=new ArrayList<>();
-    private SimpleDateFormat dateFormatMonth = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+    private SimpleDateFormat dateFormatMonth = new SimpleDateFormat("MMMM yyyy", Locale.getDefault());
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,8 +67,8 @@ public class calendar_task extends AppCompatActivity{
         actionBar.setTitle(null);
         textView=(TextView) findViewById(R.id.monthYearTV);
         listView=(ListView) findViewById(R.id.lv_event);
-        nextMonth.findViewById(R.id.next_event);
-        backMonth.findViewById(R.id.back_event);
+        nextMonth=findViewById(R.id.n_event);
+        backMonth=findViewById(R.id.b_event);
         compactCalendar = (CompactCalendarView) findViewById(R.id.compactcalendar_view);
         compactCalendar.setUseThreeLetterAbbreviation(true);
         mAuth = FirebaseAuth.getInstance();
@@ -98,7 +98,18 @@ public class calendar_task extends AppCompatActivity{
                 textView.setText(dateFormatMonth.format(firstDayOfNewMonth));
             }
         });
-
+        backMonth.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                compactCalendar.scrollLeft();
+            }
+        });
+        nextMonth.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                compactCalendar.scrollRight();
+            }
+        });
     }
 
     private void readTasks() {

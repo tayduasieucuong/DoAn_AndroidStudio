@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/gradient_background"
     android:orientation="vertical"
-    tools:context=".calendar_task">
+    tools:context=".MainActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -21,7 +21,7 @@
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:src="@drawable/back_event"
-        android:id="@+id/back_event"></ImageView>
+        android:id="@+id/b_event"></ImageView>
         <TextView
             android:id="@+id/monthYearTV"
             android:layout_width="0dp"
@@ -36,7 +36,7 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:src="@drawable/next_event"
-            android:id="@+id/next_event"></ImageView>
+            android:id="@+id/n_event"></ImageView>
             </LinearLayout>
 
     <LinearLayout
