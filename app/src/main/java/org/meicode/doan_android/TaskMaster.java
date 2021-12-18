@@ -146,6 +146,30 @@ public class TaskMaster extends AppCompatActivity {
         bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
         bottomNavigationView.setBackground(null);
         FloatingActionButton add_btn = (FloatingActionButton) findViewById(R.id.addbottom);
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId())
+                {
+                    case R.id.person:
+                        startActivity(new Intent(TaskMaster.this,TaskManagement.class));
+                        finish();
+                        return true;
+                    case R.id.group:
+                        Toast.makeText(TaskMaster.this, "Group", Toast.LENGTH_SHORT).show();
+                        return true;
+                    case R.id.calendar:
+                        startActivity(new Intent(TaskMaster.this,calendar_task.class));
+                        finish();
+                        return true;
+                    case R.id.alarm:
+                        startActivity(new Intent(TaskMaster.this,input_time.class));
+                        finish();
+                        return true;
+                }
+                return false;
+            }
+        });
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

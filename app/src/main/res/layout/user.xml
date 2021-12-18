@@ -114,7 +114,7 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView"
-        app:srcCompat="@drawable/icon_avt" />
+        app:srcCompat="@drawable/defaultuser" />
 
     <TextView
         android:id="@+id/textView12"

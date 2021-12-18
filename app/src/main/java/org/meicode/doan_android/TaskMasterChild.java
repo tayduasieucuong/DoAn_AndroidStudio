@@ -125,7 +125,8 @@ public class TaskMasterChild extends AppCompatActivity {
                 switch (item.getItemId())
                 {
                     case R.id.person:
-                        Toast.makeText(TaskMasterChild.this, "Person", Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(TaskMasterChild.this,TaskManagement.class));
+                        finish();
                         return true;
                     case R.id.group:
                         Toast.makeText(TaskMasterChild.this, "Group", Toast.LENGTH_SHORT).show();
