@@ -9,6 +9,8 @@ import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.icu.util.Calendar;
 import android.media.AudioAttributes;
 import android.media.RingtoneManager;
@@ -24,7 +26,6 @@ import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
@@ -78,7 +79,6 @@ public class TaskChildPerson extends AppCompatActivity {
     private void initView(){
         Intent intent = getIntent();
         headerTitle = intent.getStringExtra("HeaderTitle");
-        btn_back = (ImageButton) findViewById(R.id.ps_back);
         btn_save = (ImageButton) findViewById(R.id.ps_save);
         et_title = (EditText) findViewById(R.id.et_title);
         et_descript = (EditText) findViewById(R.id.ps_editTextTextMultiLine);
@@ -97,14 +97,25 @@ public class TaskChildPerson extends AppCompatActivity {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerRemind.setAdapter(adapter);
     }
+    private void setActionBar()
+    {
+        actionBar = getSupportActionBar();
+        actionBar.setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_baseline_chevron_left_24);
+        //actionBar.setDisplayUseLogoEnabled(true);
+        actionBar.setTitle("Tạo công việc con");
+
+        actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#ECB7F0")));
+        actionBar.setElevation(3);
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_task_child_person);
         initView();
         Intent intent = getIntent();
-        actionBar = getSupportActionBar();
-        actionBar.hide();
+        setActionBar();
         forwardTo = intent.getStringExtra("forwardTo");
         NameOfTask = intent.getStringExtra("NameOfTask");
         final SharedPreferences sharedPreferences = getSharedPreferences("USERID", MODE_PRIVATE);
@@ -207,12 +218,6 @@ public class TaskChildPerson extends AppCompatActivity {
         return 0;
     }
     private void onClick(){
-        btn_back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                onBackPressed();
-            }
-        });
         btn_save.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override

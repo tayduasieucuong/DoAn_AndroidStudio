@@ -17,6 +17,8 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.icu.util.Calendar;
 import android.media.AudioAttributes;
 import android.media.RingtoneManager;
@@ -93,7 +95,18 @@ public class Detail_Child_Task extends AppCompatActivity {
         tv_nhacnho = (TextView) findViewById(R.id.tv_nhacnho);
         btn_delete = (ImageButton) findViewById(R.id.ps_delete);
     }
+    private void setActionBar()
+    {
+        actionBar = getSupportActionBar();
+        actionBar.setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_baseline_chevron_left_24);
+        //actionBar.setDisplayUseLogoEnabled(true);
+        actionBar.setTitle("");
 
+        actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#ECB7F0")));
+        actionBar.setElevation(3);
+    }
     private void displaySpinner() {
         itemSpinner.add("Không");
         itemSpinner.add("Theo ngày");
@@ -212,10 +225,7 @@ public class Detail_Child_Task extends AppCompatActivity {
         setContentView(R.layout.activity_detail_child_task);
         initView();
         Intent intent = getIntent();
-        final ActionBar actionBar = getSupportActionBar();
-        actionBar.setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        actionBar.setTitle("");
+        setActionBar();
         forwardTo = intent.getStringExtra("forwardTo");
         NameOfTask = intent.getStringExtra("NameOfTask");
         Name = intent.getStringExtra("NameOfChildTask");

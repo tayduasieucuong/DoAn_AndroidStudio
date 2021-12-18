@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background4">
+    android:background="@drawable/gradient_background">
 
 
     <TextView
@@ -12,10 +12,9 @@
         android:layout_width="166dp"
         android:layout_height="34dp"
         android:layout_marginStart="8dp"
-
         android:layout_marginBottom="28dp"
         android:text="Tên công việc"
-        android:textColor="#000000"
+        android:textColor="@color/white"
         android:textSize="19dp"
         app:layout_constraintBottom_toTopOf="@+id/textView4"
         app:layout_constraintStart_toStartOf="parent"
@@ -29,7 +28,7 @@
         android:layout_marginBottom="28dp"
 
         android:text="Thời gian tập trung"
-        android:textColor="#000000"
+        android:textColor="@color/white"
         android:textSize="19dp"
         app:layout_constraintBottom_toTopOf="@+id/textView5"
         app:layout_constraintStart_toStartOf="parent"
@@ -106,8 +105,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginBottom="296dp"
         android:text="Thời gian nghỉ"
-
-        android:textColor="#000000"
+        android:textColor="@color/white"
         android:textSize="19dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"

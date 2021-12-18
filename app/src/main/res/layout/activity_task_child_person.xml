@@ -10,25 +10,6 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginLeft="10dp"
-        android:layout_weight="13"
-        android:orientation="horizontal">
-
-        <ImageButton
-            android:id="@+id/ps_back"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:layout_marginTop="10dp"
-            android:layout_weight="1"
-            android:background="@color/white"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_baseline_arrow_back_ios_new_24"
-            tools:ignore="MissingConstraints,SpeakableTextPresentCheck" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
         android:layout_weight="1"
         android:backgroundTint="#FFFFFF"
         android:orientation="vertical">
@@ -36,11 +17,28 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:backgroundTint="#FFFFFF"
+            android:background="@drawable/gradient_background"
             app:layout_constraintStart_toStartOf="parent"
             tools:layout_editor_absoluteY="0dp">
-
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/ps_nhacnho"
+                android:layout_height="wrap_content">
+                <ImageButton
+                    android:id="@+id/ps_save"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:srcCompat="@drawable/ic_baseline_check_circle_outline_50"
+                    tools:ignore="MissingConstraints" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
             <EditText
+                android:textColor="@color/white"
                 android:id="@+id/et_title"
                 android:layout_width="0dp"
                 android:layout_height="50dp"
@@ -54,21 +52,6 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
-
-            <ImageButton
-                android:id="@+id/ps_save"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginBottom="220dp"
-                android:background="@color/white"
-                android:scaleType="fitCenter"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.886"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/ps_nhacnho"
-                app:layout_constraintVertical_bias="1.0"
-                app:srcCompat="@drawable/doubletick48" />
 
             <ImageView
                 android:id="@+id/ps_imageView2"
@@ -108,13 +91,15 @@
                 android:layout_marginTop="40dp"
                 android:background="@drawable/bogoc_button"
                 android:text="Ngày bắt đầu"
-                android:textColor="@color/black"
+
+                android:textColor="@color/white"
                 android:textSize="10dp"
                 app:layout_constraintStart_toEndOf="@+id/ps_imageView2"
                 app:layout_constraintTop_toBottomOf="@id/et_title" />
 
             <Button
                 android:id="@+id/ps_btnend"
+
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
                 android:layout_marginStart="10dp"
@@ -122,7 +107,7 @@
                 android:layout_marginEnd="10dp"
                 android:background="@drawable/bogoc_button"
                 android:text="Ngày kết thúc "
-                android:textColor="@color/black"
+                android:textColor="@color/white"
                 android:textSize="10dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.234"
@@ -133,6 +118,7 @@
                 android:id="@+id/ps_textView2"
                 android:layout_width="70dp"
                 android:layout_height="20dp"
+                android:textColor="@color/white"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="40dp"
                 android:text="Nhắc nhở"
@@ -140,15 +126,17 @@
                 app:layout_constraintTop_toBottomOf="@+id/ps_btnstart" />
 
             <TextView
+                android:backgroundTint="@color/white"
+                android:background="@drawable/bogoc_button"
                 android:id="@+id/tv_nhacnho"
-                android:layout_width="160dp"
+                android:layout_width="0dp"
                 android:layout_height="25dp"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="37dp"
-                android:background="@drawable/outline_edt"
                 android:enabled="false"
+                app:layout_constraintEnd_toStartOf="@id/checkBox2"
                 android:gravity="center"
-                android:textColor="@color/black"
+                android:textColor="@color/white"
                 android:textSize="10dp"
                 app:layout_constraintStart_toEndOf="@+id/ps_textView2"
                 app:layout_constraintTop_toBottomOf="@+id/ps_btnend" />
@@ -157,7 +145,7 @@
                 android:id="@+id/checkBox2"
                 android:layout_width="41dp"
                 android:layout_height="42dp"
-                android:layout_marginStart="12dp"
+                android:layout_marginStart="10dp"
                 android:layout_marginTop="28dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
@@ -168,6 +156,7 @@
             <Spinner
                 android:id="@+id/ps_nhacnho"
                 android:layout_width="214dp"
+                android:textColor="@color/white"
                 android:layout_height="20dp"
                 android:layout_marginStart="28dp"
                 android:layout_marginTop="40dp"
@@ -175,13 +164,15 @@
                 app:layout_constraintTop_toBottomOf="@+id/ps_editTextTextMultiLine" />
 
             <EditText
+                android:backgroundTint="@color/white"
+                android:background="@drawable/bogoc_button"
+                android:textColor="@color/white"
                 android:id="@+id/ps_editTextTextMultiLine"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="36dp"
                 android:layout_marginEnd="30dp"
-                android:background="@drawable/bogoc_button"
                 android:ems="10"
                 android:gravity="start|top"
                 android:inputType="textMultiLine"
@@ -212,6 +203,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="40dp"
                 android:text="Lặp lại"
+                android:textColor="@color/white"
 
                 app:layout_constraintStart_toEndOf="@+id/ps_imageView5"
                 app:layout_constraintTop_toBottomOf="@+id/ps_editTextTextMultiLine" />

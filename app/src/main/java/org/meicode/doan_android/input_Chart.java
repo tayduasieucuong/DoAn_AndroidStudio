@@ -8,9 +8,12 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.icu.util.Calendar;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -37,13 +40,36 @@ public class input_Chart extends AppCompatActivity {
     String t1,t2;
     Date date1, date2, tgD;
     int k,count;
+    ActionBar actionBar;
     private static int[] percent_Date;
+    private void setActionBar()
+    {
+        actionBar = getSupportActionBar();
+        actionBar.setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_baseline_chevron_left_24);
+        //actionBar.setDisplayUseLogoEnabled(true);
+        actionBar.setTitle("Thống kê công việc");
+
+        actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#ECB7F0")));
+        actionBar.setElevation(3);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        int id = item.getItemId();
+        if(id == android.R.id.home)
+        {
+            startActivity(new Intent(this,TaskManagement.class));
+            finish();
+        }
+        return true;
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_input_chart);
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.hide();
+        setActionBar();
         edt2=(EditText) findViewById(R.id.edt2);
         edt3=(EditText) findViewById(R.id.edt3);
         btn=(Button) findViewById(R.id.btn);
