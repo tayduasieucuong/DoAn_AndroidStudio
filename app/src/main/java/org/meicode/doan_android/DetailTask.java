@@ -84,8 +84,6 @@ public class DetailTask extends AppCompatActivity {
     String Name;
     int btn_ic_star = 0;
     Spinner spinnerRemind;
-    Spinner spinnerList;
-    ArrayList<String> itemListSpinner = new ArrayList<String>();
     ArrayList<String> itemSpinner = new ArrayList<String>();
     public void initView(){
         ActionBar actionBar = getSupportActionBar();
@@ -114,7 +112,6 @@ public class DetailTask extends AppCompatActivity {
         important = 0;
         btn_important = (ImageView)findViewById(R.id.ps_importain);
         spinnerRemind = (Spinner)findViewById(R.id.ps_nhacnho);
-        spinnerList= (Spinner) findViewById(R.id.ps_list);
         //Get uid
         mData = FirebaseDatabase.getInstance().getReference();
         database = FirebaseDatabase.getInstance("https://doan-3672e-default-rtdb.asia-southeast1.firebasedatabase.app/");
@@ -130,10 +127,7 @@ public class DetailTask extends AppCompatActivity {
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item,itemSpinner);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerRemind.setAdapter(adapter);
-        itemListSpinner.add("Không");
-        ArrayAdapter<String> adapter1 = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item,itemListSpinner);
-        adapter1.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
-        spinnerList.setAdapter(adapter1);
+
     }
     private  void LoadData() {
         et_title.setText(Name);
@@ -335,7 +329,6 @@ public class DetailTask extends AppCompatActivity {
                     dr.child("Detail").child("Ngày bắt đầu").setValue(tv_timestart.getText().toString());
                     dr.child("Detail").child("Ngày kết thúc").setValue(tv_timeend.getText().toString());
                     dr.child("Detail").child("Nhắc nhở").setValue(repeat);
-                    dr.child("Detail").child("Danh sách").setValue(spinnerList.getSelectedItem().toString());
                     dr.child("Detail").child("Trạng thái").setValue("Chưa xong");
                     dr.child("Detail").child("Thời gian nhắc nhở").setValue(tv_nhacnho.getText().toString());
                     if(btn_ic_star==1)
@@ -347,7 +340,6 @@ public class DetailTask extends AppCompatActivity {
                         dr2.child("Detail").child("Ngày bắt đầu").setValue(tv_timestart.getText().toString());
                         dr2.child("Detail").child("Ngày kết thúc").setValue(tv_timeend.getText().toString());
                         dr2.child("Detail").child("Nhắc nhở").setValue(repeat);
-                        dr2.child("Detail").child("Danh sách").setValue(spinnerList.getSelectedItem().toString());
                         dr2.child("Detail").child("Trạng thái").setValue("Chưa xong");
                         dr2.child("Detail").child("Thời gian nhắc nhở").setValue(tv_nhacnho.getText().toString());
                     }
@@ -360,7 +352,6 @@ public class DetailTask extends AppCompatActivity {
                         dr3.child("Detail").child("Ngày bắt đầu").setValue(tv_timestart.getText().toString());
                         dr3.child("Detail").child("Ngày kết thúc").setValue(tv_timeend.getText().toString());
                         dr3.child("Detail").child("Nhắc nhở").setValue(repeat);
-                        dr3.child("Detail").child("Danh sách").setValue(spinnerList.getSelectedItem().toString());
                         dr3.child("Detail").child("Trạng thái").setValue("Chưa xong");
                         dr3.child("Detail").child("Thời gian nhắc nhở").setValue(tv_nhacnho.getText().toString());
                     }

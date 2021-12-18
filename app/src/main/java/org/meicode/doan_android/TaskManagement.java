@@ -335,6 +335,7 @@ public class TaskManagement extends AppCompatActivity {
                             counter++;
                         }
                     }
+
                     adapter.notifyDataSetChanged();
                 }
             }

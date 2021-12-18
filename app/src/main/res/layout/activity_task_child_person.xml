@@ -38,7 +38,7 @@
             android:layout_height="match_parent"
             android:backgroundTint="#FFFFFF"
             app:layout_constraintStart_toStartOf="parent"
-            tools:layout_editor_absoluteY="16dp">
+            tools:layout_editor_absoluteY="0dp">
 
             <EditText
                 android:id="@+id/et_title"

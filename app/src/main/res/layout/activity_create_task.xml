@@ -38,14 +38,15 @@
                 android:id="@+id/ps_save"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:layout_marginTop="50dp"
+                android:layout_marginTop="104dp"
                 android:background="@color/white"
                 android:scaleType="fitCenter"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.474"
                 app:layout_constraintStart_toEndOf="@+id/ps_importain"
-                app:layout_constraintTop_toBottomOf="@+id/ps_list"
-                app:srcCompat="@drawable/doubletick48" />
+                app:layout_constraintTop_toBottomOf="@+id/ps_nhacnho"
+                app:srcCompat="@drawable/doubletick48"
+                tools:ignore="MissingConstraints" />
 
             <ImageView
                 android:id="@+id/ps_imageView2"
@@ -76,17 +77,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/ps_editTextTextMultiLine"
                 app:srcCompat="@drawable/ic_baseline_loop_24" />
-
-            <ImageView
-                android:id="@+id/ps_imageView7"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginStart="32dp"
-
-                android:layout_marginTop="30dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/ps_imageView5"
-                app:srcCompat="@drawable/ic_baseline_format_list_bulleted_24" />
 
             <Button
                 android:id="@+id/ps_btnstart"
@@ -135,28 +125,6 @@
                 app:layout_constraintStart_toEndOf="@+id/ps_textView3"
                 app:layout_constraintTop_toBottomOf="@+id/ps_editTextTextMultiLine" />
 
-            <Spinner
-                android:id="@+id/ps_list"
-                android:layout_width="0dp"
-                android:layout_height="20dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="50dp"
-                android:layout_marginEnd="10dp"
-                app:layout_constraintEnd_toStartOf="@+id/ps_btnadd2"
-                app:layout_constraintStart_toEndOf="@+id/ps_imageView7"
-                app:layout_constraintTop_toBottomOf="@+id/ps_nhacnho" />
-
-            <ImageButton
-                android:id="@+id/ps_btnadd2"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:layout_marginTop="50dp"
-                android:layout_marginEnd="30dp"
-                android:padding="10dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/ps_nhacnho"
-                app:srcCompat="@drawable/ic_baseline_add_circle_24" />
-
             <EditText
                 android:id="@+id/ps_editTextTextMultiLine"
                 android:layout_width="0dp"
@@ -191,12 +159,12 @@
                 android:id="@+id/ps_favorite"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:layout_marginTop="50dp"
+                android:layout_marginTop="96dp"
                 android:background="@color/white"
                 android:scaleType="fitCenter"
                 app:layout_constraintEnd_toStartOf="@+id/ps_importain"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/ps_list"
+                app:layout_constraintTop_toBottomOf="@+id/ps_imageView5"
                 app:srcCompat="@drawable/ic_baseline_star_border_24"
                 tools:ignore="MissingConstraints" />
 
@@ -204,13 +172,14 @@
                 android:id="@+id/ps_importain"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:layout_marginTop="50dp"
+                android:layout_marginTop="104dp"
                 android:background="@color/white"
                 android:scaleType="fitCenter"
                 app:layout_constraintEnd_toStartOf="@+id/ps_save"
                 app:layout_constraintStart_toEndOf="@+id/ps_favorite"
-                app:layout_constraintTop_toBottomOf="@+id/ps_list"
-                app:srcCompat="@drawable/ic_baseline_radio_button_unchecked_24" />
+                app:layout_constraintTop_toBottomOf="@+id/ps_nhacnho"
+                app:srcCompat="@drawable/ic_baseline_radio_button_unchecked_24"
+                tools:ignore="MissingConstraints" />
 
             <TextView
                 android:id="@+id/ps_textView3"

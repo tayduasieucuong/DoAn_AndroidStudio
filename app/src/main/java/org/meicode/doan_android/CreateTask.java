@@ -76,7 +76,6 @@ public class CreateTask extends AppCompatActivity {
     String userid;
     int btn_ic_star = 0;
     Spinner spinnerRemind;
-    Spinner spinnerList;
     ArrayList<String> itemListSpinner = new ArrayList<String>();
     ArrayList<String> itemSpinner = new ArrayList<String>();
     public void initView(){
@@ -96,7 +95,6 @@ public class CreateTask extends AppCompatActivity {
         important = 0;
         btn_important = (ImageView)findViewById(R.id.ps_importain);
         spinnerRemind = (Spinner)findViewById(R.id.ps_nhacnho);
-        spinnerList= (Spinner) findViewById(R.id.ps_list);
         //Get uid
         database = FirebaseDatabase.getInstance("https://doan-3672e-default-rtdb.asia-southeast1.firebasedatabase.app/");
         reference = database.getReference("Users");
@@ -112,9 +110,6 @@ public class CreateTask extends AppCompatActivity {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerRemind.setAdapter(adapter);
         itemListSpinner.add("Không");
-        ArrayAdapter<String> adapter1 = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item,itemListSpinner);
-        adapter1.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
-        spinnerList.setAdapter(adapter1);
     }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -176,7 +171,6 @@ public class CreateTask extends AppCompatActivity {
                     dr.child("Detail").child("Ngày bắt đầu").setValue(tv_timestart.getText().toString());
                     dr.child("Detail").child("Ngày kết thúc").setValue(tv_timeend.getText().toString());
                     dr.child("Detail").child("Nhắc nhở").setValue(repeat);
-                    dr.child("Detail").child("Danh sách").setValue(spinnerList.getSelectedItem().toString());
                     dr.child("Detail").child("Trạng thái").setValue("Chưa xong");
                     dr.child("Detail").child("ID notification").setValue(NOTIFICICATION_ID);
                     dr.child("Detail").child("Thời gian nhắc nhở").setValue(tv_nhacnho.getText().toString());
@@ -189,7 +183,6 @@ public class CreateTask extends AppCompatActivity {
                         dr2.child("Detail").child("Ngày bắt đầu").setValue(tv_timestart.getText().toString());
                         dr2.child("Detail").child("Ngày kết thúc").setValue(tv_timeend.getText().toString());
                         dr2.child("Detail").child("Nhắc nhở").setValue(repeat);
-                        dr2.child("Detail").child("Danh sách").setValue(spinnerList.getSelectedItem().toString());
                         dr2.child("Detail").child("Trạng thái").setValue("Chưa xong");
                         dr2.child("Detail").child("ID notification").setValue(NOTIFICICATION_ID);
                         dr2.child("Detail").child("Thời gian nhắc nhở").setValue(tv_nhacnho.getText().toString());
@@ -203,7 +196,6 @@ public class CreateTask extends AppCompatActivity {
                         dr3.child("Detail").child("Ngày bắt đầu").setValue(tv_timestart.getText().toString());
                         dr3.child("Detail").child("Ngày kết thúc").setValue(tv_timeend.getText().toString());
                         dr3.child("Detail").child("Nhắc nhở").setValue(repeat);
-                        dr3.child("Detail").child("Danh sách").setValue(spinnerList.getSelectedItem().toString());
                         dr3.child("Detail").child("Trạng thái").setValue("Chưa xong");
                         dr3.child("Detail").child("ID notification").setValue(NOTIFICICATION_ID);
                         dr3.child("Detail").child("Thời gian nhắc nhở").setValue(tv_nhacnho.getText().toString());
