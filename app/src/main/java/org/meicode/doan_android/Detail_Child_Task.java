@@ -24,6 +24,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -59,7 +60,6 @@ public class Detail_Child_Task extends AppCompatActivity {
     FirebaseDatabase database;
     DatabaseReference reference, rf,mData;
     ActionBar actionBar;
-    ImageButton btn_back;
     ImageButton btn_save;
     EditText et_title;
     EditText et_descript;
@@ -83,7 +83,6 @@ public class Detail_Child_Task extends AppCompatActivity {
     private void initView() {
         Intent intent = getIntent();
         headerTitle = intent.getStringExtra("HeaderTitle");
-        btn_back = (ImageButton) findViewById(R.id.ps_back);
         btn_save = (ImageButton) findViewById(R.id.ps_save);
         et_title = (EditText) findViewById(R.id.et_title);
         et_descript = (EditText) findViewById(R.id.ps_editTextTextMultiLine);
@@ -213,8 +212,10 @@ public class Detail_Child_Task extends AppCompatActivity {
         setContentView(R.layout.activity_detail_child_task);
         initView();
         Intent intent = getIntent();
-        actionBar = getSupportActionBar();
-        actionBar.hide();
+        final ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        actionBar.setTitle("");
         forwardTo = intent.getStringExtra("forwardTo");
         NameOfTask = intent.getStringExtra("NameOfTask");
         Name = intent.getStringExtra("NameOfChildTask");
@@ -331,12 +332,6 @@ public class Detail_Child_Task extends AppCompatActivity {
     }
 
     private void onClick() {
-        btn_back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                onBackPressed();
-            }
-        });
         btn_save.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
@@ -552,4 +547,14 @@ public class Detail_Child_Task extends AppCompatActivity {
             }
         }
     };
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        int id = item.getItemId();
+        if(id == android.R.id.home)
+        {
+            startActivity(new Intent(this,TaskManagement.class));
+            finish();
+        }
+        return true;
+    }
 }

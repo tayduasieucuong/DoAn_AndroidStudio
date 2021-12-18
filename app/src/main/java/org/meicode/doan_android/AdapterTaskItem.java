@@ -121,17 +121,6 @@ public class AdapterTaskItem extends BaseExpandableListAdapter{
             btn_complete.setImageResource(R.drawable.ic_baseline_radio_button_unchecked_24);
         }
         btn_star.setTag("0");
-        btn_star.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(view.getContext(),Detail_Child_Task.class);
-                intent.putExtra("NameOfChildTask",content);
-                intent.putExtra("NameOfTask",listGroup.get(i).toString());
-                intent.putExtra("HeaderTitle",headerTitle);
-                intent.putExtra("forwardTo","TaskMasterChild");
-                view.getContext().startActivity(intent);
-            }
-        });
         btn_add_child_task.setVisibility(View.GONE);
         int amountItem=listChild.get(listGroup.get(i).toString()).size();
         if(amountItem-1==i1)
@@ -168,6 +157,7 @@ public class AdapterTaskItem extends BaseExpandableListAdapter{
                 Intent intent = new Intent(view.getContext(),TaskChildPerson.class);
                 intent.putExtra("NameOfTask",listGroup.get(i).toString());
                 intent.putExtra("HeaderTitle",headerTitle);
+                intent.putExtra("forwardTo","TaskMasterChild");
                 view.getContext().startActivity(intent);
             }
         });

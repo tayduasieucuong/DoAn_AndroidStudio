@@ -164,14 +164,14 @@ public class TimeCoutDown extends AppCompatActivity {
 
 
         mTimerRunning = true;
-        mButtonStartPause.setText("pause");
+        mButtonStartPause.setText("Tạm dừng");
 
     }
 
     private void pauseTimer() {
         mCountDownTimer.cancel();
         mTimerRunning = false;
-        mButtonStartPause.setText("Start");
+        mButtonStartPause.setText("Bắt đầu");
 
     }
 

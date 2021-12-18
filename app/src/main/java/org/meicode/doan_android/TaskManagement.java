@@ -397,26 +397,41 @@ public class TaskManagement extends AppCompatActivity {
                 @Override
                 public boolean onQueryTextSubmit(String query) {
                     reference.addChildEventListener(new ChildEventListener() {
-                        boolean kt = false;
-                        Intent intent = new Intent(TaskManagement.this, DetailTask.class);
+                        int kt = 0;
+                        Intent intent1 = new Intent(TaskManagement.this, DetailTask.class);
+                        Intent intent2 = new Intent(TaskManagement.this, Detail_Child_Task.class);
                         @Override
                         public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-                            if(userid.equals(snapshot.getKey())) {
+                            if (userid.equals(snapshot.getKey())) {
                                 for (DataSnapshot ds : snapshot.child("Tasks").child("Tất cả công việc").getChildren()) {
                                     String groupname = (String) ds.getKey();
                                     if (groupname.equals(query)) {
-                                    intent.putExtra("Name",query);
-                                    kt=true;
+                                        intent1.putExtra("Name", query);
+                                        kt = 1;
+                                    } else {
+                                        for (DataSnapshot ds1 : ds.child("TasksChild").getChildren()) {
+                                            String groupname1 = (String) ds1.getKey();
+                                            if (groupname1.equals(query)) {
+                                                intent2.putExtra("NameOfTask", groupname);
+                                                intent2.putExtra("NameOfChildTask", groupname1);
+                                                intent2.putExtra("HeaderTitle", "Tất cả công việc");
+                                                intent2.putExtra("forwardTo","TaskManagement");
+                                                kt = 2;
+                                            }
+                                        }
                                     }
                                 }
                             }
-                            if(kt==true){
-                                startActivity(intent);
-                            }else{
+                            if (kt != 0) {
+                                if (kt == 1) {
+                                    startActivity(intent1);
+                                } else if (kt == 2) {
+                                    startActivity(intent2);
+                                }
+                            } else {
                                 Toast.makeText(getApplicationContext(), "Không tìm thấy", Toast.LENGTH_SHORT).show();
                             }
                         }
-
                         @Override
                         public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
 
