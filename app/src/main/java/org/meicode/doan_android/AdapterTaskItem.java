@@ -155,11 +155,11 @@ public class AdapterTaskItem extends BaseExpandableListAdapter{
         btn_star.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                btn_star.setImageResource(R.drawable.ic_baseline_star_24);
-//                Intent intent = new Intent(view.getContext(),TaskMaster .class);
-//                intent.putExtra("NameOfTask",listGroup.get(i).toString());
-//                intent.putExtra("HeaderTitle",headerTitle);
-//                view.getContext().startActivity(intent);
+                Intent intent = new Intent(view.getContext(),Detail_Child_Task.class);
+                intent.putExtra("NameOfTask",listGroup.get(i).toString());
+                intent.putExtra("NameOfChildTask",listChild.get(listGroup.get(i)).get(i1).toString().split("/")[0]);
+                intent.putExtra("HeaderTitle",headerTitle);
+                view.getContext().startActivity(intent);
             }
         });
         btn_add_child_task.setOnClickListener(new View.OnClickListener() {

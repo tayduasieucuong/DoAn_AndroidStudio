@@ -110,7 +110,9 @@ public class Detail_Child_Task extends AppCompatActivity {
         rf.child("Mô tả").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                et_descript.setText(snapshot.getValue().toString());
+                try {
+                    et_descript.setText(snapshot.getValue().toString());
+                }catch (Exception ex){}
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
@@ -120,7 +122,9 @@ public class Detail_Child_Task extends AppCompatActivity {
         rf.child("ID notification").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                IDNoti=Integer.parseInt(snapshot.getValue().toString());
+                try {
+                    IDNoti = Integer.parseInt(snapshot.getValue().toString());
+                }catch (Exception ex){}
             }
 
             @Override
@@ -131,7 +135,9 @@ public class Detail_Child_Task extends AppCompatActivity {
         rf.child("Thời gian nhắc nhở").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                tv_nhacnho.setText(snapshot.getValue().toString());
+                try {
+                    tv_nhacnho.setText(snapshot.getValue().toString());
+                }catch (Exception ex){}
                 //tg_time=snapshot.getValue().toString();
             }
 
