@@ -54,7 +54,7 @@ public class TimeCoutDown extends AppCompatActivity {
         int time1 = intent.getIntExtra("time1", 0);
         Name = intent.getStringExtra("name");
         mTimeLeftInMillis = time*60000;
-        mTimeRelax = 5*60000;
+        mTimeRelax = time1*60000;
         kt=false;
         START_TIME_IN_MILLIS=mTimeLeftInMillis;
         mTextViewCountDown = findViewById(R.id.text_view_countdown);

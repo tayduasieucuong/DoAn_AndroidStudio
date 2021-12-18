@@ -3,12 +3,14 @@ package org.meicode.doan_android;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TimePicker;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -20,7 +22,6 @@ public class input_time extends AppCompatActivity {
     EditText edt1,edt2,edt3;
     Button btn;
     Intent intent;
-    ImageView img1;
     FirebaseDatabase database;
     DatabaseReference reference;
     FirebaseAuth mAuth;
@@ -29,13 +30,14 @@ public class input_time extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_input_time);
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.hide();
+        final ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        actionBar.setTitle("Thời gian tập trung");
         edt1=(EditText) findViewById(R.id.edt1);
         edt2=(EditText) findViewById(R.id.edt2);
         edt3=(EditText) findViewById(R.id.edt3);
         btn=(Button) findViewById(R.id.btn);
-        img1=(ImageView) findViewById(R.id.imageView);
         mAuth = FirebaseAuth.getInstance();
         database = FirebaseDatabase.getInstance("https://doan-3672e-default-rtdb.asia-southeast1.firebasedatabase.app/");
         intent = new Intent(input_time.this, TimeCoutDown.class);
@@ -44,14 +46,15 @@ public class input_time extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                TimePickerDialog timePickerDialog = new TimePickerDialog(input_time.this, new TimePickerDialog.OnTimeSetListener() {
+                TimePickerDialog timePickerDialog = new TimePickerDialog(input_time.this,2 ,new TimePickerDialog.OnTimeSetListener() {
+
                     @Override
                     public void onTimeSet(TimePicker timePicker, int i, int i1) {
                         edt2.setText(i + ":" + i1);
                         intent.putExtra("time",i*60+i1);
                         t1=i+" giờ "+i1+" phút";
                     }
-                }, 0, 0, false);
+                }, 0, 0, true);
                 timePickerDialog.show();
             }
         });
@@ -60,7 +63,7 @@ public class input_time extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                TimePickerDialog timePickerDialog = new TimePickerDialog(input_time.this, new TimePickerDialog.OnTimeSetListener() {
+                TimePickerDialog timePickerDialog = new TimePickerDialog(input_time.this,2, new TimePickerDialog.OnTimeSetListener() {
                     @Override
                     public void onTimeSet(TimePicker timePicker, int i, int i1) {
 
@@ -68,7 +71,7 @@ public class input_time extends AppCompatActivity {
                         intent.putExtra("time1",i*60+i1);
                         t2=i+" giờ "+i1+" phút";
                     }
-                }, 0, 0, false);
+                }, 0, 0, true);
                 timePickerDialog.show();
 
             }
@@ -107,13 +110,16 @@ public class input_time extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        img1.setOnClickListener(new View.OnClickListener(){
 
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(input_time.this,TaskManagement.class));
-            }
-        });
     }
-
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        int id = item.getItemId();
+        if(id == android.R.id.home)
+        {
+            startActivity(new Intent(this,TaskManagement.class));
+            finish();
+        }
+        return true;
+    }
 }

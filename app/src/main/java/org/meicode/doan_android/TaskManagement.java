@@ -305,14 +305,18 @@ public class TaskManagement extends AppCompatActivity {
     }
     public void readTasks()
     {
-
         reference.child(userid).child("UserInfo").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 userName = (TextView) findViewById(R.id.usr_name);
                 userEmail = (TextView) findViewById(R.id.usr_email);
-                userName.setText(snapshot.child("Name").getValue().toString());
-                userEmail.setText(snapshot.child("Email").getValue().toString());
+                try {
+                    userName.setText(snapshot.child("Name").getValue().toString());
+                    userEmail.setText(snapshot.child("Email").getValue().toString());
+                }catch(Exception e){
+
+                }
+
             }
 
             @Override

@@ -21,6 +21,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -34,7 +35,7 @@ public class HistoryTasks extends AppCompatActivity {
     HashMap<String,ArrayList<String>> listChild = new HashMap<>();
     String userid;
     FirebaseDatabase database;
-    DatabaseReference reference;
+    DatabaseReference reference,rf;
     AdapterHistory adapterTaskItem;
     ArrayList<String> childItem;
     ArrayList<String> listGroupDetail = new ArrayList<>();
@@ -43,6 +44,7 @@ public class HistoryTasks extends AppCompatActivity {
         userid = sharedPreferences.getString("UID",null);
         database = FirebaseDatabase.getInstance("https://doan-3672e-default-rtdb.asia-southeast1.firebasedatabase.app/");
         reference = database.getReference("Users");
+
         expandableListView = (ExpandableListView) findViewById(R.id.exp_list_view);
     }
     @Override
@@ -67,7 +69,9 @@ public class HistoryTasks extends AppCompatActivity {
                     {
                         String groupname =(String) ds.getKey();
                         listGroup.add(groupname);
-                        listGroupDetail.add(ds.child("Detail").child("Ngày bắt đầu").getValue().toString() + "-" + ds.child("Detail").child("Ngày kết thúc").getValue().toString()+"-"+ds.child("Detail").child("Trạng thái").getValue().toString());
+
+                        listGroupDetail.add(snapshot.child("Tasks/Tất cả công việc").child(groupname).child("Detail").child("Ngày bắt đầu").getValue().toString()+"-"+snapshot.child("Tasks/Tất cả công việc").child(groupname).child("Detail").child("Ngày kết thúc").getValue().toString()+"-"+snapshot.child("Tasks/Tất cả công việc").child(groupname).child("Detail").child("Trạng thái").getValue().toString());
+
                         childItem = new ArrayList<>();
                         for (DataSnapshot dschild : ds.child("TasksChild").getChildren())
                         {
