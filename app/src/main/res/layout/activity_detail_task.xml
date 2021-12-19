@@ -21,6 +21,8 @@
             tools:layout_editor_absoluteY="-16dp">
 
             <EditText
+                android:backgroundTint="@color/white"
+                android:background="@drawable/bogoc_button"
                 android:id="@+id/et_title"
                 android:layout_width="0dp"
                 android:layout_height="50dp"

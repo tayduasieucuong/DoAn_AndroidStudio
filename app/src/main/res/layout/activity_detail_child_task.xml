@@ -21,6 +21,9 @@
             tools:layout_editor_absoluteY="16dp">
 
             <EditText
+
+                android:backgroundTint="@color/white"
+                android:background="@drawable/bogoc_button"
                 android:id="@+id/et_title"
                 android:layout_width="0dp"
                 android:layout_height="50dp"
@@ -149,6 +152,8 @@
             <EditText
                 android:id="@+id/ps_editTextTextMultiLine"
                 android:layout_width="0dp"
+
+                android:backgroundTint="@color/white"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="36dp"
