@@ -7,9 +7,12 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -51,7 +54,7 @@ public class UserInfo extends AppCompatActivity {
     TextView Email;
     EditText Birthday;
     EditText PhoneNumber;
-    ImageView profileImage,img1;
+    ImageView profileImage;
     RadioGroup rdtG;
     RadioButton radioButtonnam;
     RadioButton radioButtonnu;
@@ -63,7 +66,19 @@ public class UserInfo extends AppCompatActivity {
     final Calendar myCalendar = Calendar.getInstance();
     private final int PICK_IMAGE_REQUEST = 71;
     Button btnSave, changeProfileImage;
+    ActionBar actionBar;
+    private void setActionBar()
+    {
+        actionBar = getSupportActionBar();
+        actionBar.setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_baseline_chevron_left_24);
+        //actionBar.setDisplayUseLogoEnabled(true);
+        actionBar.setTitle("Thời gian tập trung");
 
+        actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#ECB7F0")));
+        actionBar.setElevation(3);
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -71,8 +86,7 @@ public class UserInfo extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.user);
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.hide();
+        setActionBar();
         mData = FirebaseDatabase.getInstance().getReference();
 
         Email = (TextView) findViewById(R.id.edittextGmail);
@@ -85,7 +99,6 @@ public class UserInfo extends AppCompatActivity {
         rdtG =(RadioGroup) findViewById(R.id.radioGroup);
         changeProfileImage = (Button) findViewById(R.id.buttonAvatar);
         profileImage = (ImageView) findViewById(R.id.profileImage);
-        img1=(ImageView) findViewById(R.id.imageView);
         final SharedPreferences sharedPreferences = getSharedPreferences("USERID", MODE_PRIVATE);
 
         userid = sharedPreferences.getString("UID",null);
@@ -133,13 +146,6 @@ public class UserInfo extends AppCompatActivity {
                 intent.setType("image/*");
                 intent.setAction(Intent.ACTION_GET_CONTENT);
                 startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST);
-            }
-        });
-        img1.setOnClickListener(new View.OnClickListener(){
-
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(UserInfo.this,TaskManagement.class));
             }
         });
 
@@ -339,6 +345,14 @@ public class UserInfo extends AppCompatActivity {
         }
     }
 
-
-
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        int id = item.getItemId();
+        if(id == android.R.id.home)
+        {
+            startActivity(new Intent(UserInfo.this,TaskManagement.class));
+            finish();
+        }
+        return true;
+    }
 }

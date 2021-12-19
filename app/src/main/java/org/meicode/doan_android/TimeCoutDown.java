@@ -3,17 +3,21 @@ package org.meicode.doan_android;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationCompat;
@@ -43,12 +47,24 @@ public class TimeCoutDown extends AppCompatActivity {
     DatabaseReference reference;
     FirebaseAuth mAuth;
     String uid,Name;
+    ActionBar actionBar;
+    private void setActionBar()
+    {
+        actionBar = getSupportActionBar();
+        actionBar.setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_baseline_chevron_left_24);
+        //actionBar.setDisplayUseLogoEnabled(true);
+        actionBar.setTitle("Thời gian tập trung");
+
+        actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#ECB7F0")));
+        actionBar.setElevation(3);
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_time_cout_down);
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.hide();
+        setActionBar();
         Intent intent = getIntent();
         int time = intent.getIntExtra("time", 0);
         int time1 = intent.getIntExtra("time1", 0);
@@ -190,4 +206,14 @@ public class TimeCoutDown extends AppCompatActivity {
         mTextViewCountDown.setText(timeLeftFormatted);
     }
 
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        int id = item.getItemId();
+        if(id == android.R.id.home)
+        {
+            startActivity(new Intent(TimeCoutDown.this, TaskManagement.class));
+            finish();
+        }
+        return true;
+    }
 }

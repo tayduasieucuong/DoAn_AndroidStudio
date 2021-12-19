@@ -46,8 +46,8 @@ public class CompleteForm extends AppCompatActivity {
     String tasktemp;
     int indexGroup;
     int indexItem;
-    ImageView btn_back;
     ActionBar actionBar;
+
     private void getDatafromAnotherActivity(){
         Intent intent = getIntent();
         taskMaster = intent.getStringExtra("NameOfTask");
@@ -75,9 +75,7 @@ public class CompleteForm extends AppCompatActivity {
         tv_desc = (TextView) findViewById(R.id.tv_des);
         btn_complete = (ImageView) findViewById(R.id.btn_complete);
         btn_delete = (ImageView) findViewById(R.id.btn_delete);
-        btn_back = (ImageView) findViewById(R.id.btn_back);
         actionBar = getSupportActionBar();
-        actionBar.hide();
     }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -106,9 +104,10 @@ public class CompleteForm extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_baseline_chevron_left_24);
         //actionBar.setDisplayUseLogoEnabled(true);
-        actionBar.setTitle("");
-        actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#FFFFFF")));
+        actionBar.setTitle("Hoàn thành công việc");
+
         actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#ECB7F0")));
+        actionBar.setElevation(3);
     }
     private void onReadTask(){
         reference.addChildEventListener(new ChildEventListener() {
@@ -268,15 +267,6 @@ public class CompleteForm extends AppCompatActivity {
             public void onClick(View view) {
                 onCompleteTask();
                 Toast.makeText(CompleteForm.this, "Task is completed", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(CompleteForm.this,TaskMaster.class);
-                intent.putExtra("HeaderTitle",headerTitle);
-                startActivity(intent);
-                finish();
-            }
-        });
-        btn_back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
                 Intent intent = new Intent(CompleteForm.this,TaskMaster.class);
                 intent.putExtra("HeaderTitle",headerTitle);
                 startActivity(intent);

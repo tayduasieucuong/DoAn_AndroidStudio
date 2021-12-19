@@ -9,22 +9,6 @@
 
 
     <TextView
-        android:id="@+id/textView"
-        android:layout_width="280dp"
-        android:layout_height="38dp"
-        android:layout_marginStart="50dp"
-        android:layout_marginLeft="50dp"
-        android:layout_marginTop="16dp"
-        android:icon="@drawable/img"
-        android:text="Thông tin tài khoản"
-        android:textColor="#000000"
-        android:textSize="22dp"
-        app:layout_constraintStart_toEndOf="@+id/imageView"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="MissingConstraints" />
-
-
-    <TextView
         android:id="@+id/textView3"
         android:layout_width="100dp"
         android:layout_height="40dp"
@@ -33,7 +17,7 @@
 
         android:layout_marginTop="24dp"
         android:text="Gmail:"
-        android:textColor="#000000"
+        android:textColor="@color/white"
         android:textSize="19dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/nameuser"
@@ -48,7 +32,7 @@
 
         android:layout_marginTop="22dp"
         android:text="Ngày sinh:"
-        android:textColor="#000000"
+        android:textColor="@color/white"
         android:textSize="19dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView3"
@@ -66,27 +50,13 @@
         android:focusable="false"
         android:focusableInTouchMode="false"
         android:inputType="date"
-        android:textColor="#000000"
-        android:textColorHint="#000000"
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"
         android:textSize="18dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/textView5"
         app:layout_constraintTop_toBottomOf="@+id/edittextGmail"
         tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
-
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="25dp"
-        android:layout_height="25dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="22dp"
-
-        android:layout_marginEnd="20dp"
-        app:layout_constraintEnd_toStartOf="@+id/textView"
-        app:layout_constraintHorizontal_bias="0.205"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/img" />
 
     <Button
         android:id="@+id/buttonSave"
@@ -95,7 +65,7 @@
         android:layout_marginEnd="30dp"
         android:background="@drawable/rounded_edittext_1"
         android:text="Lưu"
-        android:textColor="#000000"
+        android:textColor="@color/white"
         android:textSize="14dp"
         app:backgroundTint="#3498DB"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -107,14 +77,13 @@
         android:id="@+id/profileImage"
         android:layout_width="130dp"
         android:layout_height="130dp"
-        android:layout_marginTop="20dp"
-        app:cardCornerRadius="45dp"
         android:scaleType="centerCrop"
+        app:cardCornerRadius="45dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView"
-        app:srcCompat="@drawable/defaultuser" />
+        app:srcCompat="@drawable/defaultuser"
+        tools:layout_editor_absoluteY="74dp" />
 
     <TextView
         android:id="@+id/textView12"
@@ -123,7 +92,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="22dp"
         android:text="Giới tính:"
-        android:textColor="#000000"
+        android:textColor="@color/white"
         android:textSize="19dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView5" />
@@ -156,7 +125,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Nam"
-                android:textColor="#000000"
+                android:textColor="@color/white"
                 android:textSize="19dp" />
 
             <RadioButton
@@ -164,7 +133,7 @@
                 android:layout_width="60dp"
                 android:layout_height="wrap_content"
                 android:text="Nữ"
-                android:textColor="#000000"
+                android:textColor="@color/white"
                 android:textSize="19dp" />
 
             <RadioButton
@@ -172,7 +141,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Khác"
-                android:textColor="#000000"
+                android:textColor="@color/white"
                 android:textSize="19dp" />
         </RadioGroup>
 
@@ -186,7 +155,7 @@
         android:ems="10"
         android:gravity="center_horizontal"
         android:inputType="textPersonName"
-        android:textColor="#000000"
+        android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
@@ -199,7 +168,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:text="TextView"
-        android:textColor="#000000"
+        android:textColor="@color/white"
         android:textSize="18dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/textView3"
@@ -212,7 +181,7 @@
         android:layout_marginStart="30dp"
         android:background="@drawable/rounded_edittext_1"
         android:text="chọn ảnh"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         android:textSize="14dp"
         app:backgroundTint="#3498DB"
         app:layout_constraintBottom_toBottomOf="parent"

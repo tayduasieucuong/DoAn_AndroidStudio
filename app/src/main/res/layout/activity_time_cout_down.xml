@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@drawable/background4">
+    android:background="@drawable/gradient_background">
 
     <TextView
         android:id="@+id/textView"
@@ -14,7 +14,7 @@
         android:gravity="center"
         android:icon="@drawable/img"
         android:text="Thời gian tập trung"
-        android:textColor="#000000"
+        android:textColor="#ffffff"
         android:textSize="25dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -27,7 +27,7 @@
         android:layout_marginTop="30dp"
         android:gravity="center"
         android:text="Làm giao diện đồ án môn di động"
-        android:textColor="#000000"
+        android:textColor="#ffffff"
         android:textSize="23dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
