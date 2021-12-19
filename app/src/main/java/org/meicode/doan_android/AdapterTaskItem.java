@@ -26,12 +26,14 @@ public class AdapterTaskItem extends BaseExpandableListAdapter{
     SharedPreferences sharedPreferences;
     String userid;
     String tag;
+    private TaskMaster.OnCompleteTaskMasterListener masterListener;
     private Context context;
-    public AdapterTaskItem(ArrayList<String> listGroup, HashMap<String,ArrayList<String>> listChild, String headerTitle)
+    public AdapterTaskItem(ArrayList<String> listGroup, HashMap<String,ArrayList<String>> listChild, String headerTitle, TaskMaster.OnCompleteTaskMasterListener masterListener)
     {
         this.listChild = listChild;
         this.listGroup = listGroup;
         this.headerTitle = headerTitle;
+        this.masterListener = masterListener;
     }
     @Override
     public int getGroupCount() {
@@ -95,6 +97,12 @@ public class AdapterTaskItem extends BaseExpandableListAdapter{
                 intent.putExtra("NameOfTask",listGroup.get(i).toString());
                 intent.putExtra("HeaderTitle",headerTitle);
                 view.getContext().startActivity(intent);
+            }
+        });
+        btn_complete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                masterListener.onCompleteTaskMaster(listGroup.get(i).toString());
             }
         });
         String sGroup = String.valueOf(getGroup(i));

@@ -398,8 +398,8 @@ public class TaskChildPerson extends AppCompatActivity {
         rf.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                dt=snapshot.getValue().toString();
                 try {
+                    dt=snapshot.getValue().toString();
                     dateParent=sdf.parse(dt);
                 } catch (ParseException e) {
                     e.printStackTrace();

@@ -69,9 +69,7 @@ public class HistoryTasks extends AppCompatActivity {
                     {
                         String groupname =(String) ds.getKey();
                         listGroup.add(groupname);
-
-                        listGroupDetail.add(snapshot.child("Tasks/Tất cả công việc").child(groupname).child("Detail").child("Ngày bắt đầu").getValue().toString()+"-"+snapshot.child("Tasks/Tất cả công việc").child(groupname).child("Detail").child("Ngày kết thúc").getValue().toString()+"-"+snapshot.child("Tasks/Tất cả công việc").child(groupname).child("Detail").child("Trạng thái").getValue().toString());
-
+                        listGroupDetail.add(ds.child("Detail").child("Ngày hoàn thành").getValue().toString()+"-"+ds.child("Detail").child("Trạng thái").getValue().toString());
                         childItem = new ArrayList<>();
                         for (DataSnapshot dschild : ds.child("TasksChild").getChildren())
                         {

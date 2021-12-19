@@ -65,10 +65,10 @@ public class AdapterHistory extends BaseExpandableListAdapter {
         TextView tv_time = view.findViewById(R.id.tv_time);
         TextView tv_status = view.findViewById(R.id.tv_status);
         ImageView img_status = view.findViewById(R.id.dot_status);
-        String[] dataDetail = listGroupDetail.get(i).split("-",3);
-        tv_time.setText(dataDetail[0]+" -> "+dataDetail[1]);
-        tv_status.setText(dataDetail[2]);
-        if(dataDetail[2].equals("Xong"))
+        String[] dataDetail = listGroupDetail.get(i).split("-",2);
+        tv_time.setText(dataDetail[0]);
+        tv_status.setText(dataDetail[1]);
+        if(dataDetail[1].equals("Hoàn thành"))
             img_status.setImageResource(R.drawable.ic_dot);
         else
             img_status.setImageResource(R.drawable.ic_dot_red);

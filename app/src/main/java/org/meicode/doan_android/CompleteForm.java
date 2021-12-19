@@ -186,6 +186,9 @@ public class CompleteForm extends AppCompatActivity {
                     Calendar calendar = Calendar.getInstance();
                     String[] temp = taskChild.split("/");
                     taskChild = temp[0];
+                    DatabaseReference drMasterDetail = reference.child(snapshot.getKey()).child("Tasks").child("Lịch sử công việc").child(taskMaster);
+                    drMasterDetail.child("Detail").child("Ngày hoàn thành").setValue("Không xác định");
+                    drMasterDetail.child("Detail").child("Trạng thái").setValue("Chưa hoàn thành");
                     DatabaseReference dr2 = reference.child(snapshot.getKey()).child("Tasks").child("Lịch sử công việc").child(taskMaster).child("TasksChild").child(taskChild).child("Phần trăm hoàn thành");
                     dr2.setValue(tv_percent.getText().toString());
                     DatabaseReference dr = reference.child(snapshot.getKey()).child("Tasks").child("Tất cả công việc").child(taskMaster).child("TasksChild").child(taskChild).child("Detail").child("Trạng thái");
