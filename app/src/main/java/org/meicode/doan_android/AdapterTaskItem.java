@@ -144,7 +144,7 @@ public class AdapterTaskItem extends BaseExpandableListAdapter{
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(view.getContext(),CompleteForm.class);
-                intent.putExtra("NameOfChildTask",listChild.get(listGroup.get(i)).get(i1).toString());
+                intent.putExtra("NameOfChildTask",listChild.get(listGroup.get(i)).get(i1).toString().split("-")[0]);
                 intent.putExtra("NameOfTask",listGroup.get(i).toString());
                 intent.putExtra("HeaderTitle",headerTitle);
                 intent.putExtra("Index Group",i);
