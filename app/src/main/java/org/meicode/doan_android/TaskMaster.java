@@ -156,7 +156,8 @@ public class TaskMaster extends AppCompatActivity {
                         finish();
                         return true;
                     case R.id.group:
-                        Toast.makeText(TaskMaster.this, "Group", Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(TaskMaster.this,Comingsoon.class) );
+                        finish();
                         return true;
                     case R.id.calendar:
                         startActivity(new Intent(TaskMaster.this,calendar_task.class));

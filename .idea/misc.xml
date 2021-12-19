@@ -70,6 +70,7 @@
         <entry key="..\:/Git Everything/DoAn_AndroidStudio/app/src/main/res/drawable/seekbar_progress.xml" value="0.12604166666666666" />
         <entry key="..\:/Git Everything/DoAn_AndroidStudio/app/src/main/res/drawable/seekbar_style.xml" value="0.12604166666666666" />
         <entry key="..\:/Git Everything/DoAn_AndroidStudio/app/src/main/res/layout/activity_charts_task.xml" value="0.22447916666666667" />
+        <entry key="..\:/Git Everything/DoAn_AndroidStudio/app/src/main/res/layout/activity_comingsoon.xml" value="0.1" />
         <entry key="..\:/Git Everything/DoAn_AndroidStudio/app/src/main/res/layout/activity_complete_form.xml" value="0.27447916666666666" />
         <entry key="..\:/Git Everything/DoAn_AndroidStudio/app/src/main/res/layout/activity_create_task.xml" value="0.2318840579710145" />
         <entry key="..\:/Git Everything/DoAn_AndroidStudio/app/src/main/res/layout/activity_detail_child_task.xml" value="0.22" />
@@ -87,6 +88,7 @@
         <entry key="..\:/Git Everything/DoAn_AndroidStudio/app/src/main/res/layout/calendar.xml" value="0.10989583333333333" />
         <entry key="..\:/Git Everything/DoAn_AndroidStudio/app/src/main/res/layout/calendar_cell.xml" value="0.10989583333333333" />
         <entry key="..\:/Git Everything/DoAn_AndroidStudio/app/src/main/res/layout/check_mail.xml" value="0.10989583333333333" />
+        <entry key="..\:/Git Everything/DoAn_AndroidStudio/app/src/main/res/layout/comingsoon.xml" value="0.10989583333333333" />
         <entry key="..\:/Git Everything/DoAn_AndroidStudio/app/src/main/res/layout/event_calendar.xml" value="0.10989583333333333" />
         <entry key="..\:/Git Everything/DoAn_AndroidStudio/app/src/main/res/layout/forgot_pass.xml" value="0.67" />
         <entry key="..\:/Git Everything/DoAn_AndroidStudio/app/src/main/res/layout/header_drawer.xml" value="0.10989583333333333" />

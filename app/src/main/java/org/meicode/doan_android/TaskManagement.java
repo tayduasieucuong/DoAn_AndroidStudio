@@ -179,12 +179,18 @@ public class TaskManagement extends AppCompatActivity {
                     return true;
                 }else if(id == R.id.share)
                 {
+                    startActivity(new Intent(TaskManagement.this,Comingsoon.class) );
+                    finish();
                     return true;
                 }else if(id == R.id.setting)
                 {
+                    startActivity(new Intent(TaskManagement.this,Comingsoon.class) );
+                    finish();
                     return true;
                 }else if(id == R.id.help)
                 {
+                    startActivity(new Intent(TaskManagement.this,Comingsoon.class) );
+                    finish();
                     return true;
                 }else if(id == R.id.logout)
                 {
@@ -241,7 +247,8 @@ public class TaskManagement extends AppCompatActivity {
                         Toast.makeText(TaskManagement.this, "Person", Toast.LENGTH_SHORT).show();
                         return true;
                     case R.id.group:
-                        Toast.makeText(TaskManagement.this, "Group", Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(TaskManagement.this,Comingsoon.class) );
+                        finish();
                         return true;
                     case R.id.calendar:
                         startActivity(new Intent(TaskManagement.this,calendar_task.class));

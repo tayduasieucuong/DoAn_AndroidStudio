@@ -14,6 +14,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.DoAn_Android">
         <activity
+            android:name=".Comingsoon"
+            android:exported="false" />
+        <activity
             android:name=".Detail_Child_Task"
             android:exported="true" />
         <activity
