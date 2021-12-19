@@ -116,10 +116,16 @@ public class TaskManagement extends AppCompatActivity {
                         }
                         if(rs > 0)
                         {
-                            for(DataSnapshot dss : ds.child("Detail").getChildren())
+                            DatabaseReference drDetalTaskMaster = reference.child(snapshot.getKey().toString()).child("Tasks").child("Lịch sử công việc");
+                            drDetalTaskMaster.child(ds.getKey().toString()).child("Detail/Ngày hoàn thành").setValue(CurrentDate);
+                            drDetalTaskMaster.child(ds.getKey().toString()).child("Detail/Trạng thái").setValue("Chưa hoàn thành");
+                            for(DataSnapshot dss : ds.child("TasksChild").getChildren())
                             {
-                                DatabaseReference dr = reference.child(snapshot.getKey().toString()).child("Tasks").child("Lịch sử công việc");
-                                dr.child(ds.getKey().toString()).child("Detail").child(dss.getKey().toString()).setValue(dss.getValue().toString());
+                                if(!dss.child("Detail/Trạng thái").getValue().toString().equals("Xong"))
+                                {
+                                    drDetalTaskMaster.child(ds.getKey().toString()).child("TasksChild").child(dss.getKey().toString()).child("Ngày hoàn thành").setValue(CurrentDate);
+                                    drDetalTaskMaster.child(ds.getKey().toString()).child("TasksChild").child(dss.getKey().toString()).child("Phần trăm hoàn thành").setValue("0%");
+                                }
                             }
                             DatabaseReference dr = reference.child(key).child("Tasks").child("Tất cả công việc").child(ds.getKey().toString());
                             dr.removeValue();
