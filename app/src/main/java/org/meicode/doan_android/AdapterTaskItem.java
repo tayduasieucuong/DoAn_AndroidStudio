@@ -73,6 +73,7 @@ public class AdapterTaskItem extends BaseExpandableListAdapter{
     public View getGroupView(int i, boolean b, View view, ViewGroup viewGroup) {
         view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.layout_item_taskmaster,viewGroup,false);
         ImageView btn_add_task_child = view.findViewById(R.id.btn_add_child_task_right);
+        ImageView btn_complete = view.findViewById(R.id.btn_complete);
         int images[] = {R.drawable.task_area, R.drawable.task_subtraction, R.drawable.task_car, R.drawable.task_pen, R.drawable.task_barchart, R.drawable.task_cylinder};
         int amountItem=listChild.get(listGroup.get(i).toString()).size();
         int flag = i;
@@ -85,7 +86,7 @@ public class AdapterTaskItem extends BaseExpandableListAdapter{
             btn_add_task_child.setVisibility(View.VISIBLE);
         }
         else{
-            btn_add_task_child.setVisibility(View.INVISIBLE);
+            btn_add_task_child.setVisibility(View.GONE);
         }
         btn_add_task_child.setOnClickListener(new View.OnClickListener() {
             @Override
