@@ -158,7 +158,7 @@ public class AdapterTaskItem extends BaseExpandableListAdapter{
             public void onClick(View view) {
                 Intent intent = new Intent(view.getContext(),Detail_Child_Task.class);
                 intent.putExtra("NameOfTask",listGroup.get(i).toString());
-                intent.putExtra("NameOfChildTask",listChild.get(listGroup.get(i)).get(i1).toString().split("/")[0]);
+                intent.putExtra("NameOfChildTask",listChild.get(listGroup.get(i)).get(i1).toString().split("-")[0]);
                 intent.putExtra("HeaderTitle",headerTitle);
                 view.getContext().startActivity(intent);
             }

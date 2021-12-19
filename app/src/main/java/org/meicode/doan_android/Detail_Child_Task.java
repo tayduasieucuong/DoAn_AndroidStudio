@@ -161,20 +161,22 @@ public class Detail_Child_Task extends AppCompatActivity {
         rf.child("Lặp lại").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                switch(snapshot.getValue().toString()) {
-                    case "Không":
-                        spinnerRemind.setSelection(0);
-                        break;
-                    case "Theo ngày":
-                        spinnerRemind.setSelection(1);
-                        break;
-                    case "Theo tuần":
-                        spinnerRemind.setSelection(2);
-                        break;
-                    case "Theo tháng":
-                        spinnerRemind.setSelection(3);
-                        break;
-                }
+                try {
+                    switch (snapshot.getValue().toString()) {
+                        case "Không":
+                            spinnerRemind.setSelection(0);
+                            break;
+                        case "Theo ngày":
+                            spinnerRemind.setSelection(1);
+                            break;
+                        case "Theo tuần":
+                            spinnerRemind.setSelection(2);
+                            break;
+                        case "Theo tháng":
+                            spinnerRemind.setSelection(3);
+                            break;
+                    }
+                }catch (Exception ex){}
             }
 
             @Override
