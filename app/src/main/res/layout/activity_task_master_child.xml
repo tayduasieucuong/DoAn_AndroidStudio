@@ -65,6 +65,7 @@
         android:textColor="@color/white"
         android:textSize="16dp"
         android:layout_marginStart="10dp"
+        android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@+id/btn_add_task"
         app:layout_constraintTop_toTopOf="@+id/btn_add_task"
         app:layout_constraintBottom_toBottomOf="@+id/btn_add_task"

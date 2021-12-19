@@ -65,6 +65,7 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
             <EditText
                 android:textColor="@color/white"
+                android:textStyle="bold"
                 android:id="@+id/et_title"
                 android:layout_width="0dp"
                 android:layout_height="50dp"
@@ -119,6 +120,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
                 android:layout_marginStart="16dp"
+                android:textStyle="bold"
                 android:layout_marginTop="40dp"
                 android:background="@drawable/bogoc_button"
                 android:text="Ngày bắt đầu"
@@ -132,6 +134,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
                 android:layout_marginStart="15dp"
+                android:textStyle="bold"
                 android:layout_marginTop="40dp"
                 android:background="@drawable/bogoc_button"
                 android:text="Ngày kết thúc "
@@ -147,6 +150,7 @@
                 android:layout_height="20dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="40dp"
+                android:textStyle="bold"
                 android:textColor="@color/white"
                 android:text="Nhắc nhở"
                 app:layout_constraintStart_toEndOf="@+id/ps_imageView3"
@@ -158,6 +162,7 @@
                 android:layout_height="20dp"
                 android:layout_marginStart="28dp"
                 android:layout_marginTop="40dp"
+                android:textStyle="bold"
                 app:layout_constraintStart_toEndOf="@+id/ps_textView3"
                 app:layout_constraintTop_toBottomOf="@+id/ps_editTextTextMultiLine" />
 
@@ -170,6 +175,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="36dp"
+                android:textStyle="bold"
                 android:textColor="@color/white"
                 android:layout_marginEnd="30dp"
                 android:ems="10"
@@ -204,6 +210,7 @@
                 android:layout_marginTop="40dp"
                 android:text="Lặp lại"
                 android:textColor="@color/white"
+                android:textStyle="bold"
                 app:layout_constraintStart_toEndOf="@+id/ps_imageView5"
                 app:layout_constraintTop_toBottomOf="@+id/ps_editTextTextMultiLine" />
 
@@ -216,6 +223,7 @@
                 app:layout_constraintEnd_toStartOf="@id/checkBox2"
                 android:layout_height="25dp"
                 android:backgroundTint="@color/white"
+                android:textStyle="bold"
                 android:background="@drawable/bogoc_button"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="37dp"
