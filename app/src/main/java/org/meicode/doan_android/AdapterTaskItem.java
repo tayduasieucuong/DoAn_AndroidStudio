@@ -115,10 +115,13 @@ public class AdapterTaskItem extends BaseExpandableListAdapter{
     public View getChildView(int i, int i1, boolean b, View view, ViewGroup viewGroup) {
         view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.layout_item_child_taskmaster, viewGroup, false);
         TextView textView = view.findViewById(R.id.tv_content);
+        TextView tv_time = view.findViewById(R.id.tv_time);
         String sChild = String.valueOf(getChild(i, i1));
-        String[] temp = sChild.split("/");
+        String[] temp = sChild.split("-",3);
         String content = temp[0];
         String status = temp[1];
+        String Time = temp[2];
+        tv_time.setText(Time);
         textView.setText(content);
         ImageView btn_add_child_task = view.findViewById(R.id.btn_add_child_task);
         ImageView btn_star = view.findViewById(R.id.btn_star);

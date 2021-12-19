@@ -178,7 +178,8 @@ public class TaskMaster extends AppCompatActivity {
                         {
                             if(!"Detail".equals(dschild.getKey())) {
                                 String temp = dschild.child("Detail").child("Trạng thái").getValue().toString();
-                                childItem.add(dschild.getKey().toString()+"/"+temp);
+                                String time = dschild.child("Detail").child("Ngày bắt đầu").getValue().toString() + " -> " + dschild.child("Detail").child("Ngày kết thúc").getValue().toString();
+                                childItem.add(dschild.getKey().toString()+"-"+temp+"-"+time);
                             }
                         }
                         listChild.put(listGroup.get(counter),childItem);
