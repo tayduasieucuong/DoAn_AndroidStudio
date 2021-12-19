@@ -115,7 +115,7 @@
                 app:srcCompat="@drawable/ic_baseline_loop_24" />
 
             <Button
-                android:textColor="@color/white"
+                android:textColor="#C1272424"
                 android:id="@+id/ps_btnstart"
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
@@ -129,7 +129,7 @@
                 app:layout_constraintTop_toBottomOf="@id/et_title" />
 
             <Button
-                android:textColor="@color/white"
+                android:textColor="#C1272424"
                 android:id="@+id/ps_btnend"
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
@@ -151,7 +151,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="40dp"
                 android:textStyle="bold"
-                android:textColor="@color/white"
+                android:textColor="#C1272424"
                 android:text="Nhắc nhở"
                 app:layout_constraintStart_toEndOf="@+id/ps_imageView3"
                 app:layout_constraintTop_toBottomOf="@+id/ps_btnstart" />
@@ -162,6 +162,7 @@
                 android:layout_height="20dp"
                 android:layout_marginStart="28dp"
                 android:layout_marginTop="40dp"
+                android:textColor="#C1272424"
                 android:textStyle="bold"
                 app:layout_constraintStart_toEndOf="@+id/ps_textView3"
                 app:layout_constraintTop_toBottomOf="@+id/ps_editTextTextMultiLine" />
@@ -176,7 +177,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="36dp"
                 android:textStyle="bold"
-                android:textColor="@color/white"
+                android:textColor="#C1272424"
                 android:layout_marginEnd="30dp"
                 android:ems="10"
                 android:gravity="start|top"
@@ -209,7 +210,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="40dp"
                 android:text="Lặp lại"
-                android:textColor="@color/white"
+                android:textColor="#C1272424"
                 android:textStyle="bold"
                 app:layout_constraintStart_toEndOf="@+id/ps_imageView5"
                 app:layout_constraintTop_toBottomOf="@+id/ps_editTextTextMultiLine" />

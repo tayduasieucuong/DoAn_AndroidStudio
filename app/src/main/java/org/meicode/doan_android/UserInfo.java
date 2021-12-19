@@ -74,7 +74,7 @@ public class UserInfo extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_baseline_chevron_left_24);
         //actionBar.setDisplayUseLogoEnabled(true);
-        actionBar.setTitle("Thời gian tập trung");
+        actionBar.setTitle("Thông tin tài khoản");
 
         actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#ECB7F0")));
         actionBar.setElevation(3);

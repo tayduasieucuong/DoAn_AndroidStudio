@@ -89,6 +89,7 @@
             <Button
                 android:id="@+id/ps_btnstart"
                 android:textStyle="bold"
+                android:textColor="#C1272424"
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
                 android:layout_marginStart="16dp"
@@ -96,7 +97,6 @@
                 android:background="@drawable/bogoc_button"
                 android:text="Ngày bắt đầu"
 
-                android:textColor="@color/white"
                 android:textSize="10dp"
                 app:layout_constraintStart_toEndOf="@+id/ps_imageView2"
                 app:layout_constraintTop_toBottomOf="@id/et_title" />
@@ -110,9 +110,9 @@
                 android:layout_marginTop="40dp"
                 android:layout_marginEnd="10dp"
                 android:textStyle="bold"
+                android:textColor="#C1272424"
                 android:background="@drawable/bogoc_button"
                 android:text="Ngày kết thúc "
-                android:textColor="@color/white"
                 android:textSize="10dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.234"
@@ -124,9 +124,9 @@
                 android:layout_width="70dp"
                 android:layout_height="20dp"
                 android:textStyle="bold"
-                android:textColor="@color/white"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="40dp"
+                android:textColor="#C1272424"
                 android:text="Nhắc nhở"
                 app:layout_constraintStart_toEndOf="@+id/ps_imageView3"
                 app:layout_constraintTop_toBottomOf="@+id/ps_btnstart" />
@@ -136,6 +136,7 @@
                 android:background="@drawable/bogoc_button"
                 android:id="@+id/tv_nhacnho"
                 android:textStyle="bold"
+                android:textColor="#C1272424"
                 android:layout_width="0dp"
                 android:layout_height="25dp"
                 android:layout_marginStart="20dp"
@@ -143,7 +144,6 @@
                 android:enabled="false"
                 app:layout_constraintEnd_toStartOf="@id/checkBox2"
                 android:gravity="center"
-                android:textColor="@color/white"
                 android:textSize="10dp"
                 app:layout_constraintStart_toEndOf="@+id/ps_textView2"
                 app:layout_constraintTop_toBottomOf="@+id/ps_btnend" />
@@ -163,7 +163,7 @@
             <Spinner
                 android:id="@+id/ps_nhacnho"
                 android:layout_width="214dp"
-                android:textColor="@color/white"
+                android:textColor="#C1272424"
                 android:layout_height="20dp"
                 android:layout_marginStart="28dp"
                 android:layout_marginTop="40dp"
@@ -174,12 +174,12 @@
             <EditText
                 android:backgroundTint="@color/white"
                 android:background="@drawable/bogoc_button"
-                android:textColor="@color/white"
                 android:id="@+id/ps_editTextTextMultiLine"
                 android:layout_width="0dp"
                 android:textStyle="bold"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
+                android:textColor="#C1272424"
                 android:layout_marginTop="36dp"
                 android:layout_marginEnd="30dp"
                 android:ems="10"
@@ -211,9 +211,9 @@
                 android:layout_height="20dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="40dp"
+                android:textColor="#C1272424"
                 android:text="Lặp lại"
                 android:textStyle="bold"
-                android:textColor="@color/white"
 
                 app:layout_constraintStart_toEndOf="@+id/ps_imageView5"
                 app:layout_constraintTop_toBottomOf="@+id/ps_editTextTextMultiLine" />
