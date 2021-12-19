@@ -1,5 +1,6 @@
 package org.meicode.doan_android;
 
+import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.DatePickerDialog;
 import android.app.NotificationChannel;
@@ -75,6 +76,7 @@ public class TaskChildPerson extends AppCompatActivity {
     Date dateParent;
     String dt;
     SimpleDateFormat sdf;
+    public static Activity fa;
     ArrayList<String> itemSpinner = new ArrayList<String>();
     private void initView(){
         Intent intent = getIntent();
@@ -113,6 +115,7 @@ public class TaskChildPerson extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_task_child_person);
+        fa = this;
         initView();
         Intent intent = getIntent();
         setActionBar();
@@ -401,8 +404,7 @@ public class TaskChildPerson extends AppCompatActivity {
                 try {
                     dt=snapshot.getValue().toString();
                     dateParent=sdf.parse(dt);
-                } catch (ParseException e) {
-                    e.printStackTrace();
+                } catch (Exception e) {
                 }
             }
             @Override

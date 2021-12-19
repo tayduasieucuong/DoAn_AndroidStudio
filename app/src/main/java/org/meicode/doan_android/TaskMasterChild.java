@@ -1,5 +1,6 @@
 package org.meicode.doan_android;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -15,6 +16,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -44,11 +46,21 @@ public class TaskMasterChild extends AppCompatActivity {
     String headerMaster;
     FirebaseDatabase database;
     DatabaseReference reference,rf;
+    ImageView btn_donealltasks;
     ListViewAdapter adapter;
     SimpleDateFormat sdf;
+    String CurrentDate;
+    private void getCurrentDate(){
+        long millis=System.currentTimeMillis();
+        java.sql.Date date=new java.sql.Date(millis);
+        CurrentDate = date.toString();
+        String[] DateCurrentTemp = CurrentDate.split("-",3);
+        CurrentDate = DateCurrentTemp[2] + "/" + DateCurrentTemp[1] + "/" + DateCurrentTemp[0];
+    }
     private void InitView(){
         tv = (TextView) findViewById(R.id.tv_title);
         btn_add_child_task = (ImageView) findViewById(R.id.btn_add_task);
+        btn_donealltasks = (ImageView) findViewById(R.id.completeAlltasks);
     }
     private void getData(){
         Intent intent = getIntent();
@@ -98,6 +110,81 @@ public class TaskMasterChild extends AppCompatActivity {
             public void onClick(View view) {
                 startActivity(new Intent(TaskMasterChild.this,CreateTask.class));
                 finish();
+            }
+        });
+        btn_donealltasks.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(TaskMasterChild.this);
+                builder.setMessage("Bạn đã hoàn thành tất cả rồi chứ ^^")
+                        .setPositiveButton("Hoàn thành", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                DatabaseReference drRemove = reference.child(userid).child("Tasks").child("Tất cả công việc").child(headername);
+                                completeTask();
+                                drRemove.removeValue();
+                                Toast.makeText(TaskMasterChild.this, "Chúc mừng bạn đã hoàn thành", Toast.LENGTH_SHORT).show();
+                                startActivity(new Intent(TaskMasterChild.this,TaskManagement.class));
+                                finish();
+                            }
+                        })
+                        .setNegativeButton("Chưa hoàn thành", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                Toast.makeText(TaskMasterChild.this, "Làm việc đi nào !!!", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                builder.create().show();
+            }
+        });
+
+    }
+    public void completeTask() {
+        reference.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                if (userid.equals(snapshot.getKey())) {
+                    DatabaseReference drRemove = reference.child(userid).child("Tất cả công việc").child(headername);
+                    DatabaseReference dr = reference.child(userid)
+                            .child("Tasks/Lịch sử công việc")
+                            .child(headername);
+                    DatabaseReference drDetail = dr.child("Detail");
+                    DatabaseReference drTasksChild = dr.child("TasksChild");
+                    getCurrentDate();
+                    drDetail.child("Ngày hoàn thành").setValue(CurrentDate);
+                    drDetail.child("Trạng thái").setValue("Hoàn thành");
+                    for (DataSnapshot dsTasksChild : snapshot.child("Tasks")
+                            .child("Tất cả công việc")
+                            .child(headername)
+                            .child("TasksChild").getChildren()) {
+                        //ds.getKey = Thiết kế chức năng
+                        if (!dsTasksChild.child("Detail/Trạng thái").getValue().toString().equals("Xong")) {
+                            drTasksChild.child(dsTasksChild.getKey().toString()).child("Ngày hoàn thành").setValue(CurrentDate);
+                            drTasksChild.child(dsTasksChild.getKey().toString()).child("Phần trăm hoàn thành").setValue("100%");
+                        }
+                    }
+
+                }
+            }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
             }
         });
     }
