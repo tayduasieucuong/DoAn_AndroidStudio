@@ -224,7 +224,7 @@ public class TaskMasterChild extends AppCompatActivity {
                         finish();
                         return true;
                     case R.id.alarm:
-                        startActivity(new Intent(TaskMasterChild.this,input_time.class));
+                        startActivity(new Intent(TaskMasterChild.this,ListFocusTime.class));
                         finish();
                         return true;
                 }

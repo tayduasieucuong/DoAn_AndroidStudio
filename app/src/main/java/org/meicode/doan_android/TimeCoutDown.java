@@ -174,6 +174,7 @@ public class TimeCoutDown extends AppCompatActivity {
                 mButtonStartPause.setVisibility(View.INVISIBLE);
 
                 startActivity(intent);
+                finish();
             }
         }.start();
 

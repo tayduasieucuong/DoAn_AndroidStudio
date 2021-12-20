@@ -108,6 +108,7 @@ public class input_time extends AppCompatActivity {
                 reference.child(uid).child("FocusTask").child(nametask).child("Nghỉ sau").setValue(t2);
                 intent.putExtra("name",edt1.getText().toString());
                 startActivity(intent);
+                finish();
             }
         });
 
@@ -117,7 +118,7 @@ public class input_time extends AppCompatActivity {
         int id = item.getItemId();
         if(id == android.R.id.home)
         {
-            startActivity(new Intent(this,TaskManagement.class));
+            startActivity(new Intent(this,ListFocusTime.class));
             finish();
         }
         return true;

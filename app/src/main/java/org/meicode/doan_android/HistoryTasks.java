@@ -52,7 +52,6 @@ public class HistoryTasks extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_history_tasks);
         setActionBar();
-        setBottomNavigation();
         getData();
         onReadTasks();
         adapterTaskItem = new AdapterHistory(listGroup,listChild,listGroupDetail);

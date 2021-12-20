@@ -261,7 +261,7 @@ public class TaskManagement extends AppCompatActivity {
                         finish();
                         return true;
                     case R.id.alarm:
-                        startActivity(new Intent(TaskManagement.this,input_time.class));
+                        startActivity(new Intent(TaskManagement.this,ListFocusTime.class));
                         finish();
                         return true;
                 }
