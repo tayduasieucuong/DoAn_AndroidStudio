@@ -138,7 +138,33 @@ public class TimeCoutDown extends AppCompatActivity {
             }
         });
     }
+    String DateNotify;
+    private void getTimeToNotify(){
+        long millis=System.currentTimeMillis();
+        java.sql.Date date=new java.sql.Date(millis);
+        DateNotify = date.toString();
+        String[] DateCurrentTemp = DateNotify.split("-",3);;
 
+        String[] time = java.text.DateFormat.getDateTimeInstance().format(android.icu.util.Calendar.getInstance().getTime()).toString().split(" ",3);
+        String[] timeLocate = time[2].split(" ",3);
+        DateNotify = DateCurrentTemp[2] + "/" + DateCurrentTemp[1] + "/" + DateCurrentTemp[0] + " - "+timeLocate[2];
+    }
+    String randomString(int n)
+    {
+        // chose a Character random from this String
+        String AlphaNumericString = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+                + "0123456789"
+                + "abcdefghijklmnopqrstuvxyz";
+        StringBuilder sb = new StringBuilder(n);
+        for (int i = 0; i < n; i++) {
+            int index
+                    = (int)(AlphaNumericString.length()
+                    * Math.random());
+            sb.append(AlphaNumericString
+                    .charAt(index));
+        }
+        return sb.toString();
+    }
     private void startTimer() {
 
         mCountDownTimer = new CountDownTimer(mTimeLeftInMillis, 1000) {
@@ -169,6 +195,10 @@ public class TimeCoutDown extends AppCompatActivity {
                 count+=countSum;
                 int c= (int) (count*100000 / START_TIME_IN_MILLIS);
                 reference.child(uid).child("FocusTask").child(Name).child("Hoàn thành được").setValue(c+"%");
+                getTimeToNotify();
+                String randomKey = randomString(15);
+                reference.child(uid).child("Notification").child(randomKey).child("Content").setValue("Hoàn thành thời gian tập trung "+ Name);
+                reference.child(uid).child("Notification").child(randomKey).child("Time").setValue(DateNotify);
                 Intent intent = new Intent(TimeCoutDown.this,input_time.class);
                 mButtonStartPause.setText("Start");
                 mButtonStartPause.setVisibility(View.INVISIBLE);

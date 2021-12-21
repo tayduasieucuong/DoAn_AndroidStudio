@@ -104,7 +104,7 @@
         android:background="@drawable/rounded_edittext"
         android:clickable="false"
         android:cursorVisible="false"
-        android:drawableLeft="@drawable/icon_heart"
+        android:drawableLeft="@drawable/ic_heart"
         android:drawablePadding="6dp"
         android:ems="10"
         android:focusable="false"

@@ -402,7 +402,7 @@ public class TaskManagement extends AppCompatActivity {
             drawerLayout.openDrawer(GravityCompat.START);
         }else if( id == R.id.notify)
         {
-            Toast.makeText(getApplicationContext(), "Notify", Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(TaskManagement.this, Notification.class));
         }else if( id == R.id.search){
 
             SearchView searchView = (SearchView) item.getActionView();

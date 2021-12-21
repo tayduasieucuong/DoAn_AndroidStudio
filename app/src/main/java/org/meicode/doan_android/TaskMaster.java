@@ -107,6 +107,33 @@ public class TaskMaster extends AppCompatActivity {
         readTasks();
         onClick();
     }
+    String DateNotify;
+    private void getTimeToNotify(){
+        long millis=System.currentTimeMillis();
+        java.sql.Date date=new java.sql.Date(millis);
+        DateNotify = date.toString();
+        String[] DateCurrentTemp = DateNotify.split("-",3);;
+
+        String[] time = java.text.DateFormat.getDateTimeInstance().format(android.icu.util.Calendar.getInstance().getTime()).toString().split(" ",3);
+        String[] timeLocate = time[2].split(" ",3);
+        DateNotify = DateCurrentTemp[2] + "/" + DateCurrentTemp[1] + "/" + DateCurrentTemp[0] + " - "+timeLocate[2];
+    }
+    String randomString(int n)
+    {
+        // chose a Character random from this String
+        String AlphaNumericString = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+                + "0123456789"
+                + "abcdefghijklmnopqrstuvxyz";
+        StringBuilder sb = new StringBuilder(n);
+        for (int i = 0; i < n; i++) {
+            int index
+                    = (int)(AlphaNumericString.length()
+                    * Math.random());
+            sb.append(AlphaNumericString
+                    .charAt(index));
+        }
+        return sb.toString();
+    }
     public void completeTask(){
         reference.addChildEventListener(new ChildEventListener() {
             @Override
@@ -132,6 +159,10 @@ public class TaskMaster extends AppCompatActivity {
                             drTasksChild.child(dsTasksChild.getKey().toString()).child("Phần trăm hoàn thành").setValue("100%");
                         }
                     }
+                    getTimeToNotify();
+                    String randomKey = randomString(15);
+                    reference.child(userid).child("Notification").child(randomKey).child("Content").setValue("Hoàn thành công việc lớn "+ interfaceNameTaskMaster);
+                    reference.child(userid).child("Notification").child(randomKey).child("Time").setValue(DateNotify);
 
                 }
             }

@@ -26,6 +26,33 @@ public class input_time extends AppCompatActivity {
     DatabaseReference reference;
     FirebaseAuth mAuth;
     String t1,t2;
+    String DateNotify;
+    private void getTimeToNotify(){
+        long millis=System.currentTimeMillis();
+        java.sql.Date date=new java.sql.Date(millis);
+        DateNotify = date.toString();
+        String[] DateCurrentTemp = DateNotify.split("-",3);;
+
+        String[] time = java.text.DateFormat.getDateTimeInstance().format(android.icu.util.Calendar.getInstance().getTime()).toString().split(" ",3);
+        String[] timeLocate = time[2].split(" ",3);
+        DateNotify = DateCurrentTemp[2] + "/" + DateCurrentTemp[1] + "/" + DateCurrentTemp[0] + " - "+timeLocate[2];
+    }
+    String randomString(int n)
+    {
+        // chose a Character random from this String
+        String AlphaNumericString = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+                + "0123456789"
+                + "abcdefghijklmnopqrstuvxyz";
+        StringBuilder sb = new StringBuilder(n);
+        for (int i = 0; i < n; i++) {
+            int index
+                    = (int)(AlphaNumericString.length()
+                    * Math.random());
+            sb.append(AlphaNumericString
+                    .charAt(index));
+        }
+        return sb.toString();
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -106,6 +133,10 @@ public class input_time extends AppCompatActivity {
                 String uid = mAuth.getUid();
                 reference.child(uid).child("FocusTask").child(nametask).child("Tổng thời gian").setValue(t1);
                 reference.child(uid).child("FocusTask").child(nametask).child("Nghỉ sau").setValue(t2);
+                getTimeToNotify();
+                String randomKey = randomString(15);
+                reference.child(uid).child("Notification").child(randomKey).child("Content").setValue("Đã thêm "+ nametask + " vào quản lý công việc");
+                reference.child(uid).child("Notification").child(randomKey).child("Time").setValue(DateNotify);
                 intent.putExtra("name",edt1.getText().toString());
                 startActivity(intent);
                 finish();

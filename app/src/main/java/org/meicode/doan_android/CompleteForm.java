@@ -97,6 +97,33 @@ public class CompleteForm extends AppCompatActivity {
         }
         return true;
     }
+    String DateNotify;
+    private void getTimeToNotify(){
+        long millis=System.currentTimeMillis();
+        java.sql.Date date=new java.sql.Date(millis);
+        DateNotify = date.toString();
+        String[] DateCurrentTemp = DateNotify.split("-",3);;
+
+        String[] time = java.text.DateFormat.getDateTimeInstance().format(android.icu.util.Calendar.getInstance().getTime()).toString().split(" ",3);
+        String[] timeLocate = time[2].split(" ",3);
+        DateNotify = DateCurrentTemp[2] + "/" + DateCurrentTemp[1] + "/" + DateCurrentTemp[0] + " - "+timeLocate[2];
+    }
+    String randomString(int n)
+    {
+        // chose a Character random from this String
+        String AlphaNumericString = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+                + "0123456789"
+                + "abcdefghijklmnopqrstuvxyz";
+        StringBuilder sb = new StringBuilder(n);
+        for (int i = 0; i < n; i++) {
+            int index
+                    = (int)(AlphaNumericString.length()
+                    * Math.random());
+            sb.append(AlphaNumericString
+                    .charAt(index));
+        }
+        return sb.toString();
+    }
     private void setActionBar()
     {
         actionBar = getSupportActionBar();
@@ -149,7 +176,12 @@ public class CompleteForm extends AppCompatActivity {
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                 if (userid.equals(snapshot.getKey()))
                 {
+
                     DatabaseReference dr = reference.child(snapshot.getKey()).child("Tasks").child("Tất cả công việc").child(taskMaster).child("TasksChild").child(tasktemp);
+                    getTimeToNotify();
+                    String randomKey = randomString(15);
+                    reference.child(userid).child("Notification").child(randomKey).child("Content").setValue("Đã xóa "+ title.getText().toString());
+                    reference.child(userid).child("Notification").child(randomKey).child("Time").setValue(DateNotify);
                     dr.removeValue();
                 }
             }
@@ -197,6 +229,11 @@ public class CompleteForm extends AppCompatActivity {
 
                     final android.icu.util.Calendar currentDate = android.icu.util.Calendar.getInstance();
                     dr3.setValue(currentDate.get(Calendar.DATE)+"/"+(currentDate.get(Calendar.MONTH)+1)+"/"+currentDate.get(Calendar.YEAR));
+
+                    getTimeToNotify();
+                    String randomKey = randomString(15);
+                    reference.child(userid).child("Notification").child(randomKey).child("Content").setValue("Hoàn thành "+ title.getText().toString());
+                    reference.child(userid).child("Notification").child(randomKey).child("Time").setValue(DateNotify);
                 }
             }
 

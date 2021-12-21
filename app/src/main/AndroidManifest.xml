@@ -14,6 +14,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.DoAn_Android">
         <activity
+            android:name=".Notification"
+            android:exported="false" />
+        <activity
             android:name=".ListFocusTime"
             android:exported="false" />
         <activity

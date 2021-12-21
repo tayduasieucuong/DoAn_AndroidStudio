@@ -46,8 +46,10 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.sql.Time;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -78,6 +80,7 @@ public class CreateTask extends AppCompatActivity {
     Spinner spinnerRemind;
     ArrayList<String> itemListSpinner = new ArrayList<String>();
     ArrayList<String> itemSpinner = new ArrayList<String>();
+    String DateNotify;
     public void initView(){
         ActionBar actionBar = getSupportActionBar();
         actionBar.setTitle("");
@@ -120,7 +123,32 @@ public class CreateTask extends AppCompatActivity {
         onClick();
         createNotification();
     }
+    private void getTimeToNotify(){
+        long millis=System.currentTimeMillis();
+        java.sql.Date date=new java.sql.Date(millis);
+        DateNotify = date.toString();
+        String[] DateCurrentTemp = DateNotify.split("-",3);;
 
+        String[] time = java.text.DateFormat.getDateTimeInstance().format(Calendar.getInstance().getTime()).toString().split(" ",3);
+        String[] timeLocate = time[2].split(" ",3);
+        DateNotify = DateCurrentTemp[2] + "/" + DateCurrentTemp[1] + "/" + DateCurrentTemp[0] + " - "+timeLocate[2];
+    }
+    String randomString(int n)
+    {
+        // chose a Character random from this String
+        String AlphaNumericString = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+                + "0123456789"
+                + "abcdefghijklmnopqrstuvxyz";
+        StringBuilder sb = new StringBuilder(n);
+        for (int i = 0; i < n; i++) {
+            int index
+                    = (int)(AlphaNumericString.length()
+                    * Math.random());
+            sb.append(AlphaNumericString
+                    .charAt(index));
+        }
+        return sb.toString();
+    }
     private void onPushTask(){
         reference.addChildEventListener(new ChildEventListener() {
             @Override
@@ -200,6 +228,10 @@ public class CreateTask extends AppCompatActivity {
                         dr3.child("Detail").child("ID notification").setValue(NOTIFICICATION_ID);
                         dr3.child("Detail").child("Thời gian nhắc nhở").setValue(tv_nhacnho.getText().toString());
                     }
+                    getTimeToNotify();
+                    String randomKey = randomString(15);
+                    reference.child(userid).child("Notification").child(randomKey).child("Content").setValue("Tạo công việc "+et_title.getText().toString() +" thành công");
+                    reference.child(userid).child("Notification").child(randomKey).child("Time").setValue(DateNotify);
                     Toast.makeText(CreateTask.this, "Add task Success", Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(CreateTask.this,TaskManagement.class));
                     finish();
