@@ -22,6 +22,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
 
 public class Notification extends AppCompatActivity {
     ActionBar actionBar;
@@ -108,10 +111,15 @@ public class Notification extends AppCompatActivity {
     private void onDeleteNotifi(String data){
         reference.child(userid).child("Notification").child(data).removeValue();
     }
+    private String findNearsestTime(ArrayList<String> listTime){
+
+        return "";
+    }
     private void onLoadData(){
         reference.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                ArrayList<String> listTemp = new ArrayList<String>();
                 if(userid.equals(snapshot.getKey()))
                 {
                     try {
