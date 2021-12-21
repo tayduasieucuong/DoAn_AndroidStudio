@@ -25,6 +25,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class SignIn extends AppCompatActivity {
     FirebaseAuth mAuth;
@@ -116,14 +117,22 @@ public class SignIn extends AppCompatActivity {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if(task.isSuccessful()){
-                        Toast.makeText(getApplicationContext(), "Login Success", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(SignIn.this,TaskManagement.class);
-                        SharedPreferences.Editor editor = sharedPreferences.edit();
-                        editor.putString("UID",mAuth.getUid());
-                        editor.commit();
-                        progressBar.setVisibility(View.GONE);
-                        startActivity(intent);
-                        finish();
+                        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                        if(user.isEmailVerified()){
+                            Toast.makeText(getApplicationContext(), "Login Success", Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(SignIn.this,TaskManagement.class);
+                            SharedPreferences.Editor editor = sharedPreferences.edit();
+                            editor.putString("UID",mAuth.getUid());
+                            editor.commit();
+                            progressBar.setVisibility(View.GONE);
+                            startActivity(intent);
+                            finish();
+                        }else{
+                            user.sendEmailVerification();
+                            Toast.makeText(SignIn.this, "Check your email to verification", Toast.LENGTH_LONG).show();
+                            progressBar.setVisibility(View.GONE);
+                        }
+
                     } else {
                         Toast.makeText(SignIn.this, "Log in Error", Toast.LENGTH_LONG).show();
                         progressBar.setVisibility(View.GONE);

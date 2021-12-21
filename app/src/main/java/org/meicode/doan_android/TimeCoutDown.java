@@ -70,7 +70,7 @@ public class TimeCoutDown extends AppCompatActivity {
         int time1 = intent.getIntExtra("time1", 0);
         Name = intent.getStringExtra("name");
         mTimeLeftInMillis = time*60000;
-        mTimeRelax = time1*60000;
+        mTimeRelax = time1*60;
         kt=false;
         START_TIME_IN_MILLIS=mTimeLeftInMillis;
         mTextViewCountDown = findViewById(R.id.text_view_countdown);
@@ -171,13 +171,13 @@ public class TimeCoutDown extends AppCompatActivity {
             @Override
             public void onTick(long millisUntilFinished) {
                 count++;
-                if( count%10==0 && kt==false){
+                if( count%mTimeRelax==0 && kt==false){
                     managerCompat.notify(count,builder.build());
                     countSum+=count;
                     count=0;
                     kt=true;
                 }else
-                if(kt==true && count%(20)==0){
+                if(kt==true && count%(10)==0){
                     managerCompat.notify(count,builder2.build());
                     countSum+=count;
                     count=0;

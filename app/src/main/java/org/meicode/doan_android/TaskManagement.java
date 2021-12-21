@@ -285,7 +285,6 @@ public class TaskManagement extends AppCompatActivity {
             @Override
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, int position, long id) {
                 long packedPosition = expandableListView.getExpandableListPosition(position);
-
                 int itemType = ExpandableListView.getPackedPositionType(packedPosition);
                 int groupPosition = ExpandableListView.getPackedPositionGroup(packedPosition);
                 int childPosition = ExpandableListView.getPackedPositionChild(packedPosition);
@@ -323,12 +322,8 @@ public class TaskManagement extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 userName = (TextView) findViewById(R.id.usr_name);
                 userEmail = (TextView) findViewById(R.id.usr_email);
-                try {
                     userName.setText(snapshot.child("Name").getValue().toString());
                     userEmail.setText(snapshot.child("Email").getValue().toString());
-                }catch(Exception e){
-
-                }
 
             }
 

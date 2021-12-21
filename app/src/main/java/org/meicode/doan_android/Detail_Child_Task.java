@@ -418,7 +418,7 @@ public class Detail_Child_Task extends AppCompatActivity {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
                     tv_nhacnho.setEnabled(true);
-                    tv_nhacnho.performClick();
+                    //tv_nhacnho.performClick();
                 } else tv_nhacnho.setEnabled(false);
             }
         });
