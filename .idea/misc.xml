@@ -65,6 +65,7 @@
         <entry key="..\:/Git Everything/DoAn_AndroidStudio/app/src/main/res/drawable/bogoc_button.xml" value="0.36203703703703705" />
         <entry key="..\:/Git Everything/DoAn_AndroidStudio/app/src/main/res/drawable/border_radius.xml" value="0.2212962962962963" />
         <entry key="..\:/Git Everything/DoAn_AndroidStudio/app/src/main/res/drawable/border_radius_large.xml" value="0.2212962962962963" />
+        <entry key="..\:/Git Everything/DoAn_AndroidStudio/app/src/main/res/drawable/border_radius_transparent.xml" value="0.36666666666666664" />
         <entry key="..\:/Git Everything/DoAn_AndroidStudio/app/src/main/res/drawable/border_shadow.xml" value="0.12604166666666666" />
         <entry key="..\:/Git Everything/DoAn_AndroidStudio/app/src/main/res/drawable/custom_thumb.xml" value="0.12604166666666666" />
         <entry key="..\:/Git Everything/DoAn_AndroidStudio/app/src/main/res/drawable/frameavatar.xml" value="0.2212962962962963" />
@@ -84,6 +85,7 @@
         <entry key="..\:/Git Everything/DoAn_AndroidStudio/app/src/main/res/layout/activity_detail_child_task.xml" value="0.22" />
         <entry key="..\:/Git Everything/DoAn_AndroidStudio/app/src/main/res/layout/activity_detail_task.xml" value="0.22" />
         <entry key="..\:/Git Everything/DoAn_AndroidStudio/app/src/main/res/layout/activity_history_tasks.xml" value="0.2318840579710145" />
+        <entry key="..\:/Git Everything/DoAn_AndroidStudio/app/src/main/res/layout/activity_home_page_group.xml" value="0.38697916666666665" />
         <entry key="..\:/Git Everything/DoAn_AndroidStudio/app/src/main/res/layout/activity_input_chart.xml" value="0.38697916666666665" />
         <entry key="..\:/Git Everything/DoAn_AndroidStudio/app/src/main/res/layout/activity_input_time.xml" value="0.12" />
         <entry key="..\:/Git Everything/DoAn_AndroidStudio/app/src/main/res/layout/activity_main.xml" value="0.10916919959473151" />

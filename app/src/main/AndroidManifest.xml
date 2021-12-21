@@ -14,6 +14,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.DoAn_Android">
         <activity
+            android:name=".HomePageGroup"
+            android:exported="false" />
+        <activity
+            android:name=".WelcomeGroupTasks"
+            android:exported="false" />
+        <activity
             android:name=".Notification"
             android:exported="false" />
         <activity
