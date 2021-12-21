@@ -261,7 +261,7 @@ public class TaskManagement extends AppCompatActivity {
                         Toast.makeText(TaskManagement.this, "Person", Toast.LENGTH_SHORT).show();
                         return true;
                     case R.id.group:
-                        startActivity(new Intent(TaskManagement.this,Comingsoon.class) );
+                        startActivity(new Intent(TaskManagement.this,WelcomeGroupTasks.class) );
                         finish();
                         return true;
                     case R.id.calendar:
