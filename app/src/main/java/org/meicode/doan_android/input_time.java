@@ -2,6 +2,9 @@ package org.meicode.doan_android;
 
 import android.app.TimePickerDialog;
 import android.content.Intent;
+import android.icu.util.Calendar;
+import android.icu.util.TimeZone;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -11,12 +14,17 @@ import android.widget.ImageView;
 import android.widget.TimePicker;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class input_time extends AppCompatActivity {
     EditText edt1,edt2,edt3;
@@ -27,15 +35,11 @@ public class input_time extends AppCompatActivity {
     FirebaseAuth mAuth;
     String t1,t2;
     String DateNotify;
+    @RequiresApi(api = Build.VERSION_CODES.N)
     private void getTimeToNotify(){
-        long millis=System.currentTimeMillis();
-        java.sql.Date date=new java.sql.Date(millis);
-        DateNotify = date.toString();
-        String[] DateCurrentTemp = DateNotify.split("-",3);;
-
-        String[] time = java.text.DateFormat.getDateTimeInstance().format(android.icu.util.Calendar.getInstance().getTime()).toString().split(" ",3);
-        String[] timeLocate = time[2].split(" ",3);
-        DateNotify = DateCurrentTemp[2] + "/" + DateCurrentTemp[1] + "/" + DateCurrentTemp[0] + " - "+timeLocate[2];
+        Date date = Calendar.getInstance(TimeZone.getTimeZone("UTC+7")).getTime();
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        DateNotify = dateFormat.format(date);
     }
     String randomString(int n)
     {

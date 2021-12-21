@@ -12,6 +12,7 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.icu.util.Calendar;
+import android.icu.util.TimeZone;
 import android.media.AudioAttributes;
 import android.media.RingtoneManager;
 import android.net.Uri;
@@ -47,6 +48,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.sql.Time;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
@@ -124,14 +126,9 @@ public class CreateTask extends AppCompatActivity {
         createNotification();
     }
     private void getTimeToNotify(){
-        long millis=System.currentTimeMillis();
-        java.sql.Date date=new java.sql.Date(millis);
-        DateNotify = date.toString();
-        String[] DateCurrentTemp = DateNotify.split("-",3);;
-
-        String[] time = java.text.DateFormat.getDateTimeInstance().format(Calendar.getInstance().getTime()).toString().split(" ",3);
-        String[] timeLocate = time[2].split(" ",3);
-        DateNotify = DateCurrentTemp[2] + "/" + DateCurrentTemp[1] + "/" + DateCurrentTemp[0] + " - "+timeLocate[2];
+        Date date = Calendar.getInstance(TimeZone.getTimeZone("UTC+7")).getTime();
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        DateNotify = dateFormat.format(date);
     }
     String randomString(int n)
     {

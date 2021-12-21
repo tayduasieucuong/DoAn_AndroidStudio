@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.icu.util.TimeZone;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -25,6 +26,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -98,15 +101,11 @@ public class CompleteForm extends AppCompatActivity {
         return true;
     }
     String DateNotify;
+    @RequiresApi(api = Build.VERSION_CODES.N)
     private void getTimeToNotify(){
-        long millis=System.currentTimeMillis();
-        java.sql.Date date=new java.sql.Date(millis);
-        DateNotify = date.toString();
-        String[] DateCurrentTemp = DateNotify.split("-",3);;
-
-        String[] time = java.text.DateFormat.getDateTimeInstance().format(android.icu.util.Calendar.getInstance().getTime()).toString().split(" ",3);
-        String[] timeLocate = time[2].split(" ",3);
-        DateNotify = DateCurrentTemp[2] + "/" + DateCurrentTemp[1] + "/" + DateCurrentTemp[0] + " - "+timeLocate[2];
+        Date date = android.icu.util.Calendar.getInstance(TimeZone.getTimeZone("UTC+7")).getTime();
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        DateNotify = dateFormat.format(date);
     }
     String randomString(int n)
     {

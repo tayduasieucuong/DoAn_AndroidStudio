@@ -1,5 +1,7 @@
 package org.meicode.doan_android;
 
+import static java.util.Collections.swap;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
@@ -7,11 +9,12 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.widget.ArrayAdapter;
+import android.view.MenuItem;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -21,9 +24,9 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.Date;
 
 public class Notification extends AppCompatActivity {
@@ -116,6 +119,8 @@ public class Notification extends AppCompatActivity {
         return "";
     }
     private void onLoadData(){
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        ArrayList<Long> listTime = new ArrayList<>();
         reference.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
@@ -126,6 +131,14 @@ public class Notification extends AppCompatActivity {
                         for (DataSnapshot ds : snapshot.child("Notification").getChildren())
                         {
                             list.add(ds.child("Content").getValue().toString()+","+ds.child("Time").getValue().toString()+","+ds.getKey().toString());
+                            Date datetg= dateFormat.parse(ds.child("Time").getValue().toString());
+                            listTime.add(datetg.getTime());
+                            for (int i=listTime.size()-1; i>0; i--) {
+                                if(listTime.get(i)>listTime.get(i-1)){
+                                    swap(listTime,i,i-1);
+                                    swap(list,i,i-1);
+                                }
+                            }
                         }
                     }catch (Exception ex)
                     {
@@ -155,5 +168,15 @@ public class Notification extends AppCompatActivity {
 
             }
         });
+    }
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        int id = item.getItemId();
+        if(id == android.R.id.home)
+        {
+            startActivity(new Intent(this,TaskManagement.class));
+            finish();
+        }
+        return true;
     }
 }
