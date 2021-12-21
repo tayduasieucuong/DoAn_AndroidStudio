@@ -139,7 +139,7 @@ public class input_time extends AppCompatActivity {
                 reference.child(uid).child("FocusTask").child(nametask).child("Nghỉ sau").setValue(t2);
                 getTimeToNotify();
                 String randomKey = randomString(15);
-                reference.child(uid).child("Notification").child(randomKey).child("Content").setValue("Đã thêm "+ nametask + " vào quản lý công việc");
+                reference.child(uid).child("Notification").child(randomKey).child("Content").setValue("Đã thêm \""+ nametask + "\" vào quản lý công việc");
                 reference.child(uid).child("Notification").child(randomKey).child("Time").setValue(DateNotify);
                 intent.putExtra("name",edt1.getText().toString());
                 startActivity(intent);

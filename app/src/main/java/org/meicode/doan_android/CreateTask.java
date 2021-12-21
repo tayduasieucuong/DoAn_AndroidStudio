@@ -227,7 +227,7 @@ public class CreateTask extends AppCompatActivity {
                     }
                     getTimeToNotify();
                     String randomKey = randomString(15);
-                    reference.child(userid).child("Notification").child(randomKey).child("Content").setValue("Tạo công việc "+et_title.getText().toString() +" thành công");
+                    reference.child(userid).child("Notification").child(randomKey).child("Content").setValue("Tạo công việc \""+et_title.getText().toString() +"\" thành công");
                     reference.child(userid).child("Notification").child(randomKey).child("Time").setValue(DateNotify);
                     Toast.makeText(CreateTask.this, "Add task Success", Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(CreateTask.this,TaskManagement.class));

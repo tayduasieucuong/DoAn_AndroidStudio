@@ -190,6 +190,7 @@ public class TimeCoutDown extends AppCompatActivity {
 
             }
 
+            @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onFinish() {
                 managerCompat.notify(count,builder1.build());
@@ -199,7 +200,7 @@ public class TimeCoutDown extends AppCompatActivity {
                 reference.child(uid).child("FocusTask").child(Name).child("Hoàn thành được").setValue(c+"%");
                 getTimeToNotify();
                 String randomKey = randomString(15);
-                reference.child(uid).child("Notification").child(randomKey).child("Content").setValue("Hoàn thành thời gian tập trung "+ Name);
+                reference.child(uid).child("Notification").child(randomKey).child("Content").setValue("Hoàn thành thời gian tập trung \""+ Name+"\"");
                 reference.child(uid).child("Notification").child(randomKey).child("Time").setValue(DateNotify);
                 Intent intent = new Intent(TimeCoutDown.this,input_time.class);
                 mButtonStartPause.setText("Start");

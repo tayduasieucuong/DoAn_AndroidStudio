@@ -140,7 +140,7 @@ public class ListFocusTime extends AppCompatActivity {
                 reference.child(userid).child("FocusTask").child(name).removeValue();
                 getTimeToNotify();
                 String randomKey = randomString(15);
-                reference.child(userid).child("Notification").child(randomKey).child("Content").setValue("Đã xóa "+ name +" khỏi quản lý công việc");
+                reference.child(userid).child("Notification").child(randomKey).child("Content").setValue("Đã xóa \""+ name +"\" khỏi quản lý công việc");
                 reference.child(userid).child("Notification").child(randomKey).child("Time").setValue(DateNotify);
             }
 
