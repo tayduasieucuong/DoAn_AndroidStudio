@@ -1,4 +1,5 @@
 package org.meicode.doan_android;
+import android.content.ClipData;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -10,6 +11,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ExpandableListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -40,6 +42,11 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 
+import ir.mirrajabi.searchdialog.SimpleSearchDialogCompat;
+import ir.mirrajabi.searchdialog.core.BaseSearchDialogCompat;
+import ir.mirrajabi.searchdialog.core.SearchResultListener;
+import ir.mirrajabi.searchdialog.core.Searchable;
+
 public class TaskManagement extends AppCompatActivity {
     //View for event
     ActionBar actionBar;
@@ -65,6 +72,7 @@ public class TaskManagement extends AppCompatActivity {
     TextView userEmail;
     String DueTo;
     String CurrentDate;
+    ArrayList<SearchModel> item = new ArrayList<>();
     private void getCurrentDate(){
         long millis=System.currentTimeMillis();
         java.sql.Date date=new java.sql.Date(millis);
@@ -322,9 +330,26 @@ public class TaskManagement extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 userName = (TextView) findViewById(R.id.usr_name);
                 userEmail = (TextView) findViewById(R.id.usr_email);
-                    userName.setText(snapshot.child("Name").getValue().toString());
-                    userEmail.setText(snapshot.child("Email").getValue().toString());
+                userName.setText(snapshot.child("Name").getValue().toString());
+                userEmail.setText(snapshot.child("Email").getValue().toString());
 
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        reference.child(userid).child("Tasks").child("Tất cả công việc").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot ds : snapshot.getChildren()) {
+                    item.add(new SearchModel(ds.getKey()));
+                    for (DataSnapshot ds1 : ds.child("TasksChild").getChildren()) {
+                        item.add(new SearchModel(ds1.getKey()));
+                    }
+                }
             }
 
             @Override
@@ -400,79 +425,77 @@ public class TaskManagement extends AppCompatActivity {
             startActivity(new Intent(TaskManagement.this, Notification.class));
         }else if( id == R.id.search){
 
-            SearchView searchView = (SearchView) item.getActionView();
-            searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            new SimpleSearchDialogCompat(TaskManagement.this,"Search","Name of Task or Name of Task child",null,initData(), new SearchResultListener<Searchable>() {
                 @Override
-                public boolean onQueryTextSubmit(String query) {
-                    reference.addChildEventListener(new ChildEventListener() {
-                        int kt = 0;
-                        Intent intent1 = new Intent(TaskManagement.this, DetailTask.class);
-                        Intent intent2 = new Intent(TaskManagement.this, Detail_Child_Task.class);
-                        @Override
-                        public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-                            if (userid.equals(snapshot.getKey())) {
-                                for (DataSnapshot ds : snapshot.child("Tasks").child("Tất cả công việc").getChildren()) {
-                                    String groupname = (String) ds.getKey();
-                                    if (groupname.equals(query)) {
-                                        intent1.putExtra("Name", query);
-                                        kt = 1;
-                                    } else {
-                                        for (DataSnapshot ds1 : ds.child("TasksChild").getChildren()) {
-                                            String groupname1 = (String) ds1.getKey();
-                                            if (groupname1.equals(query)) {
-                                                intent2.putExtra("NameOfTask", groupname);
-                                                intent2.putExtra("NameOfChildTask", groupname1);
-                                                intent2.putExtra("HeaderTitle", "Tất cả công việc");
-                                                intent2.putExtra("forwardTo","TaskManagement");
-                                                kt = 2;
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                            if (kt != 0) {
-                                if (kt == 1) {
-                                    startActivity(intent1);
-                                } else if (kt == 2) {
-                                    startActivity(intent2);
-                                }
-                            } else {
-                                Toast.makeText(getApplicationContext(), "Không tìm thấy", Toast.LENGTH_SHORT).show();
-                            }
-                        }
-                        @Override
-                        public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-
-                        }
-
-                        @Override
-                        public void onChildRemoved(@NonNull DataSnapshot snapshot) {
-
-                        }
-
-                        @Override
-                        public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-
-                        }
-
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError error) {
-
-                        }
-                    });
-                    return false;
+                public void onSelected(BaseSearchDialogCompat baseSearchDialogCompat, Searchable searchable, int i) {
+                    SearchTask(searchable.getTitle());
+                    baseSearchDialogCompat.dismiss();
                 }
 
-                @Override
-                public boolean onQueryTextChange(String newText) {
-                    return false;
-                }
-            });
+            }).show();
         }
+
         return true;
     }
+
+    private ArrayList<SearchModel> initData() {
+        return item;
+    }
     //Menu Bottom Event
+    private void SearchTask(String query){
+        reference.addChildEventListener(new ChildEventListener() {
+            int kt = 0;
+            Intent intent1 = new Intent(TaskManagement.this, DetailTask.class);
+            Intent intent2 = new Intent(TaskManagement.this, Detail_Child_Task.class);
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                if (userid.equals(snapshot.getKey())) {
+                    for (DataSnapshot ds : snapshot.child("Tasks").child("Tất cả công việc").getChildren()) {
+                        String groupname = (String) ds.getKey();
+                        if (groupname.equals(query)) {
+                            intent1.putExtra("Name", query);
+                            kt = 1;
+                        } else {
+                            for (DataSnapshot ds1 : ds.child("TasksChild").getChildren()) {
+                                String groupname1 = (String) ds1.getKey();
+                                if (groupname1.equals(query)) {
+                                    intent2.putExtra("NameOfTask", groupname);
+                                    intent2.putExtra("NameOfChildTask", groupname1);
+                                    intent2.putExtra("HeaderTitle", "Tất cả công việc");
+                                    intent2.putExtra("forwardTo","TaskManagement");
+                                    kt = 2;
+                                }
+                            }
+                        }
+                    }
+                }
+                if (kt != 0) {
+                    if (kt == 1) {
+                        startActivity(intent1);
+                    } else if (kt == 2) {
+                        startActivity(intent2);
+                    }
+                }
+            }
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
 
+            }
 
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot snapshot) {
 
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
 }

@@ -2,6 +2,7 @@ package org.meicode.doan_android;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -11,6 +12,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -103,6 +105,7 @@ public class ListFocusTime extends AppCompatActivity {
         });
     }
     String DateNotify;
+    @RequiresApi(api = Build.VERSION_CODES.N)
     private void getTimeToNotify(){
         long millis=System.currentTimeMillis();
         java.sql.Date date=new java.sql.Date(millis);
@@ -131,6 +134,7 @@ public class ListFocusTime extends AppCompatActivity {
     }
     private void onDeleteTask(String name){
         reference.addChildEventListener(new ChildEventListener() {
+            @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                 reference.child(userid).child("FocusTask").child(name).removeValue();
