@@ -65,6 +65,7 @@ public class TimeCoutDown extends AppCompatActivity {
         actionBar.setTitle("Thời gian tập trung");
         actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#ECB7F0")));
         actionBar.setElevation(3);
+        ktt=false;
     }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,6 +96,7 @@ public class TimeCoutDown extends AppCompatActivity {
                 if (mTimerRunning) {
                     pauseTimer();
                 } else {
+                    ktt=true;
                     startTimer();
                 }
             }
@@ -243,12 +245,21 @@ public class TimeCoutDown extends AppCompatActivity {
         mTextViewCountDown.setText(timeLeftFormatted);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
         if(id == android.R.id.home)
         {
-            mButtonFinish.performClick();
+            if (kt==true){
+                mButtonFinish.performClick();
+            } else {
+                getTimeToNotify();
+                reference.child(uid).child("FocusTask").child(Name).child("Hoàn thành được").setValue("0%");
+                String randomKey = randomString(15);
+                reference.child(uid).child("Notification").child(randomKey).child("Content").setValue("Hoàn thành thời gian tập trung \""+ Name+"\"");
+                reference.child(uid).child("Notification").child(randomKey).child("Time").setValue(DateNotify);
+            }
             startActivity(new Intent(TimeCoutDown.this, ListFocusTime.class));
             finish();
         }
