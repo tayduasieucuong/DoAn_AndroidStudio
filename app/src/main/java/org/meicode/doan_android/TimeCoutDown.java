@@ -18,6 +18,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
@@ -43,7 +44,7 @@ public class TimeCoutDown extends AppCompatActivity {
     private Button  mButtonFinish;
     private CountDownTimer mCountDownTimer;
     private int count=0, countSum=0;
-    private boolean mTimerRunning,kt;
+    private boolean mTimerRunning,kt,ktt;
     private ProgressBar pb;
     private long mTimeLeftInMillis = START_TIME_IN_MILLIS;
     private long mTimeRelax;
@@ -62,7 +63,6 @@ public class TimeCoutDown extends AppCompatActivity {
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_baseline_chevron_left_24);
         //actionBar.setDisplayUseLogoEnabled(true);
         actionBar.setTitle("Thời gian tập trung");
-
         actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#ECB7F0")));
         actionBar.setElevation(3);
     }
@@ -139,8 +139,12 @@ public class TimeCoutDown extends AppCompatActivity {
         mButtonFinish.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                pauseTimer();
-                mCountDownTimer.onFinish();
+                try {
+                    pauseTimer();
+                    mCountDownTimer.onFinish();
+                } catch (Exception e){
+                    Toast.makeText(getApplicationContext(),"Không thể kết thúc khi chưa bắt đầu!",Toast.LENGTH_LONG).show();
+                };
             }
         });
     }
@@ -222,7 +226,6 @@ public class TimeCoutDown extends AppCompatActivity {
         mCountDownTimer.cancel();
         mTimerRunning = false;
         mButtonStartPause.setText("Bắt đầu");
-
     }
 
     private void resetTimer() {
@@ -245,9 +248,11 @@ public class TimeCoutDown extends AppCompatActivity {
         int id = item.getItemId();
         if(id == android.R.id.home)
         {
-            startActivity(new Intent(TimeCoutDown.this, TaskManagement.class));
+            mButtonFinish.performClick();
+            startActivity(new Intent(TimeCoutDown.this, ListFocusTime.class));
             finish();
         }
         return true;
     }
+
 }

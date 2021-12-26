@@ -20,7 +20,7 @@ public class HomePageGroup extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home_page_group);
+        setContentView(R.layout.activity_home_page_group);  
         changeStatusBarColor("#6D85F6");
     }
 }
