@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
@@ -20,13 +21,15 @@ public class ListCreateGrAdapter extends ArrayAdapter {
     int layout;
     List<String> list;
     private Create_Group.onDeleteListener onDeleteListener;
-    public ListCreateGrAdapter(Context context, int layout, List<String> list, Create_Group.onDeleteListener onDeleteListener)
+    private Create_Group.onReadDutyListener onReadDutyListener;
+    public ListCreateGrAdapter(Context context, int layout, List<String> list, Create_Group.onDeleteListener onDeleteListener, Create_Group.onReadDutyListener onReadDutyListener)
     {
         super(context,layout,list);
         this.context = context;
         this.layout = layout;
         this.list = list;
         this.onDeleteListener = onDeleteListener;
+        this.onReadDutyListener = onReadDutyListener;
     }
     @NonNull
     @Override
@@ -46,7 +49,7 @@ public class ListCreateGrAdapter extends ArrayAdapter {
         {
             holder = (AdapterHolder) row.getTag();
         }
-        String[] data = list.get(position).toString().split("/",2);
+        String[] data = list.get(position).toString().split("/",3);
         holder.tv_name.setText(data[0]);
         holder.btn_outGr.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -55,6 +58,16 @@ public class ListCreateGrAdapter extends ArrayAdapter {
             }
         });
         holder.rdg.check(R.id.radioButton2);
+        holder.rdg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                if (checkedId == R.id.radioButton) {
+                    onReadDutyListener.onRead(position,true);
+                } else {
+                    onReadDutyListener.onRead(position,false);
+                }
+            }
+        });
         return row;
     }
     class AdapterHolder

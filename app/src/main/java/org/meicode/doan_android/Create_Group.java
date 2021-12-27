@@ -1,6 +1,8 @@
 package org.meicode.doan_android;
 
 
+
+
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -12,6 +14,8 @@ import android.os.Build;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -49,7 +53,11 @@ public class Create_Group extends AppCompatActivity {
     String userid;
     ActionBar actionBar;
     ImageView btn_goto;
+    Button btn_create;
+    EditText edt_name;
+    String a,b,DateNotify;;
     ArrayList<SearchModel> item = new ArrayList<>();
+    ArrayList<Boolean> listDuty = new ArrayList<>();
     private void getData(){
         database = FirebaseDatabase.getInstance("https://doan-3672e-default-rtdb.asia-southeast1.firebasedatabase.app/");
         reference = database.getReference("Users");
@@ -66,13 +74,17 @@ public class Create_Group extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_baseline_chevron_left_24);
         //actionBar.setDisplayUseLogoEnabled(true);
-        actionBar.setTitle("Quản lý thời gian");
+        actionBar.setTitle("Tạo nhóm");
         actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#ECB7F0")));
         actionBar.setElevation(3);
     }
     public interface onDeleteListener{
         public void onDelete(int data);
     }
+    public interface onReadDutyListener{
+        public void onRead(int data, boolean kt);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -85,10 +97,19 @@ public class Create_Group extends AppCompatActivity {
             @Override
             public void onDelete(int data) {
                 list.remove(data);
+                listDuty.remove(data);
                 adapter.notifyDataSetChanged();
             }
+        }, new onReadDutyListener(){
+
+            @Override
+            public void onRead(int data, boolean kt) {
+                listDuty.set(data,kt);
+            }
         });
+        btn_create = (Button) findViewById(R.id.btn_create);
         listView = (ListView) findViewById(R.id.listFocus);
+        edt_name = (EditText) findViewById(R.id.edt_name);
         listView.setAdapter(adapter);
         onReadTask();
         onClick();
@@ -106,13 +127,50 @@ public class Create_Group extends AppCompatActivity {
                 }).show();
             }
         });
-    }
-    String DateNotify;
-    @RequiresApi(api = Build.VERSION_CODES.N)
-    private void getTimeToNotify(){
-        Date date = Calendar.getInstance(TimeZone.getTimeZone("UTC+7")).getTime();
-        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-        DateNotify = dateFormat.format(date);
+
+        btn_create.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.N)
+            @Override
+            public void onClick(View view) {
+                String name = edt_name.getText().toString();
+                if(name.isEmpty()){
+                    edt_name.setError("Name is required!");
+                    edt_name.requestFocus();
+                    return;
+                }
+                String id_group= randomString(15);
+                rf = database.getReference("Groups");
+                rf.child(id_group).child("Tên Group").setValue(name);
+                rf.child(id_group).child("Thành viên").child(userid).child("Info").child("Biệt danh").setValue(a);
+                rf.child(id_group).child("Thành viên").child(userid).child("Info").child("Họ và tên").setValue(b);
+                rf.child(id_group).child("Thành viên").child(userid).child("Info").child("Chức vụ").setValue("Quản lý");
+                reference.child(userid).child("List Group").child(name).setValue(id_group);
+                for (int i =0;i<list.size();i++){
+                    String[] data = list.get(i).toString().split("/",3);
+                    rf.child(id_group).child("Thành viên").child(data[1]).child("Info").child("Biệt danh").setValue(data[0]);
+                    rf.child(id_group).child("Thành viên").child(data[1]).child("Info").child("Họ và tên").setValue(data[2]);
+                    if(listDuty.get(i)==true) {
+                        rf.child(id_group).child("Thành viên").child(data[1]).child("Info").child("Chức vụ").setValue("Quản lý");
+                    } else{
+                        rf.child(id_group).child("Thành viên").child(data[1]).child("Info").child("Chức vụ").setValue("Nhân viên");
+                    }
+                    reference.child(data[1]).child("List Group").child(name).setValue(id_group);
+                    getTimeToNotify();
+                    String randomKey = randomString(15);
+                    reference.child(data[1]).child("Notification").child(randomKey).child("Content").setValue("Đã được thêm vào group \""+ name + "\"");
+                    reference.child(data[1]).child("Notification").child(randomKey).child("Time").setValue(DateNotify);
+                    Toast.makeText(Create_Group.this, "Tạo thành công!", Toast.LENGTH_SHORT).show();
+
+                }
+                getTimeToNotify();
+                String randomKey = randomString(15);
+                reference.child(userid).child("Notification").child(randomKey).child("Content").setValue("Đã tạo group \""+ name + "\"");
+                reference.child(userid).child("Notification").child(randomKey).child("Time").setValue(DateNotify);
+                Toast.makeText(Create_Group.this, "Tạo thành công!", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(Create_Group.this,ListGroup.class));
+
+            }
+        });
     }
     String randomString(int n)
     {
@@ -135,7 +193,13 @@ public class Create_Group extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot ds : snapshot.getChildren()) {
+                    if (!ds.getKey().toString().equals(userid))
                     item.add(new SearchModel(ds.child("UserInfo").child("Email").getValue().toString()));
+                    else{
+                        a=ds.child("UserInfo").child("Email").getValue().toString();
+                        b=ds.child("UserInfo").child("Name").getValue().toString();
+                    }
+
                 }
             }
 
@@ -144,6 +208,7 @@ public class Create_Group extends AppCompatActivity {
 
             }
         });
+
     }
 
     @Override
@@ -168,7 +233,11 @@ public class Create_Group extends AppCompatActivity {
 
                         if (query.equals(snapshot.child("UserInfo").child("Email").getValue().toString())){
                             for (int i =0;i<list.size();i++){
-                                String[] data = list.get(i).toString().split("/",2);
+                                String[] data = list.get(i).toString().split("/",3);
+                                if (query.equals(data)){
+                                    Toast.makeText(Create_Group.this, "Bạn đang là chủ phòng!", Toast.LENGTH_SHORT).show();
+                                    return;
+                                }
                                 if (query.equals(data[0])){
                                     Toast.makeText(Create_Group.this, "Tên đã có trong danh sách !", Toast.LENGTH_SHORT).show();
                                     return;
@@ -176,7 +245,9 @@ public class Create_Group extends AppCompatActivity {
                             }
                             String name = query;
                             String id_person = snapshot.getKey().toString();
-                            list.add(name+"/"+id_person);
+                            String Name_person = snapshot.child("UserInfo").child("Name").getValue().toString();
+                            list.add(name+"/"+id_person+"/"+name);
+                            listDuty.add(false);
                         }
 
                 }catch (Exception ex){
@@ -206,5 +277,12 @@ public class Create_Group extends AppCompatActivity {
 
             }
         });
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    private void getTimeToNotify(){
+        Date date = Calendar.getInstance(TimeZone.getTimeZone("UTC+7")).getTime();
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        DateNotify = dateFormat.format(date);
     }
 }

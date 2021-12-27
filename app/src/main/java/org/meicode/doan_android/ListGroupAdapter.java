@@ -47,7 +47,7 @@ public class ListGroupAdapter extends ArrayAdapter {
         }
         String[] data = list.get(position).toString().split("/",2);
         holder.tv_name.setText(data[0]);
-        holder.tv_message.setText(data[1]);
+        holder.tv_message.setText("Id: "+data[1]);
         holder.btn_outGr.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

@@ -29,7 +29,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="3dp"
         android:text="Học tiếng anh mỗi ngày"
-        android:textSize="20dp"
+        android:textSize="15dp"
         android:textStyle="italic"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/imageView"
