@@ -14,6 +14,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.DoAn_Android">
         <activity
+            android:name=".Create_Group"
+            android:exported="true" />
+        <activity
+            android:name=".ListGroup"
+            android:exported="false" />
+        <activity
             android:name=".HomePageGroup"
             android:exported="false" />
         <activity
