@@ -12,7 +12,8 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.DoAn_Android">
+        android:theme="@style/Theme.DoAn_Android"
+        tools:replace="android:theme">
         <activity
             android:name=".Create_Group"
             android:exported="true" />

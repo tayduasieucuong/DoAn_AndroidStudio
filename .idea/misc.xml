@@ -41,6 +41,8 @@
         <entry key="..\:/DoAn_Android/app/src/main/res/layout/xinchao.xml" value="0.196875" />
         <entry key="..\:/DoAn_Android/app/src/main/res/menu/menu.xml" value="0.36564102564102563" />
         <entry key="..\:/DoAn_AndroidStudio/app/src/main/res/drawable/border_radius.xml" value="0.12604166666666666" />
+        <entry key="..\:/DoAn_AndroidStudio/app/src/main/res/drawable/border_radius_transparent.xml" value="0.403125" />
+        <entry key="..\:/DoAn_AndroidStudio/app/src/main/res/drawable/bottom_nav_selector.xml" value="0.403125" />
         <entry key="..\:/DoAn_AndroidStudio/app/src/main/res/drawable/gradient_background.xml" value="0.17777777777777778" />
         <entry key="..\:/DoAn_AndroidStudio/app/src/main/res/drawable/ic_baseline_add_24.xml" value="0.12604166666666666" />
         <entry key="..\:/DoAn_AndroidStudio/app/src/main/res/drawable/ic_baseline_arrow_drop_down_24.xml" value="0.2351851851851852" />
@@ -51,8 +53,11 @@
         <entry key="..\:/DoAn_AndroidStudio/app/src/main/res/drawable/ic_launcher_background.xml" value="0.17777777777777778" />
         <entry key="..\:/DoAn_AndroidStudio/app/src/main/res/drawable/ic_menu.xml" value="0.12604166666666666" />
         <entry key="..\:/DoAn_AndroidStudio/app/src/main/res/drawable/ic_search.xml" value="0.12604166666666666" />
+        <entry key="..\:/DoAn_AndroidStudio/app/src/main/res/drawable/menu_interface.xml" value="0.403125" />
+        <entry key="..\:/DoAn_AndroidStudio/app/src/main/res/drawable/white_color.xml" value="0.403125" />
         <entry key="..\:/DoAn_AndroidStudio/app/src/main/res/layout/activity_complete_form.xml" value="0.10916919959473151" />
         <entry key="..\:/DoAn_AndroidStudio/app/src/main/res/layout/activity_history_tasks.xml" value="0.1334853090172239" />
+        <entry key="..\:/DoAn_AndroidStudio/app/src/main/res/layout/activity_home_page_group.xml" value="0.38697916666666665" />
         <entry key="..\:/DoAn_AndroidStudio/app/src/main/res/layout/activity_main.xml" value="0.21829710144927536" />
         <entry key="..\:/DoAn_AndroidStudio/app/src/main/res/layout/activity_task_management.xml" value="0.2" />
         <entry key="..\:/DoAn_AndroidStudio/app/src/main/res/layout/activity_task_master.xml" value="0.1334853090172239" />
@@ -64,6 +69,8 @@
         <entry key="..\:/DoAn_AndroidStudio/app/src/main/res/layout/layout_item.xml" value="0.176" />
         <entry key="..\:/DoAn_AndroidStudio/app/src/main/res/layout/layout_item_group.xml" value="0.10916919959473151" />
         <entry key="..\:/DoAn_AndroidStudio/app/src/main/res/layout/layout_item_history.xml" value="0.1334853090172239" />
+        <entry key="..\:/DoAn_AndroidStudio/app/src/main/res/layout/row_item.xml" value="0.38697916666666665" />
+        <entry key="..\:/DoAn_AndroidStudio/app/src/main/res/layout/row_item_home_lv.xml" value="0.38697916666666665" />
         <entry key="..\:/DoAn_AndroidStudio/app/src/main/res/menu/bottom_menu.xml" value="0.10989583333333333" />
         <entry key="..\:/DoAn_AndroidStudio/app/src/main/res/menu/menu.xml" value="0.10989583333333333" />
         <entry key="..\:/DoAn_AndroidStudio/app/src/main/res/menu/menu_left.xml" value="0.27447916666666666" />
