@@ -109,7 +109,7 @@ public class HomePageGroup extends AppCompatActivity {
                     {
                         String CreateTime = child.child("Detail/Ngày tạo").getValue().toString();
                         String Admin = "Admin";
-                        listChildren.add(new ListChildHome(idGroup,"idCon",child.getKey(),CreateTime,Admin));
+                        listChildren.add(new ListChildHome(idGroup,"idCon",child.getKey(),CreateTime,Admin,false));
                     }
                     adapterListViewGroupHomePage.notifyDataSetChanged();
 
