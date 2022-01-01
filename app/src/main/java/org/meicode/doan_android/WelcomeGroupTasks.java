@@ -34,7 +34,7 @@ public class WelcomeGroupTasks extends AppCompatActivity {
         btn_go.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(WelcomeGroupTasks.this,HomePageGroup.class));
+                startActivity(new Intent(WelcomeGroupTasks.this,ListGroup.class));
                 finish();
             }
         });

@@ -2,6 +2,8 @@ package org.meicode.doan_android;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
+import android.media.Image;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +20,7 @@ public class ListGroupAdapter extends ArrayAdapter {
     Context context;
     int layout;
     List<String> list;
+    String idtask;
     private ListGroup.onDeleteListener onDeleteListener;
     public ListGroupAdapter(Context context, int layout, List<String> list, ListGroup.onDeleteListener onDeleteListener)
     {
@@ -40,6 +43,7 @@ public class ListGroupAdapter extends ArrayAdapter {
             holder.tv_name = (TextView) row.findViewById(R.id.name_group);
             holder.tv_message = (TextView) row.findViewById(R.id.event_message);
             holder.btn_outGr = (ImageView) row.findViewById(R.id.btn_outgr);
+            holder.btn_info = (ImageView) row.findViewById(R.id.btn_info);
             row.setTag(holder);
         }else
         {
@@ -48,10 +52,19 @@ public class ListGroupAdapter extends ArrayAdapter {
         String[] data = list.get(position).toString().split("/",2);
         holder.tv_name.setText(data[0]);
         holder.tv_message.setText("Id: "+data[1]);
+        idtask = data[1];
         holder.btn_outGr.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 onDeleteListener.onDelete(data[0]);
+            }
+        });
+        holder.btn_info.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(view.getContext(),HomePageGroup.class);
+                intent.putExtra("IDTASK", idtask);
+                view.getContext().startActivity(intent);
             }
         });
         return row;
@@ -61,5 +74,6 @@ public class ListGroupAdapter extends ArrayAdapter {
         TextView tv_name;
         TextView tv_message;
         ImageView btn_outGr;
+        ImageView btn_info;
     }
 }

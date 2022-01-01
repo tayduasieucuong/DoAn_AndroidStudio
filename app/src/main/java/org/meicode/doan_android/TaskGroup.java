@@ -1,19 +1,25 @@
 package org.meicode.doan_android;
 
 public class TaskGroup {
-    String GroupName;
-    String GroupId;
-    public TaskGroup(String GroupId, String GroupName)
+    String GroupTask;
+    String TaskTime;
+    String IdParent;
+    public TaskGroup(String GroupTask, String TaskTime, String IdParent)
     {
-        this.GroupName = GroupName;
-        this.GroupId = GroupId;
+        this.GroupTask = GroupTask;
+        this.TaskTime = TaskTime;
+        this.IdParent = IdParent;
     }
 
-    public String getGroupName() {
-        return GroupName;
+    public String getIdParent() {
+        return IdParent;
     }
 
-    public String getGroupId() {
-        return GroupId;
+    public String getGroupTask() {
+        return GroupTask;
+    }
+
+    public String getTaskTime() {
+        return TaskTime;
     }
 }

@@ -39,13 +39,8 @@ public class HorizontalAdapter extends RecyclerView.Adapter<HorizontalAdapter.Vi
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 //        holder.img_view.setImageResource(taskGroups.get(position).getImg());
 //        holder.tv_content.setText(taskGroups.get(position).getContent());
-          holder.groupName.setText(taskGroups.get(position).getGroupName());
-          holder.btn_chat.setOnClickListener(new View.OnClickListener() {
-              @Override
-              public void onClick(View view) {
-                  Toast.makeText(view.getContext(), "Goto chat", Toast.LENGTH_SHORT).show();
-              }
-          });
+          holder.groupName.setText(taskGroups.get(position).getGroupTask());
+
           holder.setItemClickListener(new ItemClickListener() {
               @Override
               public void onClick(View view, int position, boolean isLongClick) {
@@ -54,7 +49,7 @@ public class HorizontalAdapter extends RecyclerView.Adapter<HorizontalAdapter.Vi
                       Toast.makeText(context, "Long Click " +taskGroups.get(position), Toast.LENGTH_SHORT).show();
                   }else{
 //                      Toast.makeText(context, "Click"+taskGroups.get(position).getGroupId(), Toast.LENGTH_SHORT).show();
-                      itemClickRecycler.onSelect(taskGroups.get(position).getGroupId());
+                      itemClickRecycler.onSelect(taskGroups.get(position).getIdParent(),taskGroups.get(position).getGroupTask());
                   }
               }
           });
@@ -68,14 +63,12 @@ public class HorizontalAdapter extends RecyclerView.Adapter<HorizontalAdapter.Vi
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener{
        ImageView img_view;
        TextView groupName;
-       ImageView btn_chat;
        private ItemClickListener itemClickListener;
 
         public ViewHolder(@NonNull View itemView) {
 
             super(itemView);
             groupName = itemView.findViewById(R.id.groupName);
-            btn_chat = itemView.findViewById(R.id.btn_chat);
             itemView.setOnClickListener(this);
             itemView.setOnLongClickListener(this);
 //            img_view = itemView.findViewById(R.id.img_view);

@@ -17,11 +17,22 @@
         android:layout_marginTop="5dp"
         android:text="Học tiếng anh mỗi ngày"
         android:textSize="20dp"
+        android:layout_marginEnd="10dp"
+        app:layout_constraintEnd_toStartOf="@id/btn_info"
         android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@+id/imageView"
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="MissingConstraints" />
-
+    <ImageView
+        android:id="@+id/btn_info"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        app:layout_constraintEnd_toStartOf="@id/btn_outgr"
+        app:layout_constraintTop_toTopOf="@id/btn_outgr"
+        app:layout_constraintBottom_toBottomOf="@id/btn_outgr"
+        android:layout_marginEnd="10dp"
+        android:src="@drawable/ic_baseline_info_24_group"
+        tools:ignore="MissingConstraints" />
     <TextView
         android:id="@+id/event_message"
         android:layout_width="0dp"
@@ -38,13 +49,13 @@
         tools:ignore="MissingConstraints" />
 
     <ImageView
-        android:layout_width="50dp"
+        android:layout_width="40dp"
         android:id="@+id/btn_outgr"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginEnd="15dp"
-        android:layout_height="50dp"
+        android:layout_height="40dp"
         android:src="@drawable/ic_baseline_delete_forever_24"
         tools:ignore="MissingConstraints" />
 

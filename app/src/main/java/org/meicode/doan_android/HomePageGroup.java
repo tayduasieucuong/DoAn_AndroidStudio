@@ -9,10 +9,12 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -53,6 +55,7 @@ public class HomePageGroup extends AppCompatActivity {
     DatabaseReference reference;
     ActionBar actionBar;
     String userid;
+    String idTask;
     private void changeStatusBarColor(String color){
         if (Build.VERSION.SDK_INT >= 21) {
             Window window = getWindow();
@@ -62,21 +65,13 @@ public class HomePageGroup extends AppCompatActivity {
         }
     }
     private void setActionBar(){
-        getSupportActionBar().setBackgroundDrawable(
-                new ColorDrawable(Color.parseColor("#F3F3F8")));
 
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.menu_interface);
         getSupportActionBar().setTitle("");
         getSupportActionBar().setElevation(0);
-        changeStatusBarColor("#6D85F6");
-    }
-    private void setBottomNav(){
-        bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
-        bottomNavigationView.setBackground(null);
-        com.robertlevonyan.views.customfloatingactionbutton.FloatingActionButton add_btn = findViewById(R.id.addbottom);
-        add_btn.setFabIcon(getResources().getDrawable(R.drawable.ic_baseline_add_24));
+//        changeStatusBarColor("#6D85F6");
     }
     private void initView(){
         recyclerView = findViewById(R.id.recycler_view);
@@ -90,28 +85,39 @@ public class HomePageGroup extends AppCompatActivity {
         //Init Adapter
         horizontalAdapter = new HorizontalAdapter(HomePageGroup.this, taskGroupss, new itemClickRecycler() {
             @Override
-            public void onSelect(String id) {
+            public void onSelect(String id, String path) {
                 adapterListViewGroupHomePage.clear();
-                getListChildren(id);
+                getListChildren(id, path);
             }
         });
 
         recyclerView.setAdapter(horizontalAdapter);
     }
-    private void getListChildren(String id){
-        String idGroup = id;
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_right_add,menu);
+        return true;
+    }
+
+
+    private void getListChildren(String id, String path){
+        String Path = path;
+        String Id = id;
         reference.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-                if(idGroup.equals(snapshot.getKey()))
+                if(Id.equals(snapshot.getKey()))
                 {
-                    for(DataSnapshot child : snapshot.child("Tasks").getChildren())
+                    for(DataSnapshot child : snapshot.child("Tasks").child(path).child("TasksChild").getChildren())
                     {
-                        String CreateTime = child.child("Detail/Ngày tạo").getValue().toString();
-                        String Admin = "Admin";
-                        listChildren.add(new ListChildHome(idGroup,"idCon",child.getKey(),CreateTime,Admin,false));
+                        String Name = child.getKey();
+                        String TimeC = child.child("Detail").child("Ngày tạo").getValue().toString();
+                        String Admin = child.child("Detail").child("Người đảm nhận").getValue().toString();
+
+                        ListChildHome children = new ListChildHome(Id,Name,Name,TimeC,Admin,false);
+                        listChildren.add(children);
+                        adapterListViewGroupHomePage.notifyDataSetChanged();
                     }
-                    adapterListViewGroupHomePage.notifyDataSetChanged();
 
                 }
             }
@@ -142,17 +148,19 @@ public class HomePageGroup extends AppCompatActivity {
         reference = database.getReference("Groups");
         final SharedPreferences sharedPreferences = getSharedPreferences("USERID", MODE_PRIVATE);
         userid = sharedPreferences.getString("UID",null);
+        Intent intent = getIntent();
+        idTask = intent.getStringExtra("IDTASK");
     }
     private void getDataGroups(){
         reference.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
 
-                for (DataSnapshot idInGroup : snapshot.child("Thành viên").getChildren())
+                if(idTask.equals(snapshot.getKey()))
                 {
-                    if(userid.equals(idInGroup.getKey()))
+                    for(DataSnapshot task : snapshot.child("Tasks").getChildren())
                     {
-                        TaskGroup taskGroup = new TaskGroup(snapshot.getKey(),snapshot.child("Tên Group").getValue().toString());
+                        TaskGroup taskGroup = new TaskGroup(task.getKey(),task.child("Detail/Ngày tạo").getValue().toString(),snapshot.getKey());
                         taskGroups.add(taskGroup);
                     }
                 }
@@ -181,7 +189,7 @@ public class HomePageGroup extends AppCompatActivity {
         });
     }
     public interface itemClickRecycler{
-        public void onSelect(String id);
+        public void onSelect(String id,String path);
     }
     private void onClick(){
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
@@ -242,7 +250,6 @@ public class HomePageGroup extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_page_group);
         setActionBar();
-        setBottomNav();
         drawerLayout = (DrawerLayout)findViewById(R.id.drawerLayout);
         navigationView = (NavigationView) findViewById(R.id.navigationView);
         mContext = this;
@@ -265,6 +272,10 @@ public class HomePageGroup extends AppCompatActivity {
         if(id == android.R.id.home)
         {
             drawerLayout.openDrawer(GravityCompat.START);
+        }
+        if(id == R.id.btn_add)
+        {
+            Toast.makeText(this, "Ok", Toast.LENGTH_SHORT).show();
         }
         return true;
     }
