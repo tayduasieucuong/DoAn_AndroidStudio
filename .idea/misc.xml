@@ -80,6 +80,7 @@
         <entry key="..\:/Git Everything/DoAn_AndroidStudio/app/src/main/res/drawable/border_radius.xml" value="0.2212962962962963" />
         <entry key="..\:/Git Everything/DoAn_AndroidStudio/app/src/main/res/drawable/border_radius_large.xml" value="0.2212962962962963" />
         <entry key="..\:/Git Everything/DoAn_AndroidStudio/app/src/main/res/drawable/border_radius_transparent.xml" value="0.36666666666666664" />
+        <entry key="..\:/Git Everything/DoAn_AndroidStudio/app/src/main/res/drawable/border_radius_whitebg.xml" value="0.12604166666666666" />
         <entry key="..\:/Git Everything/DoAn_AndroidStudio/app/src/main/res/drawable/border_shadow.xml" value="0.12604166666666666" />
         <entry key="..\:/Git Everything/DoAn_AndroidStudio/app/src/main/res/drawable/custom_thumb.xml" value="0.12604166666666666" />
         <entry key="..\:/Git Everything/DoAn_AndroidStudio/app/src/main/res/drawable/frameavatar.xml" value="0.2212962962962963" />
@@ -116,6 +117,8 @@
         <entry key="..\:/Git Everything/DoAn_AndroidStudio/app/src/main/res/layout/calendar_cell.xml" value="0.10989583333333333" />
         <entry key="..\:/Git Everything/DoAn_AndroidStudio/app/src/main/res/layout/check_mail.xml" value="0.10989583333333333" />
         <entry key="..\:/Git Everything/DoAn_AndroidStudio/app/src/main/res/layout/comingsoon.xml" value="0.10989583333333333" />
+        <entry key="..\:/Git Everything/DoAn_AndroidStudio/app/src/main/res/layout/dialog_add_child.xml" value="0.21" />
+        <entry key="..\:/Git Everything/DoAn_AndroidStudio/app/src/main/res/layout/dialog_add_parent_task.xml" value="0.25" />
         <entry key="..\:/Git Everything/DoAn_AndroidStudio/app/src/main/res/layout/event_calendar.xml" value="0.10989583333333333" />
         <entry key="..\:/Git Everything/DoAn_AndroidStudio/app/src/main/res/layout/forgot_pass.xml" value="0.67" />
         <entry key="..\:/Git Everything/DoAn_AndroidStudio/app/src/main/res/layout/header_drawer.xml" value="0.10989583333333333" />

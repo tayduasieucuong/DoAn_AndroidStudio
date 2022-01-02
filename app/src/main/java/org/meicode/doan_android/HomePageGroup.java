@@ -1,6 +1,7 @@
 package org.meicode.doan_android;
 
 import android.app.ActionBar;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -11,9 +12,14 @@ import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -53,9 +59,13 @@ public class HomePageGroup extends AppCompatActivity {
     ListView listView;
     FirebaseDatabase database;
     DatabaseReference reference;
+    DatabaseReference referenceUser;
     ActionBar actionBar;
     String userid;
     String idTask;
+    ImageView btn_add_child;
+    String Admin_child;
+    String NameTask;
     private void changeStatusBarColor(String color){
         if (Build.VERSION.SDK_INT >= 21) {
             Window window = getWindow();
@@ -68,7 +78,7 @@ public class HomePageGroup extends AppCompatActivity {
 
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setHomeAsUpIndicator(R.drawable.menu_interface);
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_baseline_chevron_left_24);
         getSupportActionBar().setTitle("");
         getSupportActionBar().setElevation(0);
 //        changeStatusBarColor("#6D85F6");
@@ -76,6 +86,7 @@ public class HomePageGroup extends AppCompatActivity {
     private void initView(){
         recyclerView = findViewById(R.id.recycler_view);
         listView = findViewById(R.id.listViewHome);
+        btn_add_child = findViewById(R.id.btn_add_group_child);
     }
     private void setHorizontalAdapter(ArrayList<TaskGroup> taskGroupss){
         LinearLayoutManager layoutManager = new LinearLayoutManager(
@@ -87,6 +98,7 @@ public class HomePageGroup extends AppCompatActivity {
             @Override
             public void onSelect(String id, String path) {
                 adapterListViewGroupHomePage.clear();
+                NameTask = path;
                 getListChildren(id, path);
             }
         });
@@ -146,10 +158,19 @@ public class HomePageGroup extends AppCompatActivity {
     private void initFirebase(){
         database = FirebaseDatabase.getInstance("https://doan-3672e-default-rtdb.asia-southeast1.firebasedatabase.app/");
         reference = database.getReference("Groups");
+        referenceUser = database.getReference("Users");
         final SharedPreferences sharedPreferences = getSharedPreferences("USERID", MODE_PRIVATE);
         userid = sharedPreferences.getString("UID",null);
         Intent intent = getIntent();
         idTask = intent.getStringExtra("IDTASK");
+    }
+    String CurrentDate;
+    private void getCurrentDate(){
+        long millis=System.currentTimeMillis();
+        java.sql.Date date=new java.sql.Date(millis);
+        CurrentDate = date.toString();
+        String[] DateCurrentTemp = CurrentDate.split("-",3);
+        CurrentDate = DateCurrentTemp[2] + "/" + DateCurrentTemp[1] + "/" + DateCurrentTemp[0];
     }
     private void getDataGroups(){
         reference.addChildEventListener(new ChildEventListener() {
@@ -192,58 +213,86 @@ public class HomePageGroup extends AppCompatActivity {
         public void onSelect(String id,String path);
     }
     private void onClick(){
-        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+        btn_add_child.setOnClickListener(new View.OnClickListener() {
             @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                int id = item.getItemId();
-                if (id == R.id.profile) {
-                    startActivity(new Intent(HomePageGroup.this, UserInfo.class));
-                    finish();
-                    return true;
-                } else if (id == R.id.history) {
-                    startActivity(new Intent(HomePageGroup.this, HistoryTasks.class));
-                    finish();
-                    return true;
-                } else if (id == R.id.analyst) {
-                    startActivity(new Intent(HomePageGroup.this, input_Chart.class));
-                    finish();
-                    return true;
-                } else if (id == R.id.share) {
-                    startActivity(new Intent(HomePageGroup.this, Comingsoon.class));
-                    finish();
-                    return true;
-                } else if (id == R.id.setting) {
-                    startActivity(new Intent(HomePageGroup.this, Comingsoon.class));
-                    finish();
-                    return true;
-                } else if (id == R.id.help) {
-                    startActivity(new Intent(HomePageGroup.this, Comingsoon.class));
-                    finish();
-                    return true;
-                }else if(id == R.id.logout) {
-                    AlertDialog.Builder builder = new AlertDialog.Builder(HomePageGroup.this);
-                    builder.setTitle("Bạn muốn đăng xuất");
-                    builder.setIcon(R.drawable.logout);
-                    builder.setPositiveButton("Có", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            AuthUI.getInstance().signOut();
-                            Intent intent2 = new Intent(HomePageGroup.this, SignIn.class);
-                            startActivity(intent2);
-                        }
-                    });
-                    builder.setNegativeButton("Không", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-
-                        }
-                    });
-                    builder.show();
-                    return true;
-                }
-            return false;
+            public void onClick(View view) {
+                showDialogChild();
             }
         });
+    }
+    private void showDialogChild(){
+        final Dialog dialog = new Dialog(HomePageGroup.this);
+
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setCancelable(true);
+        dialog.setContentView(R.layout.dialog_add_child);
+        final EditText et_name_child = dialog.findViewById(R.id.et_name_child);
+        final TextView tv_time_child = dialog.findViewById(R.id.time_child);
+        final EditText et_Email = dialog.findViewById(R.id.et_email);
+        final Button btn_create_child = dialog.findViewById(R.id.btn_create_child);
+        getCurrentDate();
+        tv_time_child.setText(CurrentDate);
+        btn_create_child.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String NameChild = et_name_child.getText().toString();
+                String TimeChild = CurrentDate;
+                String EmailChild = et_Email.getText().toString();
+                if(NameChild.equals(""))
+                {
+                    Toast.makeText(HomePageGroup.this, "Tên bị bỏ trống", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if(EmailChild.equals(""))
+                {
+                    Toast.makeText(HomePageGroup.this, "Email người đảm nhận trống", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                referenceUser.addChildEventListener(new ChildEventListener() {
+                    int flag = 0;
+                    @Override
+                    public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                        if(EmailChild.equals(snapshot.child("UserInfo/Email").getValue())) {
+                            flag = 1;
+                            try {
+                                Admin_child = snapshot.child("UserInfo/Name").getValue().toString();
+                                reference.child(idTask).child("Tasks").child(NameTask).child("TasksChild").child(NameChild).child("Detail/Ngày tạo").setValue(CurrentDate);
+                                reference.child(idTask).child("Tasks").child(NameTask).child("TasksChild").child(NameChild).child("Detail/Người đảm nhận").setValue(Admin_child);
+                                dialog.dismiss();
+                                recreate();
+
+                            }
+                            catch (Exception e){
+                                return;
+                            }
+                        }
+                        if(flag==0)
+                            Toast.makeText(HomePageGroup.this, "Không tồn tại "+EmailChild, Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+                    }
+
+                    @Override
+                    public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+
+                    }
+
+                    @Override
+                    public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+            }
+        });
+        dialog.show();
     }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -271,12 +320,41 @@ public class HomePageGroup extends AppCompatActivity {
 
         if(id == android.R.id.home)
         {
-            drawerLayout.openDrawer(GravityCompat.START);
+            onBackPressed();
         }
         if(id == R.id.btn_add)
         {
-            Toast.makeText(this, "Ok", Toast.LENGTH_SHORT).show();
+            showDialog();
         }
         return true;
+    }
+    public void showDialog(){
+        final Dialog dialog = new Dialog(HomePageGroup.this);
+
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setCancelable(true);
+        dialog.setContentView(R.layout.dialog_add_parent_task);
+
+        final EditText et_name = dialog.findViewById(R.id.et_name);
+        final TextView tv_time = dialog.findViewById(R.id.time);
+        final Button btn_create = dialog.findViewById(R.id.btn_create);
+
+        btn_create.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String etName = et_name.getText().toString();
+                getCurrentDate();
+                String time_create = CurrentDate;
+                tv_time.setText(CurrentDate);
+                if(etName.equals("")) {
+                    Toast.makeText(HomePageGroup.this, "Tên Task đang bị bỏ trống", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                reference.child(idTask).child("Tasks").child(etName).child("Detail").child("Ngày tạo").setValue(time_create);
+                dialog.dismiss();
+                recreate();
+            }
+        });
+        dialog.show();
     }
 }
