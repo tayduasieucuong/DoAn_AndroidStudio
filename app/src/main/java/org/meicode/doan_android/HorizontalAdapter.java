@@ -40,7 +40,11 @@ public class HorizontalAdapter extends RecyclerView.Adapter<HorizontalAdapter.Vi
 //        holder.img_view.setImageResource(taskGroups.get(position).getImg());
 //        holder.tv_content.setText(taskGroups.get(position).getContent());
           holder.groupName.setText(taskGroups.get(position).getGroupTask());
-
+          holder.time_cr.setText("Ngày tạo: "+taskGroups.get(position).TaskTime);
+          if (taskGroups.get(position).getDone().equals("Xong"))
+          {
+              holder.btn_complete.setImageResource(R.drawable.ic_baseline_radio_button_checked_24);
+          }
           holder.setItemClickListener(new ItemClickListener() {
               @Override
               public void onClick(View view, int position, boolean isLongClick) {
@@ -53,6 +57,7 @@ public class HorizontalAdapter extends RecyclerView.Adapter<HorizontalAdapter.Vi
                   }
               }
           });
+
     }
 
     @Override
@@ -63,6 +68,8 @@ public class HorizontalAdapter extends RecyclerView.Adapter<HorizontalAdapter.Vi
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener{
        ImageView img_view;
        TextView groupName;
+       TextView time_cr;
+       ImageView btn_complete;
        private ItemClickListener itemClickListener;
 
         public ViewHolder(@NonNull View itemView) {
@@ -71,6 +78,8 @@ public class HorizontalAdapter extends RecyclerView.Adapter<HorizontalAdapter.Vi
             groupName = itemView.findViewById(R.id.groupName);
             itemView.setOnClickListener(this);
             itemView.setOnLongClickListener(this);
+            time_cr = itemView.findViewById(R.id.tv_time_item);
+            btn_complete = itemView.findViewById(R.id.btn_complete);
 //            img_view = itemView.findViewById(R.id.img_view);
 //            tv_content = itemView.findViewById(R.id.content);
         }

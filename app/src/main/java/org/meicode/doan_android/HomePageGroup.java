@@ -26,6 +26,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.view.menu.ActionMenuItemView;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.DefaultItemAnimator;
@@ -66,6 +67,9 @@ public class HomePageGroup extends AppCompatActivity {
     ImageView btn_add_child;
     String Admin_child;
     String NameTask;
+    ActionMenuItemView btn_top_add;
+    TextView tv;
+    String isManager = "YES";
     private void changeStatusBarColor(String color){
         if (Build.VERSION.SDK_INT >= 21) {
             Window window = getWindow();
@@ -87,6 +91,7 @@ public class HomePageGroup extends AppCompatActivity {
         recyclerView = findViewById(R.id.recycler_view);
         listView = findViewById(R.id.listViewHome);
         btn_add_child = findViewById(R.id.btn_add_group_child);
+        btn_top_add = findViewById(R.id.btn_add);
     }
     private void setHorizontalAdapter(ArrayList<TaskGroup> taskGroupss){
         LinearLayoutManager layoutManager = new LinearLayoutManager(
@@ -108,6 +113,47 @@ public class HomePageGroup extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_right_add,menu);
+        DatabaseReference rf = database.getReference("Groups/"+idTask+"/Thành viên/"+userid+"/Info");
+        rf.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                if(snapshot.getKey().equals("Chức vụ"))
+                {
+                    if(snapshot.getValue().toString().equals("Nhân viên"))
+                    {
+                        btn_add_child.setVisibility(View.GONE);
+                        isManager = "NO";
+                        MenuItem item = menu.findItem(R.id.btn_add);
+                        item.setVisible(false);
+                    }
+                }
+            }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+        if(isManager.equals("NO"))
+        {
+            MenuItem item = menu.findItem(R.id.btn_add);
+            item.setVisible(false);
+        }
         return true;
     }
 
@@ -181,7 +227,7 @@ public class HomePageGroup extends AppCompatActivity {
                 {
                     for(DataSnapshot task : snapshot.child("Tasks").getChildren())
                     {
-                        TaskGroup taskGroup = new TaskGroup(task.getKey(),task.child("Detail/Ngày tạo").getValue().toString(),snapshot.getKey());
+                        TaskGroup taskGroup = new TaskGroup(task.getKey(),task.child("Detail/Ngày tạo").getValue().toString(),snapshot.getKey(),task.child("Detail/Status").getValue().toString());
                         taskGroups.add(taskGroup);
                     }
                 }
@@ -212,6 +258,9 @@ public class HomePageGroup extends AppCompatActivity {
     public interface itemClickRecycler{
         public void onSelect(String id,String path);
     }
+    public interface itemBtnComplete{
+        public void onComplete(String id,String name);
+    }
     private void onClick(){
         btn_add_child.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -231,7 +280,7 @@ public class HomePageGroup extends AppCompatActivity {
         final EditText et_Email = dialog.findViewById(R.id.et_email);
         final Button btn_create_child = dialog.findViewById(R.id.btn_create_child);
         getCurrentDate();
-        tv_time_child.setText(CurrentDate);
+        tv_time_child.setText("Ngày tạo " + CurrentDate);
         btn_create_child.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -313,7 +362,6 @@ public class HomePageGroup extends AppCompatActivity {
         getDataGroups();
         onClick();
     }
-
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
@@ -345,12 +393,13 @@ public class HomePageGroup extends AppCompatActivity {
                 String etName = et_name.getText().toString();
                 getCurrentDate();
                 String time_create = CurrentDate;
-                tv_time.setText(CurrentDate);
+                tv_time.setText("Ngày tạo: " + CurrentDate);
                 if(etName.equals("")) {
                     Toast.makeText(HomePageGroup.this, "Tên Task đang bị bỏ trống", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 reference.child(idTask).child("Tasks").child(etName).child("Detail").child("Ngày tạo").setValue(time_create);
+                reference.child(idTask).child("Tasks").child(etName).child("Detail").child("Status").setValue("Chưa xong");
                 dialog.dismiss();
                 recreate();
             }
