@@ -42,10 +42,11 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import org.meicode.doan_android.chat.Chat;
+
 import java.util.ArrayList;
 
 public class HomePageGroup extends AppCompatActivity {
-
     DrawerLayout drawerLayout;
     NavigationView navigationView;
     BottomNavigationView bottomNavigationView;

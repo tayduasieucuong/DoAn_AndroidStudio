@@ -81,7 +81,6 @@ public class calendar_task extends AppCompatActivity{
         userid = sharedPreferences.getString("UID", null);
         sdf = new SimpleDateFormat("dd/MM/yyyy");
         readTasks();
-        //Set an event for Teachers' Professional Day 2016 which is 21st of
         compactCalendar.setListener(new CompactCalendarView.CompactCalendarViewListener() {
             @Override
             public void onDayClick(Date dateClicked) {
