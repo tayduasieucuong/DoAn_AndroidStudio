@@ -15,10 +15,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -59,7 +61,7 @@ public class HomePageGroup extends AppCompatActivity {
     ArrayList<ListChildHome> listChildren;
     ListView listView;
     FirebaseDatabase database;
-    DatabaseReference reference;
+    DatabaseReference reference,rf1;
     DatabaseReference referenceUser;
     ActionBar actionBar;
     String userid;
@@ -70,6 +72,8 @@ public class HomePageGroup extends AppCompatActivity {
     ActionMenuItemView btn_top_add;
     TextView tv;
     String isManager = "YES";
+    Spinner spinnerPersonal;
+    ArrayList<String> itemSpinner = new ArrayList<String>();
     private void changeStatusBarColor(String color){
         if (Build.VERSION.SDK_INT >= 21) {
             Window window = getWindow();
@@ -269,6 +273,45 @@ public class HomePageGroup extends AppCompatActivity {
             }
         });
     }
+    private void displaySpinner(){
+        rf1 = database.getReference("Groups");
+        itemSpinner.clear();
+        rf1.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                if(idTask.equals(snapshot.getKey()))
+                {
+                    for(DataSnapshot task : snapshot.child("Thành viên").getChildren())
+                    {
+                        itemSpinner.add(task.child("Info").child("Biệt danh").getValue().toString());
+                    }
+                }
+            }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item,itemSpinner);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerPersonal.setAdapter(adapter);
+    }
     private void showDialogChild(){
         final Dialog dialog = new Dialog(HomePageGroup.this);
 
@@ -277,8 +320,9 @@ public class HomePageGroup extends AppCompatActivity {
         dialog.setContentView(R.layout.dialog_add_child);
         final EditText et_name_child = dialog.findViewById(R.id.et_name_child);
         final TextView tv_time_child = dialog.findViewById(R.id.time_child);
-        final EditText et_Email = dialog.findViewById(R.id.et_email);
+        spinnerPersonal = dialog.findViewById(R.id.spinner2);
         final Button btn_create_child = dialog.findViewById(R.id.btn_create_child);
+        displaySpinner();
         getCurrentDate();
         tv_time_child.setText("Ngày tạo " + CurrentDate);
         btn_create_child.setOnClickListener(new View.OnClickListener() {
@@ -286,7 +330,7 @@ public class HomePageGroup extends AppCompatActivity {
             public void onClick(View view) {
                 String NameChild = et_name_child.getText().toString();
                 String TimeChild = CurrentDate;
-                String EmailChild = et_Email.getText().toString();
+                String EmailChild = spinnerPersonal.getSelectedItem().toString();
                 if(NameChild.equals(""))
                 {
                     Toast.makeText(HomePageGroup.this, "Tên bị bỏ trống", Toast.LENGTH_SHORT).show();
