@@ -38,7 +38,7 @@ public class ListGroup extends AppCompatActivity {
     ListGroupAdapter adapter;
     ListView listView;
     FirebaseDatabase database;
-    DatabaseReference reference;
+    DatabaseReference reference,rf1;
     String userid;
     ActionBar actionBar;
     ImageView btn_goto;
@@ -133,7 +133,42 @@ public class ListGroup extends AppCompatActivity {
         return sb.toString();
     }
     private void onDeleteTask(String name){
+        reference.addChildEventListener(new ChildEventListener() {
+            @RequiresApi(api = Build.VERSION_CODES.N)
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                if(userid.equals(snapshot.getKey().toString())){
+                    String idGroup=snapshot.child("List Group").child(name).getValue().toString();
+                    rf1 = database.getReference("Groups");
+                    rf1.child(idGroup).child("Thành viên").child(userid).removeValue();
+                }
+                reference.child(userid).child("List Group").child(name).removeValue();
+                getTimeToNotify();
+                String randomKey = randomString(15);
+                reference.child(userid).child("Notification").child(randomKey).child("Content").setValue("Đã rời khỏi nhóm \""+ name +"\"");
+                reference.child(userid).child("Notification").child(randomKey).child("Time").setValue(DateNotify);
+            }
 
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
     private void onReadTask(){
         reference.addChildEventListener(new ChildEventListener() {
