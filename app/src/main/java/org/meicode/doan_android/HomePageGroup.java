@@ -44,6 +44,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.sql.DataTruncation;
 import java.util.ArrayList;
 
 public class HomePageGroup extends AppCompatActivity {
@@ -66,15 +67,16 @@ public class HomePageGroup extends AppCompatActivity {
     ActionBar actionBar;
     String userid;
     String idTask;
-    ImageView btn_add_child, btn_chat;
+    ImageView btn_add_child;
     String Admin_child;
     String NameTask;
     ActionMenuItemView btn_top_add;
     TextView tv;
     String isManager = "YES";
-    String name1;
     Spinner spinnerPersonal;
+    String TaskNameP;
     ArrayList<String> itemSpinner = new ArrayList<String>();
+    TextView tv_chucvu;
     private void changeStatusBarColor(String color){
         if (Build.VERSION.SDK_INT >= 21) {
             Window window = getWindow();
@@ -83,6 +85,38 @@ public class HomePageGroup extends AppCompatActivity {
             window.setStatusBarColor(Color.parseColor(color));
         }
     }
+    private void getUser(){
+        DatabaseReference rf = database.getReference("Groups/"+idTask+"/Thành viên/"+userid+"/Info");
+        rf.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                if(snapshot.getKey().equals("Chức vụ"))
+                {
+                    tv_chucvu.setText("Chức vụ: "+snapshot.getValue().toString());
+                }
+            }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
     private void setActionBar(){
 
         getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -90,7 +124,6 @@ public class HomePageGroup extends AppCompatActivity {
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_baseline_chevron_left_24);
         Intent intent = getIntent();
         String title = intent.getStringExtra("NameTaskGroup");
-        name1=title;
         getSupportActionBar().setTitle(title);
         getSupportActionBar().setElevation(0);
 //        changeStatusBarColor("#6D85F6");
@@ -100,7 +133,7 @@ public class HomePageGroup extends AppCompatActivity {
         listView = findViewById(R.id.listViewHome);
         btn_add_child = findViewById(R.id.btn_add_group_child);
         btn_top_add = findViewById(R.id.btn_add);
-        btn_chat=findViewById(R.id.btn_chat);
+        tv_chucvu  = findViewById(R.id.tv_chucvu);
     }
     private void setHorizontalAdapter(ArrayList<TaskGroup> taskGroupss){
         LinearLayoutManager layoutManager = new LinearLayoutManager(
@@ -113,6 +146,7 @@ public class HomePageGroup extends AppCompatActivity {
             public void onSelect(String id, String path) {
                 adapterListViewGroupHomePage.clear();
                 NameTask = path;
+                TaskNameP = path;
                 getListChildren(id, path);
             }
         }, new itemBtnComplete() {
@@ -123,14 +157,33 @@ public class HomePageGroup extends AppCompatActivity {
                         .setPositiveButton("Hoàn thành", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
-                                completeTaskParent(id,name);
-                                recreate();
+                                completeTaskParent(id, name);
                             }
                         })
                         .setNegativeButton("Chưa hoàn thành", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
                                 Toast.makeText(HomePageGroup.this, "Đẩy mạnh công việc lên nào !!!", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                builder.create().show();
+            }
+        }, new itemBtnDelete() {
+            @Override
+            public void onDelete(String id, String name) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(HomePageGroup.this);
+                builder.setMessage("Bạn muốn xóa chứ ^^")
+                        .setPositiveButton("Xóa", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                DatabaseReference rf = database.getReference("Groups/"+idTask+"/Tasks/"+name);
+                                rf.removeValue();
+                                recreate();
+                            }
+                        })
+                        .setNegativeButton("Không", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
                             }
                         });
                 builder.create().show();
@@ -152,6 +205,7 @@ public class HomePageGroup extends AppCompatActivity {
                     {
                         DatabaseReference rfRmove = database.getReference("Groups/"+idTask+"/Tasks/"+NameTask+"/Detail");
                         rfRmove.child("Status").setValue("Xong");
+                        recreate();
                     }else{
                         Toast.makeText(HomePageGroup.this, "Chỉ quản trị viên mới có thể hoàn thành", Toast.LENGTH_SHORT).show();
                     }
@@ -240,8 +294,8 @@ public class HomePageGroup extends AppCompatActivity {
                         String Name = child.getKey();
                         String TimeC = child.child("Detail").child("Ngày tạo").getValue().toString();
                         String Admin = child.child("Detail").child("Người đảm nhận").getValue().toString();
-
-                        ListChildHome children = new ListChildHome(Id,Name,Name,TimeC,Admin,false);
+                        String Status = child.child("Detail").child("Status").getValue().toString();
+                        ListChildHome children = new ListChildHome(TaskNameP,Name,Name,TimeC,Admin,Status);
                         listChildren.add(children);
                         adapterListViewGroupHomePage.notifyDataSetChanged();
                     }
@@ -330,21 +384,20 @@ public class HomePageGroup extends AppCompatActivity {
     public interface itemBtnComplete{
         public void onComplete(String id,String name);
     }
+    public interface itemBtnDelete{
+        public void onDelete(String id, String name);
+    }
+    public interface itemBtnCompleteChild{
+        public void onComplete(String idP, String id, String Name);
+    }
+    public interface itemBtnDeleteChild{
+        public void onDelete(String idP, String id, String Name);
+    }
     private void onClick(){
         btn_add_child.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 showDialogChild();
-            }
-        });
-        btn_chat.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(HomePageGroup.this,Chat.class);
-                intent.putExtra("idGroup",idTask);
-                intent.putExtra("Name",name1);
-                startActivity(intent);
             }
         });
     }
@@ -426,6 +479,7 @@ public class HomePageGroup extends AppCompatActivity {
                                 Admin_child = snapshot.child("UserInfo/Name").getValue().toString();
                                 reference.child(idTask).child("Tasks").child(NameTask).child("TasksChild").child(NameChild).child("Detail/Ngày tạo").setValue(CurrentDate);
                                 reference.child(idTask).child("Tasks").child(NameTask).child("TasksChild").child(NameChild).child("Detail/Người đảm nhận").setValue(Admin_child);
+                                reference.child(idTask).child("Tasks").child(NameTask).child("TasksChild").child(NameChild).child("Detail/Status").setValue("Chưa xong");
                                 dialog.dismiss();
                                 recreate();
 
@@ -474,12 +528,76 @@ public class HomePageGroup extends AppCompatActivity {
         //Integer[] img = {R.drawable.task_cylinder,R.drawable.task_barchart,R.drawable.task_pen,R.drawable.task_area};
         taskGroups = new ArrayList<>();
         listChildren = new ArrayList<ListChildHome>();
-        adapterListViewGroupHomePage = new AdapterListViewGroupHomePage(this, R.layout.row_item_home_lv,listChildren);
+        adapterListViewGroupHomePage = new AdapterListViewGroupHomePage(this, R.layout.row_item_home_lv, listChildren, new itemBtnCompleteChild() {
+            @Override
+            public void onComplete(String idP, String id, String Name) {
+                onExcuteComplete(idP,id,Name);
+            }
+        }, new itemBtnDeleteChild() {
+            @Override
+            public void onDelete(String idP, String id, String Name) {
+                Toast.makeText(HomePageGroup.this, "Delete", Toast.LENGTH_SHORT).show();
+            }
+        });
         listView.setAdapter(adapterListViewGroupHomePage);
         initFirebase();
         setHorizontalAdapter(taskGroups);
         getDataGroups();
+        getUser();
         onClick();
+    }
+    private void onExcuteComplete(String idPa, String Id, String FullName)
+    {
+
+        DatabaseReference rfInfoUser = database.getReference("Groups/"+idTask+"/Thành viên/"+userid+"/Info");
+        rfInfoUser.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                if(snapshot.getKey().equals("Họ và tên"))
+                {
+                    if(FullName.equals(snapshot.getValue()))
+                    {
+                        AlertDialog.Builder builder = new AlertDialog.Builder(HomePageGroup.this);
+                        builder.setMessage("Bạn đã hoàn thành tất cả rồi chứ ^^")
+                                .setPositiveButton("Hoàn thành", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        DatabaseReference rf = database.getReference("Groups/"+idTask+"/Tasks/"+idPa+"/TasksChild/"+Id+"/Detail");
+                                        rf.child("Status").setValue("Xong");
+                                        recreate();
+                                    }
+                                })
+                                .setNegativeButton("Chưa hoàn thành", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        Toast.makeText(HomePageGroup.this, "Đẩy mạnh công việc lên nào !!!", Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+                        builder.create().show();
+                    }
+                }
+            }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
