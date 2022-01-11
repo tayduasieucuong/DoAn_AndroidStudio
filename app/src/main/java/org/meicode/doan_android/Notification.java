@@ -132,6 +132,7 @@ public class Notification extends AppCompatActivity {
                         {
                             list.add(ds.child("Content").getValue().toString()+","+ds.child("Time").getValue().toString()+","+ds.getKey().toString());
                             Date datetg= dateFormat.parse(ds.child("Time").getValue().toString());
+
                             listTime.add(datetg.getTime());
                             for (int i=listTime.size()-1; i>0; i--) {
                                 if(listTime.get(i)>listTime.get(i-1)){
@@ -169,6 +170,7 @@ public class Notification extends AppCompatActivity {
             }
         });
     }
+
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
