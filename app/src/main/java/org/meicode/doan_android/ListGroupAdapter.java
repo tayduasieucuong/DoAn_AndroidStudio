@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -20,7 +21,7 @@ public class ListGroupAdapter extends ArrayAdapter {
     Context context;
     int layout;
     List<String> list;
-    String idtask;
+//    String idtask;
     private ListGroup.onDeleteListener onDeleteListener;
     public ListGroupAdapter(Context context, int layout, List<String> list, ListGroup.onDeleteListener onDeleteListener)
     {
@@ -52,7 +53,7 @@ public class ListGroupAdapter extends ArrayAdapter {
         String[] data = list.get(position).toString().split("/",2);
         holder.tv_name.setText(data[0]);
         holder.tv_message.setText("Id: "+data[1]);
-        idtask = data[1];
+        String idtask = data[1];
         holder.btn_outGr.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -64,6 +65,7 @@ public class ListGroupAdapter extends ArrayAdapter {
             public void onClick(View view) {
                 Intent intent = new Intent(view.getContext(),HomePageGroup.class);
                 intent.putExtra("IDTASK", idtask);
+                Toast.makeText(view.getContext(), idtask, Toast.LENGTH_SHORT).show();
                 view.getContext().startActivity(intent);
             }
         });
