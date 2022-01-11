@@ -65,6 +65,7 @@ public class ListGroupAdapter extends ArrayAdapter {
             public void onClick(View view) {
                 Intent intent = new Intent(view.getContext(),HomePageGroup.class);
                 intent.putExtra("IDTASK", idtask);
+                intent.putExtra("NameTaskGroup", data[0]);
                 Toast.makeText(view.getContext(), idtask, Toast.LENGTH_SHORT).show();
                 view.getContext().startActivity(intent);
             }

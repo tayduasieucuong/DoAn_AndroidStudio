@@ -87,7 +87,9 @@ public class HomePageGroup extends AppCompatActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_baseline_chevron_left_24);
-        getSupportActionBar().setTitle("");
+        Intent intent = getIntent();
+        String title = intent.getStringExtra("NameTaskGroup");
+        getSupportActionBar().setTitle(title);
         getSupportActionBar().setElevation(0);
 //        changeStatusBarColor("#6D85F6");
     }
