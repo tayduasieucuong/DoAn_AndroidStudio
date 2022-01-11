@@ -112,9 +112,69 @@ public class HomePageGroup extends AppCompatActivity {
                 NameTask = path;
                 getListChildren(id, path);
             }
+        }, new itemBtnComplete() {
+            @Override
+            public void onComplete(String id, String name) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(HomePageGroup.this);
+                builder.setMessage("Bạn đã hoàn thành tất cả rồi chứ ^^")
+                        .setPositiveButton("Hoàn thành", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                completeTaskParent(id,name);
+                                recreate();
+                            }
+                        })
+                        .setNegativeButton("Chưa hoàn thành", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                Toast.makeText(HomePageGroup.this, "Đẩy mạnh công việc lên nào !!!", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                builder.create().show();
+            }
         });
 
         recyclerView.setAdapter(horizontalAdapter);
+    }
+
+    private void completeTaskParent(String idP, String NameTask)
+    {
+        DatabaseReference rf = database.getReference("Groups/"+idTask+"/Thành viên/"+userid+"/Info");
+        rf.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                if(snapshot.getKey().equals("Chức vụ"))
+                {
+                    if(snapshot.getValue().toString().equals("Quản lý"))
+                    {
+                        DatabaseReference rfRmove = database.getReference("Groups/"+idTask+"/Tasks/"+NameTask+"/Detail");
+                        rfRmove.child("Status").setValue("Xong");
+                    }else{
+                        Toast.makeText(HomePageGroup.this, "Chỉ quản trị viên mới có thể hoàn thành", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

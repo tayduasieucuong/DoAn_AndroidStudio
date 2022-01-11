@@ -20,11 +20,13 @@ public class HorizontalAdapter extends RecyclerView.Adapter<HorizontalAdapter.Vi
    ArrayList<TaskGroup> taskGroups;
    Context context;
    private HomePageGroup.itemClickRecycler itemClickRecycler;
-   public HorizontalAdapter(Context context, ArrayList<TaskGroup> taskGroups, HomePageGroup.itemClickRecycler itemClickRecycler)
+   private HomePageGroup.itemBtnComplete itemBtnComplete;
+   public HorizontalAdapter(Context context, ArrayList<TaskGroup> taskGroups, HomePageGroup.itemClickRecycler itemClickRecycler, HomePageGroup.itemBtnComplete itemBtnComplete)
    {
        this.context = context;
        this.taskGroups = taskGroups;
        this.itemClickRecycler = itemClickRecycler;
+       this.itemBtnComplete = itemBtnComplete;
    }
 
     @NonNull
@@ -57,7 +59,12 @@ public class HorizontalAdapter extends RecyclerView.Adapter<HorizontalAdapter.Vi
                   }
               }
           });
-
+          holder.btn_complete.setOnClickListener(new View.OnClickListener() {
+              @Override
+              public void onClick(View view) {
+                  itemBtnComplete.onComplete(taskGroups.get(position).getIdParent(),taskGroups.get(position).getGroupTask());
+              }
+          });
     }
 
     @Override
