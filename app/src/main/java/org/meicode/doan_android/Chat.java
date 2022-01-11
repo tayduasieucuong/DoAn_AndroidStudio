@@ -91,6 +91,7 @@ public class Chat extends AppCompatActivity {
         onClick();
         action();
     }
+    //ashdjahsod
     @RequiresApi(api = Build.VERSION_CODES.N)
     private void onClick(){
         btn_goto.setOnClickListener(new View.OnClickListener() {
