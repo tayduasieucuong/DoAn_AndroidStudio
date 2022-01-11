@@ -67,14 +67,14 @@ public class HomePageGroup extends AppCompatActivity {
     ActionBar actionBar;
     String userid;
     String idTask;
-    ImageView btn_add_child;
+    ImageView btn_add_child,btn_chat;
     String Admin_child;
     String NameTask;
     ActionMenuItemView btn_top_add;
     TextView tv;
     String isManager = "YES";
     Spinner spinnerPersonal;
-    String TaskNameP;
+    String TaskNameP,name1;
     ArrayList<String> itemSpinner = new ArrayList<String>();
     TextView tv_chucvu;
     private void changeStatusBarColor(String color){
@@ -124,6 +124,7 @@ public class HomePageGroup extends AppCompatActivity {
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_baseline_chevron_left_24);
         Intent intent = getIntent();
         String title = intent.getStringExtra("NameTaskGroup");
+        name1 = title;
         getSupportActionBar().setTitle(title);
         getSupportActionBar().setElevation(0);
 //        changeStatusBarColor("#6D85F6");
@@ -134,6 +135,7 @@ public class HomePageGroup extends AppCompatActivity {
         btn_add_child = findViewById(R.id.btn_add_group_child);
         btn_top_add = findViewById(R.id.btn_add);
         tv_chucvu  = findViewById(R.id.tv_chucvu);
+        btn_chat = findViewById(R.id.btn_chat);
     }
     private void setHorizontalAdapter(ArrayList<TaskGroup> taskGroupss){
         LinearLayoutManager layoutManager = new LinearLayoutManager(
@@ -398,6 +400,15 @@ public class HomePageGroup extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 showDialogChild();
+            }
+        });
+        btn_chat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(HomePageGroup.this,Chat.class);
+                intent.putExtra("Name",name1);
+                intent.putExtra("idGroup",idTask);
+                startActivity(intent);
             }
         });
     }
