@@ -73,7 +73,7 @@ public class UserInfo extends AppCompatActivity {
         actionBar.setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_baseline_chevron_left_24);
-        //actionBar.setDisplayUseLogoEnabled(true);
+
         actionBar.setTitle("Thông tin tài khoản");
 
         actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#ECB7F0")));
@@ -102,8 +102,6 @@ public class UserInfo extends AppCompatActivity {
         final SharedPreferences sharedPreferences = getSharedPreferences("USERID", MODE_PRIVATE);
 
         userid = sharedPreferences.getString("UID",null);
-
-//        String imageId = binding.etimageId.getText().toString();
 //
 
         storageReference = FirebaseStorage.getInstance().getReference().child(userid).child("avatar.jpg");
@@ -180,10 +178,8 @@ public class UserInfo extends AppCompatActivity {
             final ProgressDialog progressDialog = new ProgressDialog(this);
             StorageReference storageRef = FirebaseStorage.getInstance().getReference();
 
-            // Create a reference to the file to delete
             StorageReference desertRef = storageRef.child(userid).child("avatar.jpg");
 
-            // Delete the file
             desertRef.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
                 @Override
                 public void onSuccess(Void aVoid) {
@@ -191,7 +187,6 @@ public class UserInfo extends AppCompatActivity {
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception exception) {
-                    // Uh-oh, an error occurred!
                 }
             });
             progressDialog.setTitle("Uploading...");
