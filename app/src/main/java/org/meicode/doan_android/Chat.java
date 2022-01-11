@@ -99,10 +99,8 @@ public class Chat extends AppCompatActivity {
                 String text = ed_text.getText().toString();
                 getTimeToNotify();
                 String randomKey = randomString(15);
-                reference.child(idGroup).child("Thành viên").child(userid).child("Chat").child(randomKey).child("Nội dung").setValue(text);
-                reference.child(idGroup).child("Thành viên").child(userid).child("Chat").child(randomKey).child("Thời gian").setValue(DateNotify);
+                reference.child(idGroup).child("Thành viên").child(userid).child("Chat").child(randomKey).child(text).setValue(DateNotify);
                 ed_text.setText("");
-
             }
         });
     }
@@ -146,17 +144,20 @@ public class Chat extends AppCompatActivity {
                             for (DataSnapshot ds1 : ds.getChildren()) {
                                 if (ds1.getKey().equals("Chat")){
                                     for (DataSnapshot ds2 : ds1.getChildren()) {
-                                        String st1 = ds2.child("Nội dung").getValue().toString();
-                                        String st2 = ds2.child("Thời gian").getValue().toString();
-                                        list.add(st1+"~~"+st2+"~~"+name);
-                                        Date datetg= dateFormat.parse(st2);
-                                        listTime.add((int) datetg.getTime());
-                                        for (int i=listTime.size()-1; i>0; i--) {
-                                            if(listTime.get(i)<listTime.get(i-1)){
-                                                swap(listTime,i,i-1);
-                                                swap(list,i,i-1);
+                                        for (DataSnapshot ds3 : ds2.getChildren()){
+                                            String st1 = ds3.getKey().toString();
+                                            String st2 = ds3.getValue().toString();
+                                            list.add(st1+"~~"+st2+"~~"+name);
+                                            Date datetg= dateFormat.parse(st2);
+                                            listTime.add((int) datetg.getTime());
+                                            for (int i=listTime.size()-1; i>0; i--) {
+                                                if(listTime.get(i)<listTime.get(i-1)){
+                                                    swap(listTime,i,i-1);
+                                                    swap(list,i,i-1);
+                                                }
                                             }
                                         }
+
                                     }
                                 }
                             }
