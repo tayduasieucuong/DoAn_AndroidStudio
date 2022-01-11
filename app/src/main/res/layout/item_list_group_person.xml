@@ -25,8 +25,8 @@
         tools:ignore="MissingConstraints" />
     <ImageView
         android:id="@+id/btn_info"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
         app:layout_constraintEnd_toStartOf="@id/btn_outgr"
         app:layout_constraintTop_toTopOf="@id/btn_outgr"
         app:layout_constraintBottom_toBottomOf="@id/btn_outgr"
@@ -49,7 +49,7 @@
         tools:ignore="MissingConstraints" />
 
     <ImageView
-        android:layout_width="40dp"
+        android:layout_width="25dp"
         android:id="@+id/btn_outgr"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"

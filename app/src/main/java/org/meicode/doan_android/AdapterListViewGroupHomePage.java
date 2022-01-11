@@ -20,11 +20,15 @@ public class AdapterListViewGroupHomePage extends ArrayAdapter {
     int layout;
     List<ListChildHome> list;
     AdapterHolder holder;
-    public AdapterListViewGroupHomePage(Context context, int layout, List<ListChildHome> list) {
+    private HomePageGroup.itemBtnCompleteChild itemBtnCompleteChild;
+    private HomePageGroup.itemBtnDeleteChild itemBtnDeleteChild;
+    public AdapterListViewGroupHomePage(Context context, int layout, List<ListChildHome> list,HomePageGroup.itemBtnCompleteChild itemBtnCompleteChild,HomePageGroup.itemBtnDeleteChild itemBtnDeleteChild) {
         super(context, layout, list);
         this.context = context;
         this.layout = layout;
         this.list = list;
+        this.itemBtnCompleteChild = itemBtnCompleteChild;
+        this.itemBtnDeleteChild = itemBtnDeleteChild;
     }
 
     @NonNull
@@ -40,7 +44,7 @@ public class AdapterListViewGroupHomePage extends ArrayAdapter {
             holder.tv_admin = row.findViewById(R.id.tv_admin);
             holder.tv_time = row.findViewById(R.id.tv_time);
             //Drop down
-            holder.btn_dropdown = row.findViewById(R.id.btn_down);
+            holder.btn_complete = row.findViewById(R.id.btn_complete);
             holder.btn_info = row.findViewById(R.id.btn_info);
             holder.btn_delete = row.findViewById(R.id.btn_delete);
             row.setTag(holder);
@@ -50,22 +54,19 @@ public class AdapterListViewGroupHomePage extends ArrayAdapter {
         holder.tv_name.setText(list.get(position).getName());
         holder.tv_admin.setText(list.get(position).getAdmin());
         holder.tv_time.setText(list.get(position).getCreateTime());
-        AdapterHolder finalHolder = holder;
-        holder.btn_dropdown.setOnClickListener(new View.OnClickListener() {
+        if(list.get(position).getIsDone().equals("Xong"))
+            holder.btn_complete.setImageResource(R.drawable.ic_baseline_radio_button_checked_24);
+        if(list.get(position).getIsDone().equals("Chưa xong"))
+            holder.btn_complete.setImageResource(R.drawable.ic_baseline_radio_button_unchecked_24);
+        holder.btn_complete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                    if(list.get(position).getDropDown() == false)
-                    {
-                        holder.btn_delete.setVisibility(View.VISIBLE);
-                        holder.btn_info.setVisibility(View.VISIBLE);
-                        list.get(position).setDropDown(true);
-                    }else{
-                        holder.btn_delete.setVisibility(View.GONE);
-                        holder.btn_info.setVisibility(View.GONE);
-                        list.get(position).setDropDown(false);
-                    }
+                if(list.get(position).getIsDone().equals("Chưa xong")){
+                    itemBtnCompleteChild.onComplete(list.get(position).getIdParent(),list.get(position).getId(),list.get(position).getAdmin());
+                }
             }
         });
+        AdapterHolder finalHolder = holder;
         return row;
     }
 
@@ -76,5 +77,6 @@ public class AdapterListViewGroupHomePage extends ArrayAdapter {
         ImageView btn_dropdown;
         ImageView btn_info;
         ImageView btn_delete;
+        ImageView btn_complete;
     }
 }

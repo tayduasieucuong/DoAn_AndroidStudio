@@ -20,11 +20,15 @@ public class HorizontalAdapter extends RecyclerView.Adapter<HorizontalAdapter.Vi
    ArrayList<TaskGroup> taskGroups;
    Context context;
    private HomePageGroup.itemClickRecycler itemClickRecycler;
-   public HorizontalAdapter(Context context, ArrayList<TaskGroup> taskGroups, HomePageGroup.itemClickRecycler itemClickRecycler)
+   private HomePageGroup.itemBtnComplete itemBtnComplete;
+   private HomePageGroup.itemBtnDelete itemBtnDelete;
+   public HorizontalAdapter(Context context, ArrayList<TaskGroup> taskGroups, HomePageGroup.itemClickRecycler itemClickRecycler, HomePageGroup.itemBtnComplete itemBtnComplete,HomePageGroup.itemBtnDelete itemBtnDelete)
    {
        this.context = context;
        this.taskGroups = taskGroups;
        this.itemClickRecycler = itemClickRecycler;
+       this.itemBtnComplete = itemBtnComplete;
+       this.itemBtnDelete = itemBtnDelete;
    }
 
     @NonNull
@@ -57,7 +61,21 @@ public class HorizontalAdapter extends RecyclerView.Adapter<HorizontalAdapter.Vi
                   }
               }
           });
-
+          holder.btn_complete.setOnClickListener(new View.OnClickListener() {
+              @Override
+              public void onClick(View view) {
+                  if (taskGroups.get(position).getDone().equals("Chưa xong"))
+                  {
+                      itemBtnComplete.onComplete(taskGroups.get(position).getIdParent(),taskGroups.get(position).getGroupTask());
+                  }
+              }
+          });
+          holder.btn_delete.setOnClickListener(new View.OnClickListener() {
+              @Override
+              public void onClick(View view) {
+                  itemBtnDelete.onDelete(taskGroups.get(position).getIdParent(),taskGroups.get(position).getGroupTask());
+              }
+          });
     }
 
     @Override
@@ -70,6 +88,7 @@ public class HorizontalAdapter extends RecyclerView.Adapter<HorizontalAdapter.Vi
        TextView groupName;
        TextView time_cr;
        ImageView btn_complete;
+       ImageView btn_delete;
        private ItemClickListener itemClickListener;
 
         public ViewHolder(@NonNull View itemView) {
@@ -80,6 +99,7 @@ public class HorizontalAdapter extends RecyclerView.Adapter<HorizontalAdapter.Vi
             itemView.setOnLongClickListener(this);
             time_cr = itemView.findViewById(R.id.tv_time_item);
             btn_complete = itemView.findViewById(R.id.btn_complete);
+            btn_delete = itemView.findViewById(R.id.btn_delete);
 //            img_view = itemView.findViewById(R.id.img_view);
 //            tv_content = itemView.findViewById(R.id.content);
         }
