@@ -15,7 +15,7 @@
         android:theme="@style/Theme.DoAn_Android"
         tools:replace="android:theme">
         <activity
-            android:name=".chat.Chat"
+            android:name=".Chat"
             android:exported="true" />
         <activity
             android:name=".Create_Group"

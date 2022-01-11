@@ -1,73 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:paddingBottom="10dp"
+    android:paddingTop="10dp"
     android:background="@drawable/gradient_background"
-    tools:context=".chat.Chat">
+    tools:context=".ListFocusTime">
 
-    <RelativeLayout
-        android:id="@+id/layoutStart"
+    <ImageView
+        android:id="@+id/btn_add_goto"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="8dp"
+        android:src="@drawable/icon_send"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:ignore="MissingConstraints" />
+
+    <ListView
+        android:id="@+id/listFocus"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent"
+        android:layout_marginStart="4dp"
+        android:layout_marginBottom="50dp"
+        android:transcriptMode="alwaysScroll"
+        android:stackFromBottom="true"
+        app:layout_constraintBottom_toTopOf="@+id/messageText"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
 
-        <ImageView
-            android:id="@+id/backProject"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_centerVertical="true"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="40dp"
-            android:paddingStart="12dp"
-            android:paddingEnd="2dp"
-            android:src="@drawable/ic_baseline_chevron_left_24"></ImageView>
-
-        <TextView
-            android:id="@+id/nameProject"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_toEndOf="@id/backProject"
-            android:text="Name Project"
-            android:textColor="@color/white"
-            android:textSize="25sp"
-            android:textStyle="bold" />
-    </RelativeLayout>
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/listMessage"
-        android:layout_width="match_parent"
+    <EditText
+        android:id="@+id/messageText"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/layoutEnd"
-        android:layout_below="@+id/layoutStart"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="20dp"></androidx.recyclerview.widget.RecyclerView>
-
-    <RelativeLayout
-        android:id="@+id/layoutEnd"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp">
-
-        <EditText
-            android:id="@+id/chatMessage"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="10dp"
-            android:layout_toStartOf="@id/sendMessage"
-            android:hint="Type Something..."
-            android:textSize="14sp"></EditText>
-
-        <ImageView
-            android:id="@+id/sendMessage"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_alignParentEnd="true"
-            android:layout_marginEnd="10dp"
-            android:src="@drawable/send_message"></ImageView>
-    </RelativeLayout>
-</RelativeLayout>
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/rounded_edittext"
+        android:ems="10"
+        android:hint="Content"
+        android:inputType="textMultiLine"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:maxLines="2"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btn_add_goto"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>
