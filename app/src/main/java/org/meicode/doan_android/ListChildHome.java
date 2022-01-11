@@ -6,22 +6,22 @@ public class ListChildHome {
     String CreateTime;
     String Admin;
     String Name;
-    Boolean isDropDown;
-    public ListChildHome(String idParent, String id, String Name, String CreateTime, String Admin, Boolean isDropDown){
+    String isDone;
+    public ListChildHome(String idParent, String id, String Name, String CreateTime, String Admin, String isDone){
         this.idParent = idParent;
         this.Name = Name;
         this.id = id;
         this.CreateTime = CreateTime;
         this.Admin = Admin;
-        this.isDropDown = isDropDown;
+        this.isDone = isDone;
     }
 
-    public void setDropDown(Boolean dropDown) {
-        isDropDown = dropDown;
+    public void setIsDone(String isDone) {
+        isDone = isDone;
     }
 
-    public Boolean getDropDown() {
-        return isDropDown;
+    public String getIsDone() {
+        return isDone;
     }
 
     public String getName() {
