@@ -414,8 +414,12 @@ public class HomePageGroup extends AppCompatActivity {
         
     }
     private void displaySpinner(){
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item,itemSpinner);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerPersonal.setAdapter(adapter);
+    }
+    private void infoSpinner(){
         rf1 = database.getReference("Groups");
-        itemSpinner.clear();
         rf1.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
@@ -448,9 +452,6 @@ public class HomePageGroup extends AppCompatActivity {
 
             }
         });
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item,itemSpinner);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerPersonal.setAdapter(adapter);
     }
     private void showDialogChild(){
         final Dialog dialog = new Dialog(HomePageGroup.this);
@@ -557,6 +558,7 @@ public class HomePageGroup extends AppCompatActivity {
         getDataGroups();
         getUser();
         onClick();
+        infoSpinner();
     }
     private void onExcuteComplete(String idPa, String Id, String FullName)
     {
