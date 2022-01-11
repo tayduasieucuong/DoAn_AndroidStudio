@@ -411,6 +411,7 @@ public class HomePageGroup extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        
     }
     private void displaySpinner(){
         rf1 = database.getReference("Groups");

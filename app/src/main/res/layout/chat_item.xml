@@ -4,22 +4,21 @@
     android:layout_height="match_parent">
 
     <RelativeLayout
+        android:id="@+id/opp_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp">
+        android:layout_height="wrap_content">
 
         <ImageView
             android:id="@+id/user_message"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_centerVertical="true"
-            android:src="@drawable/icon_user"></ImageView>
+            android:src="@drawable/user_chat"></ImageView>
 
         <LinearLayout
-            android:id="@+id/opp_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
+            android:layout_marginStart="5dp"
             android:layout_marginEnd="100dp"
             android:layout_toEndOf="@id/user_message"
             android:orientation="vertical">
@@ -30,57 +29,68 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
                 android:text="Nickname"
-                android:textSize="10sp" />
+                android:textColor="#ff0000"
+                android:textSize="15sp"
+                android:textStyle="italic|bold" />
 
             <TextView
                 android:id="@+id/opp_message"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/opp_msg_back"
-                android:padding="20dp"
-                android:text="This is opponent message" />
+                android:padding="10dp"
+                android:text="This is opponent message"
+                android:textColor="@color/white"
+                android:textSize="18dp" />
 
             <TextView
                 android:id="@+id/opp_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
                 android:text="01-01-2021 00:00:AM"
-                android:textSize="10sp" />
+                android:textColor="@color/white"
+                android:textSize="13sp" />
         </LinearLayout>
     </RelativeLayout>
+
     <RelativeLayout
+        android:id="@+id/my_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp">
-
-
+        android:layout_height="wrap_content">
 
         <LinearLayout
-            android:layout_alignParentEnd="true"
-            android:id="@+id/my_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
             android:layout_marginStart="100dp"
             android:layout_marginEnd="20dp"
             android:orientation="vertical">
 
+
             <TextView
+                android:layout_marginTop="5dp"
                 android:id="@+id/my_message"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/my_msg_back"
-                android:padding="20dp"
-                android:text="This is my message" />
+                android:padding="10dp"
+                android:textSize="18dp"
+                android:layout_gravity="end"
+                android:text="This is my message"
+                android:textColor="@color/white" />
 
             <TextView
                 android:id="@+id/my_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="end"
                 android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
                 android:text="01-01-2021 00:00:AM"
-                android:textSize="10sp"
-                android:layout_gravity="end"/>
+                android:textColor="@color/white"
+                android:textSize="13sp" />
         </LinearLayout>
     </RelativeLayout>
 </RelativeLayout>

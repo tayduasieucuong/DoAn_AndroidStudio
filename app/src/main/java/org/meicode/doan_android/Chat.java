@@ -83,7 +83,7 @@ public class Chat extends AppCompatActivity {
         getData();
         list = new ArrayList<String>();
         listTime = new ArrayList<Integer>();
-        adapter = new ApdapterChat(this,R.layout.item_chat,list);
+        adapter = new ApdapterChat(this,R.layout.chat_item,list,userid);
         listView = (ListView) findViewById(R.id.listFocus);
         listView.setAdapter(adapter);
         dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
@@ -141,6 +141,7 @@ public class Chat extends AppCompatActivity {
                     try {
                         for (DataSnapshot ds : snapshot.child("Thành viên").getChildren())
                         {
+                            String idname=ds.getKey().toString();
                             String name = ds.child("Info").child("Họ và tên").getValue().toString();
                             for (DataSnapshot ds1 : ds.getChildren()) {
                                 if (ds1.getKey().equals("Chat")){
@@ -148,7 +149,7 @@ public class Chat extends AppCompatActivity {
                                         for (DataSnapshot ds3 : ds2.getChildren()){
                                             String st1 = ds3.getKey().toString();
                                             String st2 = ds3.getValue().toString();
-                                            list.add(st1+"~~"+st2+"~~"+name);
+                                            list.add(st1+"~~"+st2+"~~"+name+"~~"+idname);
                                             Date datetg= dateFormat.parse(st2);
                                             listTime.add((int) datetg.getTime());
                                             for (int i=listTime.size()-1; i>0; i--) {
