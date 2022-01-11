@@ -76,6 +76,7 @@ public class HomePageGroup extends AppCompatActivity {
     Spinner spinnerPersonal;
     String TaskNameP;
     ArrayList<String> itemSpinner = new ArrayList<String>();
+    TextView tv_chucvu;
     private void changeStatusBarColor(String color){
         if (Build.VERSION.SDK_INT >= 21) {
             Window window = getWindow();
@@ -83,6 +84,38 @@ public class HomePageGroup extends AppCompatActivity {
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
             window.setStatusBarColor(Color.parseColor(color));
         }
+    }
+    private void getUser(){
+        DatabaseReference rf = database.getReference("Groups/"+idTask+"/Thành viên/"+userid+"/Info");
+        rf.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                if(snapshot.getKey().equals("Chức vụ"))
+                {
+                    tv_chucvu.setText("Chức vụ: "+snapshot.getValue().toString());
+                }
+            }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
     private void setActionBar(){
 
@@ -100,6 +133,7 @@ public class HomePageGroup extends AppCompatActivity {
         listView = findViewById(R.id.listViewHome);
         btn_add_child = findViewById(R.id.btn_add_group_child);
         btn_top_add = findViewById(R.id.btn_add);
+        tv_chucvu  = findViewById(R.id.tv_chucvu);
     }
     private void setHorizontalAdapter(ArrayList<TaskGroup> taskGroupss){
         LinearLayoutManager layoutManager = new LinearLayoutManager(
@@ -509,6 +543,7 @@ public class HomePageGroup extends AppCompatActivity {
         initFirebase();
         setHorizontalAdapter(taskGroups);
         getDataGroups();
+        getUser();
         onClick();
     }
     private void onExcuteComplete(String idPa, String Id, String FullName)
